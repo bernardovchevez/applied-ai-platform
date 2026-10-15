@@ -2,6 +2,10 @@
 __pycache__/
 *.py[cod]
 .env
+.env.localhost
+.env.stage
+.env.production
+!.env*.example
 .DS_Store
 .chroma/
 *.sqlite3

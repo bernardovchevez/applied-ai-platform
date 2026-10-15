@@ -42,14 +42,14 @@ python rag/ingest_pgvector.py --data-dir data/lake/raw --lora-tag
 
 ## FastAPI Presentation BFF (`bff/`)
 
-OpenAPI BFF (`bff/openapi.yaml`) serving web, mobile, CTV, and internal agent clients. Consumed by the companion Next.js application in **`applied-ai-web/`**.
+OpenAPI BFF (`bff/openapi.yaml`) serving web, mobile, CTV, and internal agent clients across `localhost`, `stage`, and `production` (`APP_ENV`). Consumed by the companion Next.js application in **`applied-ai-web/`**.
 
-- [bff/README.md](bff/README.md): API contract, SSE streaming, human approval gate, multi-client headers (`web` / `ios` / `ctv`)
+- [bff/README.md](bff/README.md): API contract, SSE streaming, human approval gate, multi-environment persistence (SQLite in `localhost`, PostgreSQL in `stage`/`production`), and `BFF_API_KEY` authentication
 
 ```bash
-# Terminal 1 - BFF
+# Terminal 1 - BFF (localhost, stage, or production)
 pip install -r platform/bff/requirements-bff.txt
-cd platform/bff && uvicorn main:app --reload --port 8000
+./platform/bff/run.sh --env localhost
 
 # Terminal 2 - Next.js client (applied-ai-web)
 cd ../applied-ai-web && cp .env.local.example .env.local && npm install && npm run dev

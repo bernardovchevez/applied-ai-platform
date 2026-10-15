@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import asyncio
 import hashlib
+import hmac
 import json
 import sys
 import time
@@ -16,11 +17,12 @@ from pathlib import Path
 from typing import Annotated, Any, Literal
 
 import yaml
-from fastapi import FastAPI, Header, HTTPException
+from fastapi import Depends, FastAPI, Header, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse, JSONResponse, PlainTextResponse
 from pydantic import BaseModel, Field
 from sse_starlette.sse import EventSourceResponse
+from starlette.concurrency import iterate_in_threadpool
 
 BFF_DIR = Path(__file__).resolve().parent
 LAB_ROOT = BFF_DIR.parent.parent
@@ -44,11 +46,20 @@ from evals_summary import build_eval_summary, eval_summary_has_data  # noqa: E40
 from agent_runner import execute_agent, serialize_agent_result  # noqa: E402
 from agent_sessions import resolve_session, save_pending_session  # noqa: E402
 from health_checks import build_health_report, check_pgvector  # noqa: E402
-from shared.config import get_env  # noqa: E402
+from shared.config import app_env, get_env, is_production, state_store_backend  # noqa: E402
+from shared.embeddings import active_embedding_model_id  # noqa: E402
 from shared.rag_text import clean_rag_answer, normalize_chunk_text, rag_question_hints, unique_source_filenames  # noqa: E402
 from shared.llm import llm_provider, stream_chat_completion  # noqa: E402
 from stores.pgvector import PgVectorStore  # noqa: E402
 from stores.base import ChunkHit  # noqa: E402
+
+
+def _docs_enabled() -> bool:
+    explicit = get_env("BFF_ENABLE_DOCS")
+    if explicit is not None:
+        return explicit.strip().lower() in ("1", "true", "yes")
+    return not is_production()
+
 
 app = FastAPI(
     title="Media Ops Applied AI Platform BFF",
@@ -57,8 +68,8 @@ app = FastAPI(
         "Presentation layer for web, mobile, and CTV clients. "
         "Platform logic lives in applied-ai-platform (pgvector, agents, MCP)."
     ),
-    docs_url="/docs",
-    redoc_url="/redoc",
+    docs_url="/docs" if _docs_enabled() else None,
+    redoc_url="/redoc" if _docs_enabled() else None,
 )
 
 
@@ -69,13 +80,41 @@ def _cors_origins() -> list[str]:
     return [origin.strip() for origin in raw.split(",") if origin.strip()]
 
 
+def verify_bff_api_key(
+    authorization: str | None = Header(default=None, alias="Authorization"),
+    x_api_key: str | None = Header(default=None, alias="X-API-Key"),
+) -> None:
+    """Verify BFF_API_KEY when configured (stage/production). No-op when unset."""
+    expected = get_env("BFF_API_KEY")
+    if not expected:
+        return
+
+    token = ""
+    if authorization and authorization.lower().startswith("bearer "):
+        token = authorization[7:].strip()
+    elif x_api_key:
+        token = x_api_key.strip()
+
+    if not token or not hmac.compare_digest(token, expected):
+        raise HTTPException(
+            status_code=401,
+            detail={"error": "unauthorized", "message": "Valid BFF API key required."},
+        )
+
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=_cors_origins(),
     allow_credentials=True,
     allow_methods=["GET", "POST", "OPTIONS"],
-    allow_headers=["Content-Type", "X-Client-Platform", "X-Session-Id", "Authorization"],
-    expose_headers=["X-Prompt-Version", "X-Embed-Model"],
+    allow_headers=[
+        "Content-Type",
+        "X-Client-Platform",
+        "X-Session-Id",
+        "Authorization",
+        "X-API-Key",
+    ],
+    expose_headers=["X-Prompt-Version", "X-Embed-Model", "X-Environment"],
 )
 
 
@@ -213,6 +252,8 @@ LlmHealth = Annotated[
 class HealthResponse(BaseModel):
     status: Literal["ok", "degraded"]
     version: str
+    environment: Literal["localhost", "stage", "production"] = "localhost"
+    state_store: Literal["sqlite", "postgres"] = "sqlite"
     pgvector: PgvectorHealth
     llm: LlmHealth
 
@@ -243,6 +284,14 @@ class AgentPausedResponse(BaseModel):
     tool_trace: list[dict[str, Any]] = Field(default_factory=list)
 
 
+def _sse_headers() -> dict[str, str]:
+    return {
+        "X-Accel-Buffering": "no",
+        "Cache-Control": "no-cache, no-transform",
+        "X-Environment": app_env(),
+    }
+
+
 def _sse_error(message: str, *, error: str = "service_unavailable") -> EventSourceResponse:
     async def error_events():
         yield {
@@ -250,7 +299,7 @@ def _sse_error(message: str, *, error: str = "service_unavailable") -> EventSour
             "data": json.dumps({"error": error, "message": message}),
         }
 
-    return EventSourceResponse(error_events())
+    return EventSourceResponse(error_events(), headers=_sse_headers())
 
 
 def _pgvector_error_detail(exc: str | None) -> str | None:
@@ -416,18 +465,23 @@ def health() -> HealthResponse | JSONResponse:
 @app.get("/v1/version")
 def version() -> JSONResponse:
     prompt_version = _prompt_version()
+    embed_model = active_embedding_model_id()
+    env_name = app_env()
 
     body = {
         "api_version": API_VERSION,
+        "environment": env_name,
+        "state_store": state_store_backend(),
         "prompt_version": prompt_version,
-        "embed_model": "ollama-nomic-embed-text-768",
+        "embed_model": embed_model,
         "index_document_count": None,
     }
     return JSONResponse(
         content=body,
         headers={
             "X-Prompt-Version": prompt_version,
-            "X-Embed-Model": "ollama-nomic-embed-text-768",
+            "X-Embed-Model": embed_model,
+            "X-Environment": env_name,
         },
     )
 
@@ -437,7 +491,7 @@ def serve_openapi_file() -> FileResponse:
     return FileResponse(OPENAPI_PATH, media_type="application/yaml")
 
 
-@app.post("/v1/retrieve", response_model=RetrieveResponse)
+@app.post("/v1/retrieve", response_model=RetrieveResponse, dependencies=[Depends(verify_bff_api_key)])
 async def retrieve(
     body: RetrieveRequest,
     x_client_platform: str | None = Header(default=None, alias="X-Client-Platform"),
@@ -469,7 +523,7 @@ async def retrieve(
     )
 
 
-@app.post("/v1/chat/stream")
+@app.post("/v1/chat/stream", dependencies=[Depends(verify_bff_api_key)])
 async def chat_stream(
     body: ChatRequest,
     x_client_platform: str | None = Header(default=None, alias="X-Client-Platform"),
@@ -519,10 +573,12 @@ async def chat_stream(
             max_tokens=max_tokens,
         )
         try:
-            for token in stream_chat_completion(
-                user_msg,
-                system=system,
-                max_tokens=max_tokens,
+            async for token in iterate_in_threadpool(
+                stream_chat_completion(
+                    user_msg,
+                    system=system,
+                    max_tokens=max_tokens,
+                )
             ):
                 parts.append(token)
                 yield {"event": "token", "data": token}
@@ -560,10 +616,10 @@ async def chat_stream(
             ),
         }
 
-    return EventSourceResponse(event_generator())
+    return EventSourceResponse(event_generator(), headers=_sse_headers())
 
 
-@app.post("/v1/feedback", response_model=FeedbackResponse, status_code=201)
+@app.post("/v1/feedback", response_model=FeedbackResponse, status_code=201, dependencies=[Depends(verify_bff_api_key)])
 async def submit_feedback(
     body: FeedbackRequest,
     x_client_platform: str | None = Header(default=None, alias="X-Client-Platform"),
@@ -588,7 +644,7 @@ async def submit_feedback(
     return FeedbackResponse(id=row["id"], created_at=row["created_at"])
 
 
-@app.get("/v1/evals/summary", response_model=EvalSummaryResponse)
+@app.get("/v1/evals/summary", response_model=EvalSummaryResponse, dependencies=[Depends(verify_bff_api_key)])
 def evals_summary() -> EvalSummaryResponse:
     data = build_eval_summary()
     if not eval_summary_has_data(data):
@@ -625,6 +681,7 @@ def evals_summary() -> EvalSummaryResponse:
 @app.post(
     "/v1/agent/run",
     response_model=None,
+    dependencies=[Depends(verify_bff_api_key)],
     responses={
         200: {"model": AgentRunResponse},
         202: {"model": AgentPausedResponse},
@@ -756,7 +813,7 @@ async def agent_run(
 @app.get("/", include_in_schema=False)
 def root() -> PlainTextResponse:
     return PlainTextResponse(
-        "Media Ops AI Platform BFF v0.1\n"
+        f"Media Ops AI Platform BFF v{API_VERSION} ({app_env()})\n"
         "Docs: /docs\n"
         "OpenAPI: /openapi.yaml\n"
         "Health: /health\n"

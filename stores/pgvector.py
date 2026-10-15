@@ -18,6 +18,7 @@ from stores.clearance_rows import build_clearance_rows
 from stores.corpus import chunk_text, load_document_file, load_documents
 
 DEFAULT_DATABASE_URL = "postgresql://postgres:dev@localhost:5432/applied_ai"
+_EXTENSION_READY_URLS: set[str] = set()
 
 
 class PgVectorStore(VectorStore):
@@ -25,20 +26,24 @@ class PgVectorStore(VectorStore):
 
     def __init__(self, database_url: str | None = None) -> None:
         self.database_url = database_url or get_env("DATABASE_URL", DEFAULT_DATABASE_URL)
+        self.connect_timeout = int(get_env("PG_CONNECT_TIMEOUT", "5") or "5")
 
     def _connect_raw(self):
-        return psycopg2.connect(self.database_url, connect_timeout=3)
+        return psycopg2.connect(self.database_url, connect_timeout=self.connect_timeout)
 
     def _ensure_extension(self) -> None:
-        """Create pgvector extension before register_vector() can run."""
+        """Create pgvector extension once per database URL before register_vector() runs."""
+        if self.database_url in _EXTENSION_READY_URLS:
+            return
         with self._connect_raw() as conn:
             with conn.cursor() as cur:
                 cur.execute("CREATE EXTENSION IF NOT EXISTS vector")
             conn.commit()
+        _EXTENSION_READY_URLS.add(self.database_url)
 
     def _connect(self):
         self._ensure_extension()
-        conn = psycopg2.connect(self.database_url, connect_timeout=3)
+        conn = psycopg2.connect(self.database_url, connect_timeout=self.connect_timeout)
         register_vector(conn)
         return conn
 

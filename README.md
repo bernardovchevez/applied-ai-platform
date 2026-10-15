@@ -86,16 +86,27 @@ python rag/ingest_pgvector.py --data-dir data/lake/raw --lora-tag
 
 Event-driven incremental path: `ingest_batch.py --emit-events` -> `embed_worker.py`.
 
-## Web client + FastAPI BFF
+## Web client + FastAPI BFF (Localhost, Stage & Production)
 
-Platform BFF in `platform/bff/`; Next.js client in sibling **`applied-ai-web/`**:
+Platform BFF in `platform/bff/`; Next.js client in sibling **`applied-ai-web/`**. Both repositories support three runtime environments via `APP_ENV` (`localhost`, `stage`, `production`):
+
+| Environment | Env template | LLM / Embeddings default | BFF State Store (`agent_sessions`, `feedback`) | BFF Auth (`BFF_API_KEY`) |
+|-------------|--------------|--------------------------|------------------------------------------------|--------------------------|
+| `localhost` | `.env.localhost.example` | Ollama (`llama3.2` + `nomic-embed-text` 768d) or OpenAI | Local SQLite (`platform/bff/data/*.db`) | Optional (open by default) |
+| `stage` | `.env.stage.example` | OpenAI (`gpt-4o-mini` + `text-embedding-3-small` 1536d) | Shared PostgreSQL (`DATABASE_URL`) | Bearer / `X-API-Key` |
+| `production` | `.env.production.example` | OpenAI (`gpt-4o-mini` + `text-embedding-3-small` 1536d) | Shared PostgreSQL (`DATABASE_URL`) | Bearer / `X-API-Key` (`/docs` off) |
 
 ```bash
-# Terminal 1 - BFF
-cd platform/bff && ./run.sh
-
-# Terminal 2 - web client
+# Localhost (Terminal 1 - BFF, Terminal 2 - web client)
+cd platform/bff && ./run.sh --env localhost
 cd ../applied-ai-web && cp .env.local.example .env.local && npm run dev
+
+# Stage or Production (multi-worker Uvicorn or Docker)
+cp .env.stage.example .env.stage
+./platform/bff/run.sh --env stage
+
+# Or via Docker Compose (stage / production profile)
+APP_ENV=stage docker compose --profile stage up --build -d
 ```
 
 See [platform/README.md](platform/README.md) and [platform/bff/README.md](platform/bff/README.md).

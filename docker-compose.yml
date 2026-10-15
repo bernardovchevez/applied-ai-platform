@@ -3,13 +3,41 @@ services:
     image: pgvector/pgvector:pg16
     container_name: applied-ai-pgvector
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: dev
-      POSTGRES_DB: applied_ai
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-dev}
+      POSTGRES_DB: ${POSTGRES_DB:-applied_ai}
     ports:
-      - "5432:5432"
+      - "${POSTGRES_PORT:-5432}:5432"
     volumes:
       - pgvector_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-postgres} -d ${POSTGRES_DB:-applied_ai}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  bff:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        APP_ENV: ${APP_ENV:-stage}
+    container_name: applied-ai-bff
+    profiles: ["stage", "production"]
+    depends_on:
+      pgvector:
+        condition: service_healthy
+    environment:
+      APP_ENV: ${APP_ENV:-stage}
+      STATE_STORE_BACKEND: ${STATE_STORE_BACKEND:-postgres}
+      DATABASE_URL: ${DATABASE_URL:-postgresql://postgres:dev@pgvector:5432/applied_ai}
+      LLM_PROVIDER: ${LLM_PROVIDER:-openai}
+      EMBEDDING_PROVIDER: ${EMBEDDING_PROVIDER:-openai}
+      OPENAI_API_KEY: ${OPENAI_API_KEY:-}
+      BFF_CORS_ORIGINS: ${BFF_CORS_ORIGINS:-http://localhost:3000}
+      BFF_API_KEY: ${BFF_API_KEY:-}
+    ports:
+      - "${BFF_PORT:-8000}:8000"
 
 volumes:
   pgvector_data:

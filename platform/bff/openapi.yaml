@@ -14,9 +14,11 @@ info:
 
 servers:
   - url: http://localhost:8000
-    description: Local BFF (uvicorn)
-  - url: https://api.example-media.com/ai/v1
-    description: Production placeholder
+    description: Localhost BFF (uvicorn)
+  - url: https://stage-api.example-media.com
+    description: Stage BFF
+  - url: https://api.example-media.com
+    description: Production BFF
 
 tags:
   - name: system
@@ -452,6 +454,14 @@ components:
         version:
           type: string
           example: 0.1.0
+        environment:
+          type: string
+          enum: [localhost, stage, production]
+          example: localhost
+        state_store:
+          type: string
+          enum: [sqlite, postgres]
+          example: sqlite
         pgvector:
           $ref: "#/components/schemas/PgvectorHealth"
         llm:
@@ -528,6 +538,12 @@ components:
       properties:
         api_version:
           type: string
+        environment:
+          type: string
+          enum: [localhost, stage, production]
+        state_store:
+          type: string
+          enum: [sqlite, postgres]
         prompt_version:
           type: string
         embed_model:

@@ -1,4 +1,4 @@
-"""Unified LLM chat — OpenAI or local Ollama."""
+"""Unified LLM chat for OpenAI or local Ollama."""
 
 from __future__ import annotations
 
@@ -6,17 +6,26 @@ from collections.abc import Iterator
 
 from openai import OpenAI
 
-from shared.config import get_env, require_env
+from shared.config import get_env, is_local, require_env
 from shared.ollama_client import chat as ollama_chat
 from shared.ollama_client import chat_stream as ollama_chat_stream
 from shared.ollama_client import is_available as ollama_available
 
 
 def llm_provider() -> str:
-    """Active provider: ollama | openai (env LLM_PROVIDER overrides auto-detect)."""
-    explicit = get_env("LLM_PROVIDER")
+    """Active provider: ollama | openai (env LLM_PROVIDER overrides auto-detect).
+
+    In stage and production, defaults to openai unless OLLAMA_IN_CLOUD=true.
+    """
+    explicit = (get_env("LLM_PROVIDER") or "").lower()
+    if not is_local():
+        if explicit and explicit != "ollama":
+            return explicit
+        if explicit == "ollama" and get_env("OLLAMA_IN_CLOUD") == "true":
+            return "ollama"
+        return "openai"
     if explicit:
-        return explicit.lower()
+        return explicit
     if get_env("OPENAI_API_KEY"):
         return "openai"
     if ollama_available():

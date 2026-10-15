@@ -9,7 +9,7 @@ from typing import Any
 LAB_ROOT = Path(__file__).resolve().parent.parent.parent
 sys.path.insert(0, str(LAB_ROOT))
 
-from shared.config import get_env  # noqa: E402
+from shared.config import app_env, get_env, state_store_backend  # noqa: E402
 from shared.llm import llm_provider  # noqa: E402
 from shared.ollama_client import is_available as ollama_available  # noqa: E402
 from stores.pgvector import PgVectorStore  # noqa: E402
@@ -64,6 +64,8 @@ def build_health_report(*, version: str) -> dict[str, Any]:
     return {
         "status": overall,
         "version": version,
+        "environment": app_env(),
+        "state_store": state_store_backend(),
         "pgvector": pg,
         "llm": llm,
     }

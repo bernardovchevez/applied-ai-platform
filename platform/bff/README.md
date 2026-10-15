@@ -15,17 +15,17 @@ ctv-partner-sdk/                   ← future (same contract)
 
 ---
 
-## Endpoints (v0.1 stub)
+## Endpoints (v0.1)
 
 | Method | Path | Status | Purpose |
 |--------|------|--------|---------|
-| GET | `/health` | [x] | pgvector + LLM dependency check |
-| GET | `/v1/version` | [x] stub | Prompt / embed version pins |
+| GET | `/health` | [x] | pgvector + LLM dependency check (`environment`, `state_store`) |
+| GET | `/v1/version` | [x] | Active `prompt_version`, `embed_model`, `environment`, and `state_store` |
 | GET | `/openapi.yaml` | [x] | Raw spec |
-| GET | `/docs` | [x] | Swagger UI (FastAPI) |
+| GET | `/docs` | [x] | Swagger UI (enabled in `localhost`/`stage`; disabled by default in `production`) |
 | POST | `/v1/retrieve` | [x] | Chunks only (CTV / on-device LLM) |
-| POST | `/v1/chat/stream` | [x] | SSE streaming RAG |
-| POST | `/v1/feedback` | [x] | Thumbs → SQLite |
+| POST | `/v1/chat/stream` | [x] | SSE streaming RAG (unbuffered headers) |
+| POST | `/v1/feedback` | [x] | Thumbs to SQLite (`localhost`) or PostgreSQL (`stage`/`production`) |
 | GET | `/v1/evals/summary` | [x] | Admin eval dashboard |
 | POST | `/v1/agent/run` | [x] | Multi-agent workflow + optional human approval |
 
@@ -37,6 +37,7 @@ ctv-partner-sdk/                   ← future (same contract)
 |--------|--------|-----|
 | `X-Client-Platform` | `web`, `ios`, `android`, `ctv`, `mcp`, `internal` | Analytics + `format=compact` routing |
 | `X-Session-Id` | UUID | Correlate chat, feedback, traces |
+| `Authorization` / `X-API-Key` | `Bearer <BFF_API_KEY>` | Required on `/v1/*` routes when `BFF_API_KEY` is configured (`stage` / `production`) |
 
 ---
 
@@ -51,11 +52,20 @@ pip install -r requirements.txt
 # or: pip install -r platform/bff/requirements-bff.txt
 ```
 
-**Start / restart** (no pip needed):
+**Start / restart** (supports `localhost`, `stage`, and `production`):
 
 ```bash
 cd applied-ai-platform/platform/bff
-./run.sh
+./run.sh                    # defaults to APP_ENV=localhost (--reload)
+./run.sh --env stage        # multi-worker stage mode (.env.stage)
+./run.sh --env production   # multi-worker production mode (.env.production, /docs disabled)
+```
+
+Or via Docker from the repository root:
+
+```bash
+cd applied-ai-platform
+APP_ENV=stage docker compose --profile stage up --build -d
 ```
 
 Or manually:
@@ -67,9 +77,9 @@ cd platform/bff
 uvicorn main:app --reload --port 8000
 ```
 
-- Swagger: http://localhost:8000/docs  
+- Swagger: http://localhost:8000/docs (enabled in `localhost` and `stage`; disabled in `production` unless `BFF_ENABLE_DOCS=true`)  
 - OpenAPI: http://localhost:8000/openapi.yaml  
-- Health: http://localhost:8000/health  
+- Health: http://localhost:8000/health (reports `environment` and `state_store`)  
 
 ---
 
@@ -107,11 +117,11 @@ curl -i -X OPTIONS http://localhost:8000/v1/retrieve \
 |-----------|-----------------|
 | `/v1/retrieve` | `query_pgvector.retrieve()` |
 | `/v1/chat/stream` | retrieve + `shared.llm` stream |
-| `/v1/feedback` | `bff/feedback.py` → SQLite |
+| `/v1/feedback` | `bff/feedback.py` -> SQLite (`localhost`) or PostgreSQL (`stage`/`production`) |
 | `/v1/evals/summary` | read `rag/evals/results.json` |
-| `/v1/agent/run` | `agents/agent_v1.py` or MCP |
+| `/v1/agent/run` | `agents/agent_v1.py` + `bff/agent_sessions.py` (SQLite in `localhost`, PostgreSQL in `stage`/`production`) |
 
-Clients **never** import Python from the platform — only HTTP/SSE.
+Clients **never** import Python from the platform, only HTTP/SSE.
 
 ---
 
@@ -160,7 +170,7 @@ curl -X POST http://localhost:8000/v1/agent/run \
   -d '{"thread_id":"<uuid>","resume":"approve"}'
 ```
 
-Pending sessions are stored in `bff/data/agent_sessions.db` (gitignored).
+Pending sessions are stored in `bff/data/agent_sessions.db` in `localhost` (gitignored) and in PostgreSQL (`DATABASE_URL`) in `stage` and `production`.
 
 ---
 
