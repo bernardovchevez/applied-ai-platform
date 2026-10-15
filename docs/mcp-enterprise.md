@@ -33,7 +33,7 @@ SharePoint / S3 docs
  └──────┬──────┘
         │
  ┌──────┴──────┐
- │ MCP server  │  <- Cursor, Claude Desktop, LangGraph agents
+ │ MCP server  │  <- IDE assistants, Claude Desktop, LangGraph agents
  │ (stdio/SSE) │
  └──────┬──────┘
         ↓
@@ -75,7 +75,7 @@ MCP exposes capabilities, while deterministic guards stay enforced server-side o
 
 ### 4. Developer experience
 
-**Cursor (`stdio` configuration):**
+**MCP Host (`stdio` configuration):**
 
 ```json
 {

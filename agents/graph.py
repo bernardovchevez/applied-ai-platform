@@ -96,7 +96,7 @@ def format_critic_footer(review: dict | None) -> str:
         return ""
     lines = ["---", "**Critic review**"]
     if review.get("approved"):
-        lines.append("- **Verdict:** approved — draft aligns with tool results")
+        lines.append("- **Verdict:** approved (draft aligns with tool results)")
     else:
         lines.append("- **Verdict:** issues noted (Finalize guards may still apply)")
     for issue in review.get("issues") or []:
@@ -111,13 +111,13 @@ def format_critic_footer(review: dict | None) -> str:
 
 
 def researcher_node(state: WorkflowState) -> dict:
-    """Researcher — ReAct sub-agent over search_docs."""
+    """Researcher: ReAct sub-agent over search_docs."""
     use_react = state.get("use_react", True)
     return run_researcher(state["user_message"], use_react=use_react)
 
 
 def compliance_node(state: WorkflowState) -> dict:
-    """Compliance — ReAct sub-agent over lookup_rights + escalate_legal."""
+    """Compliance: ReAct sub-agent over lookup_rights + escalate_legal."""
     use_react = state.get("use_react", True)
     loops = state.get("compliance_loops", 0) + 1
     updates = run_compliance(
@@ -130,7 +130,7 @@ def compliance_node(state: WorkflowState) -> dict:
 
 
 def supervisor_route(state: WorkflowState) -> Route:
-    """Supervisor — route to compliance loop, producer, or finalize."""
+    """Supervisor: route to compliance loop, producer, or finalize."""
     message = state["user_message"]
     lookup = state.get("lookup_rights")
     loops = state.get("compliance_loops", 0)
@@ -191,7 +191,7 @@ def _build_producer_context(state: WorkflowState) -> str:
 
 
 def producer_node(state: WorkflowState) -> dict:
-    """Producer — ReAct sub-agent over draft_brief."""
+    """Producer: ReAct sub-agent over draft_brief."""
     use_react = state.get("use_react", True)
     review = state.get("critic_review") or {}
     if review.get("needs_revision"):
@@ -201,7 +201,7 @@ def producer_node(state: WorkflowState) -> dict:
 
 
 def critic_node(state: WorkflowState) -> dict:
-    """Critic — review draft against lookup_rights and search_docs before finalize."""
+    """Critic: review draft against lookup_rights and search_docs before finalize."""
     draft = state.get("draft_brief") or _draft_answer(state)
     return run_critic(
         state["user_message"],
@@ -280,12 +280,12 @@ def finalize_node(state: WorkflowState) -> dict:
 
 
 def human_approval_node(state: WorkflowState) -> dict:
-    """Human-in-the-loop gate — interrupt when checkpointed, else pass-through."""
+    """Human-in-the-loop gate: interrupt when checkpointed, else pass-through."""
     output = state.get("full_output") or state.get("answer") or ""
     if state.get("auto_approve"):
         return {"approved": True, "full_output": output}
 
-    # Without a checkpointer, LangGraph cannot interrupt — CLI gate runs in main().
+    # Without a checkpointer, LangGraph cannot interrupt; CLI gate runs in main().
     if not state.get("_has_checkpointer"):
         return {"approved": None, "full_output": output}
 
@@ -431,7 +431,7 @@ def start_graph_until_interrupt(
     if not snapshot or not snapshot.next:
         values = snapshot.values if snapshot else {}
         raise RuntimeError(
-            "Graph finished without interrupt — use --auto-approve or check workflow state"
+            "Graph finished without interrupt; use --auto-approve or check workflow state"
         )
 
     values = snapshot.values or {}

@@ -27,7 +27,7 @@ def main() -> None:
     try:
         import mlflow
     except ImportError:
-        raise SystemExit("mlflow not installed — pip install mlflow") from None
+        raise SystemExit("mlflow not installed (pip install mlflow)") from None
 
     uri = tracking_uri()
     mlflow.set_tracking_uri(uri)
@@ -46,7 +46,7 @@ def main() -> None:
             print(f"[{name}] experiment not found")
             continue
         runs = mlflow.search_runs(experiment_ids=[exp.experiment_id], order_by=["start_time DESC"])
-        print(f"=== {name} (id {exp.experiment_id}) — {len(runs)} run(s) ===")
+        print(f"=== {name} (id {exp.experiment_id}): {len(runs)} run(s) ===")
         if runs.empty:
             print("  (no runs)\n")
             continue

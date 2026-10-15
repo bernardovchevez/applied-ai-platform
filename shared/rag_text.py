@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import re
 
-# Small local models often garble these corpus terms — fix at platform layer.
+# Small local models often garble these corpus terms; fix at platform layer.
 _HDR_PASS = "HDR (High Dynamic Range) pass"
 
 
@@ -13,8 +13,8 @@ def normalize_chunk_text(text: str) -> str:
     out = text
     out = re.sub(r"\bHDR pass\b", _HDR_PASS, out, flags=re.IGNORECASE)
     out = re.sub(
-        r"\bPerpetuity \(series term\)\b",
-        "Perpetuity / series-term clearance (US & Canada table row only — not EMEA expiry)",
+        r"\bPerpetuity \(series term\)",
+        "Perpetuity / series-term clearance (US & Canada table row only, not EMEA expiry)",
         out,
         flags=re.IGNORECASE,
     )
@@ -32,7 +32,7 @@ def rag_question_hints(question: str) -> str:
         )
     if any(k in q for k in ("hdr", "color", "deliverable", "grade", "streaming tier")):
         hints.append(
-            "HDR means High Dynamic Range color pass. Never write 'ss' — always write 'HDR pass'."
+            "HDR means High Dynamic Range color pass. Never write 'ss'; always write 'HDR pass'."
         )
     if not hints:
         return ""
@@ -56,7 +56,7 @@ def append_source_file_bullets(answer: str, source_files: list[str]) -> str:
     if not body:
         return body
 
-    # Platform lists sources below — remove redundant inline filename sentences
+    # Platform lists sources below; remove redundant inline filename sentences
     body = re.sub(
         r'\s*(?:Additionally,?\s*)?(?:the document )?"[^"]+\.(?:md|txt|pdf)"[^.]*\.',
         "",
@@ -89,7 +89,7 @@ def clean_rag_answer(text: str, *, source_files: list[str] | None = None) -> str
     out = re.sub(r"\bss pass\b", "HDR pass", out, flags=re.I)
     out = re.sub(r"\betuity\b", "perpetuity", out, flags=re.I)
 
-    # US perpetuity row misapplied to EMEA — rewrite the bad clause
+    # US perpetuity row misapplied to EMEA; rewrite the bad clause
     out = re.sub(
         r"\bhas an? perpetuity\s*\(series term\)\s*cleared for EMEA[^.]*\.?",
         "is cleared for EMEA SVOD streaming through 2027-12-31",

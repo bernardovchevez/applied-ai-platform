@@ -37,6 +37,7 @@ DEFAULT_CORS_ORIGINS = (
 sys.path.insert(0, str(LAB_ROOT))
 sys.path.insert(0, str(LAB_ROOT / "rag"))
 sys.path.insert(0, str(BFF_DIR.parent))
+sys.path.insert(0, str(BFF_DIR))
 
 from ops.langfuse_tracing import ChatStreamTrace, AgentRunTrace, active_chat_model  # noqa: E402
 

@@ -283,7 +283,7 @@ def main() -> None:
 
         if not enable_langsmith_tracing(project=args.langsmith_project):
             raise SystemExit(
-                "LangSmith requires LANGCHAIN_API_KEY (or LANGSMITH_API_KEY) in .env — "
+                "LangSmith requires LANGCHAIN_API_KEY (or LANGSMITH_API_KEY) in .env; "
                 "get one at https://smith.langchain.com/settings"
             )
         langsmith_on = True
@@ -343,7 +343,7 @@ def main() -> None:
         from ops.mlflow_eval import log_agent_eval, mlflow_available, tracking_uri
 
         if not mlflow_available():
-            print("MLflow not installed — pip install mlflow")
+            print("MLflow not installed (pip install mlflow)")
         else:
             artifact = args.output if not args.no_write else RESULTS_PATH
             run_id = log_agent_eval(payload, artifact_path=artifact)

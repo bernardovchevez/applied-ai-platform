@@ -1,4 +1,4 @@
-# Databricks Vector Search — Delta Sync Pipeline
+# Databricks Vector Search: Delta Sync Pipeline
 
 Export local lake embeddings to a **Unity Catalog gold Delta table** and sync with **Databricks Vector Search** (Delta Sync) for filtered ANN retrieval.
 

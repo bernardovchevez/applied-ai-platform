@@ -1,4 +1,4 @@
-"""ReAct sub-agents for LangGraph workflow nodes — with deterministic fallbacks."""
+"""ReAct sub-agents for LangGraph workflow nodes, with deterministic fallbacks."""
 
 from __future__ import annotations
 
@@ -50,13 +50,13 @@ def _invoke_react(tools: list, prompt: str, user_message: str, *, max_turns: int
 
 
 def run_researcher(user_message: str, *, use_react: bool = True) -> dict:
-    """Researcher node — ReAct over search_docs with deterministic fallback."""
+    """Researcher node: ReAct over search_docs with deterministic fallback."""
     from tools import search_docs_impl_for_guard, search_web_stub_impl
 
     if use_react:
         _invoke_react([search_docs], RESEARCHER_PROMPT, user_message, max_turns=5)
 
-    # Authoritative corpus search — ReAct may paraphrase or skip the tool on small models.
+    # Authoritative corpus search; ReAct may paraphrase or skip the tool on small models.
     search = search_docs_impl_for_guard(user_message)
     return {
         "search_docs": search,
@@ -71,7 +71,7 @@ def run_compliance(
     search_docs_result: dict | None = None,
     use_react: bool = True,
 ) -> dict:
-    """Compliance node — ReAct over lookup_rights + escalate_legal with fallbacks."""
+    """Compliance node: ReAct over lookup_rights + escalate_legal with fallbacks."""
     from tools import (
         check_ip_flags_impl,
         compliance_llm_review_impl,
@@ -96,7 +96,7 @@ def run_compliance(
         )
         _, _, escalation = extract_tool_summaries(messages)
 
-    # Authoritative lookup from inferred territory — ReAct may pass wrong args on small models.
+    # Authoritative lookup from inferred territory; ReAct may pass wrong args on small models.
     if is_clearance_question(user_message):
         territory = infer_territory_from_message(user_message)
         if territory:
@@ -121,7 +121,7 @@ def run_compliance(
             reason = (
                 f"{lookup.get('series', 'series')} clearance in "
                 f"{lookup.get('territory_normalized') or lookup.get('territory')} is "
-                f"{lookup.get('status')} (confidence {lookup.get('confidence')}) — "
+                f"{lookup.get('status')} (confidence {lookup.get('confidence')}), "
                 f"below threshold {CONFIDENCE_THRESHOLD}"
             )
             updates["escalation"] = escalate_legal_impl_for_guard(
@@ -134,7 +134,7 @@ def run_compliance(
 
 
 def run_producer(user_message: str, context: str, *, use_react: bool = True) -> dict:
-    """Producer node — ReAct over draft_brief with deterministic output."""
+    """Producer node: ReAct over draft_brief with deterministic output."""
     from tools import draft_brief_impl_for_guard
 
     if use_react:
@@ -159,7 +159,7 @@ def run_critic(
     max_revision_loops: int = 1,
     use_llm: bool = True,
 ) -> dict:
-    """Critic/reviewer — deterministic QA + optional LLM review on draft vs tool results."""
+    """Critic/reviewer: deterministic QA + optional LLM review on draft vs tool results."""
     from tools import critic_llm_review_impl, parse_critic_llm_concerns
     from workflow import (
         answer_contradicts_lookup,

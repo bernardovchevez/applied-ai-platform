@@ -1,6 +1,6 @@
 """Optional Langfuse tracing for BFF routes.
 
-No-op when LANGFUSE_PUBLIC_KEY / LANGFUSE_SECRET_KEY are unset — safe for local dev
+No-op when LANGFUSE_PUBLIC_KEY / LANGFUSE_SECRET_KEY are unset (safe for local dev)
 without a Langfuse project.
 """
 
@@ -189,7 +189,7 @@ class ChatStreamTrace:
         flush_langfuse()
 
     def end_error(self, *, error_type: str, message: str, stage: str) -> None:
-        status = f"{stage}: {error_type} — {message}"
+        status = f"{stage}: {error_type}: {message}"
         for obs in (self._generation_obs, self._retrieve_obs, self._root):
             if not obs:
                 continue
@@ -378,7 +378,7 @@ class AgentRunTrace:
         flush_langfuse()
 
     def end_error(self, *, error_type: str, message: str, stage: str) -> None:
-        status = f"{stage}: {error_type} — {message}"
+        status = f"{stage}: {error_type}: {message}"
         for obs in (self._agent_obs, self._root):
             if not obs:
                 continue

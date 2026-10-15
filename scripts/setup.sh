@@ -21,7 +21,7 @@ pip install -q -r requirements.txt
 
 if [[ ! -f .env ]]; then
   cp .env.example .env
-  echo "→ Created .env from .env.example — add your API keys"
+  echo "-> Created .env from .env.example; add your API keys"
 else
   echo "→ .env already exists"
 fi

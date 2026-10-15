@@ -11,7 +11,7 @@ applied-ai-mobile/                      ← future
 ctv-partner-sdk/                   ← future (same contract)
 ```
 
-**Contract:** [`openapi.yaml`](openapi.yaml) — source of truth for all clients (web, mobile, CTV, and MCP hosts).
+**Contract:** [`openapi.yaml`](openapi.yaml): source of truth for all clients (web, mobile, CTV, and MCP hosts).
 
 ---
 
@@ -43,7 +43,7 @@ ctv-partner-sdk/                   ← future (same contract)
 
 ## Run server
 
-**One-time** (if BFF deps missing — already in root `requirements.txt`):
+**One-time** (if BFF deps are missing; already in root `requirements.txt`):
 
 ```bash
 cd applied-ai-platform
@@ -180,12 +180,12 @@ Optional **Langfuse** traces on `POST /v1/chat/stream` and `POST /v1/agent/run` 
 
 Implementation: [`../ops/langfuse_tracing.py`](../ops/langfuse_tracing.py) · setup: [`../ops/README.md`](../ops/README.md).
 
-When keys are unset, tracing is a no-op — no behavior change for local dev.
+When keys are unset, tracing is a no-op with no behavior change for local dev.
 
 ---
 
 ## Related docs
 
 - [data-plane.md](../../docs/data-plane.md)
-- [mcp-enterprise.md](../../docs/mcp-enterprise.md) — MCP vs BFF division
-- [responsible-ai-media.md](../../docs/responsible-ai-media.md) — Responsible AI & governance
+- [mcp-enterprise.md](../../docs/mcp-enterprise.md): MCP vs BFF division
+- [responsible-ai-media.md](../../docs/responsible-ai-media.md): Responsible AI & governance

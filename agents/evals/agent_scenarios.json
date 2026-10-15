@@ -8,7 +8,7 @@
     "expected_contains_any": ["cleared", "EMEA"],
     "expected_sources_any": ["music-clearance-emea.md"],
     "expect_draft_brief": true,
-    "notes": "Control — EMEA theme cleared through Dec 2027"
+    "notes": "Control: EMEA theme cleared through Dec 2027"
   },
   {
     "id": "japan_pending",
@@ -18,7 +18,7 @@
     "needs_escalation": true,
     "expected_contains_any": ["pending", "not cleared", "Japan", "APAC"],
     "expected_sources_any": ["apac-music-clearance-update.md"],
-    "notes": "APAC update — Japan/Korea still pending"
+    "notes": "APAC update: Japan/Korea still pending"
   },
   {
     "id": "apac_launch_pending",
@@ -28,7 +28,7 @@
     "needs_escalation": true,
     "expected_contains_any": ["pending", "not cleared", "APAC", "Japan"],
     "expect_draft_brief": true,
-    "notes": "Broader APAC launch — should not say cleared"
+    "notes": "Broader APAC launch: should not say cleared"
   },
   {
     "id": "low_confidence_unknown",
@@ -45,7 +45,7 @@
       "escalat",
       "legal"
     ],
-    "notes": "No territory memo — unknown / low confidence"
+    "notes": "No territory memo: unknown / low confidence"
   },
   {
     "id": "china_not_cleared",
@@ -69,13 +69,13 @@
     "prompt": "Who is the CEO of Netflix?",
     "expected_refusal": true,
     "expected_contains_not_any": ["Ted Sarandos", "Greg Peters", "Reed Hastings"],
-    "notes": "Guardrail — must refuse; no general knowledge"
+    "notes": "Guardrail: must refuse; no general knowledge"
   },
   {
     "id": "getty_archival_cleared",
     "prompt": "Is the Getty archival footage for Harbor Line Episode 4 cleared?",
     "expected_contains_any": ["cleared", "Getty"],
     "expected_sources_any": ["archival-footage-clearance-getty.md"],
-    "notes": "Production/legal — Getty memo supersedes brief"
+    "notes": "Production/legal: Getty memo supersedes brief"
   }
 ]

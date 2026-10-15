@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""promptfoo Python assert — mirrors evals/run_eval.py keyword + source checks."""
+"""promptfoo Python assert: mirrors evals/run_eval.py keyword + source checks."""
 
 from __future__ import annotations
 

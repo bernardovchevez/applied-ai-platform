@@ -40,7 +40,7 @@ def resolve_judge_provider(explicit: str | None = None) -> str:
 
 
 def get_ragas_llm(provider: str | None = None):
-    """RAGAS judge LLM — OpenAI (recommended) or Ollama fallback."""
+    """RAGAS judge LLM: OpenAI (recommended) or Ollama fallback."""
     provider = resolve_judge_provider(provider)
 
     if provider == "openai":
@@ -62,7 +62,7 @@ def get_ragas_llm(provider: str | None = None):
 
 
 def get_ragas_embeddings(provider: str | None = None):
-    """RAGAS embeddings — match judge provider when possible."""
+    """RAGAS embeddings: match judge provider when possible."""
     provider = resolve_judge_provider(provider)
 
     if provider == "openai" and get_env("OPENAI_API_KEY"):

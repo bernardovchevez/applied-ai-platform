@@ -6,7 +6,7 @@ Tracing and eval-run logging for the Applied AI platform layer.
 
 Optional traces when Langfuse keys are set in `.env`. Module: [`langfuse_tracing.py`](langfuse_tracing.py).
 
-### Chat — `POST /v1/chat/stream`
+### Chat: `POST /v1/chat/stream`
 
 | Span | Type | What it captures |
 |------|------|------------------|
@@ -14,7 +14,7 @@ Optional traces when Langfuse keys are set in `.env`. Module: [`langfuse_tracing
 | `pgvector.retrieve` | retriever | `top_k`, source filenames |
 | `llm.stream` | generation | Model name, truncated system/user messages, streamed answer |
 
-### Agent — `POST /v1/agent/run`
+### Agent: `POST /v1/agent/run`
 
 | Span | Type | What it captures |
 |------|------|------------------|
@@ -46,7 +46,7 @@ When keys are **unset**, tracing is a no-op (no import errors, no network calls)
 ```bash
 cd applied-ai-platform/platform/bff && ./run.sh
 
-# Another terminal — stream one question (session id for correlation)
+# Another terminal: stream one question (session id for correlation)
 curl -N -X POST http://127.0.0.1:8000/v1/chat/stream \
   -H 'Content-Type: application/json' \
   -H 'X-Session-Id: smoke-obs-1' \
@@ -89,7 +89,7 @@ pip install mlflow   # or: pip install -r requirements.txt
 # Quick agent smoke (7 scenarios, logs one MLflow run)
 python agents/evals/run_agent_eval.py --mlflow
 
-# RAG keyword eval — all backends
+# RAG keyword eval across all backends
 python rag/evals/run_eval.py --backend all --write-baseline --mlflow
 # or:
 ./platform/ops/run_rag_keyword_baseline.sh
@@ -97,20 +97,20 @@ python rag/evals/run_eval.py --backend all --write-baseline --mlflow
 # RAGAS smoke (3 questions)
 python rag/evals/run_ragas.py --backend chroma --limit 3 --mlflow
 
-# RAGAS → MLflow (run after OPENAI_API_KEY is set)
+# RAGAS -> MLflow (run after OPENAI_API_KEY is set)
 # ./platform/ops/run_rag_ragas_mlflow.sh
 
-# UI — browse runs locally (use helper script — avoids wrong/empty store)
+# UI: browse runs locally (use helper script to avoid wrong/empty store)
 ./platform/ops/mlflow_ui.sh
 # Open http://127.0.0.1:5001
 
-**MLflow 3 UI:** Do **not** use `#/experiments/1` links — those are MLflow 2 hash routes and appear empty in v3.
+**MLflow 3 UI:** Do **not** use `#/experiments/1` links; those are MLflow 2 hash routes and appear empty in v3.
 
 1. Open http://127.0.0.1:5001/ (root, no hash)
-2. Sidebar → **Model development** → **Experiments**
+2. Sidebar -> **Model development** -> **Experiments**
 3. Click **media-agent-evals** (agent runs) or **media-rag-evals** (RAG runs)
 
-**Terminal fallback** (if the UI still looks empty — browser/UI bugs happen in MLflow 3):
+**Terminal fallback** (if the UI still looks empty in MLflow 3):
 
 ```bash
 python platform/ops/mlflow_list_runs.py
@@ -140,7 +140,7 @@ Runs all **6 backends** (chroma, langchain, llamaindex, pgvector, pinecone, hybr
 | `rag/evals/baseline.json` | `keyword` pass rates (preserves RAGAS section) |
 | `ops/mlflow.db` | one MLflow run per backend |
 
-Flags on `run_eval.py`: `--backend all --write-baseline --mlflow`. Avoid single-backend runs without `--backend all` — they overwrite `results.json` with one row.
+Flags on `run_eval.py`: `--backend all --write-baseline --mlflow`. Avoid single-backend runs without `--backend all`; they overwrite `results.json` with one row.
 
 ## RAGAS → MLflow
 
@@ -161,7 +161,7 @@ Runs **chroma, langchain, llamaindex** with default metric **faithfulness** when
 | `metrics.faithfulness` | mean RAGAS score |
 | artifact | `ragas_results.json` |
 
-**Judge note:** local Ollama often returns `n/a` on multi-metric runs — use `--judge openai` for `answer_relevancy` / `context_precision`.
+**Judge note:** local Ollama often returns `n/a` on multi-metric runs; use `--judge openai` for `answer_relevancy` / `context_precision`.
 
 `--write-baseline` merges into `baseline.json` under `ragas` (preserves `keyword` section from keyword baseline).
 
@@ -171,7 +171,7 @@ Optional LangGraph/ReAct traces when running the agent eval harness. Module: [`l
 
 | Run config field | Purpose |
 |------------------|---------|
-| `run_name` | `agent-eval-{scenario_id}` — one trace per gold scenario |
+| `run_name` | `agent-eval-{scenario_id}` (one trace per gold scenario) |
 | `metadata` | `scenario_id`, `backend`, eval harness path |
 | `tags` | `agent-eval`, backend key, scenario id |
 

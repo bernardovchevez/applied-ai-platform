@@ -1,11 +1,34 @@
-# BFF dependencies — also included in applied-ai-platform/requirements.txt
-# One-time install from this directory:
-#   pip install -r requirements-bff.txt
-# Or from applied-ai-platform root:
+# Lean production BFF & agent runtime dependencies (used by Dockerfile and CI)
+# Install from applied-ai-platform root:
 #   pip install -r platform/bff/requirements-bff.txt
 
+# API & streaming
 fastapi>=0.115.0
 uvicorn[standard]>=0.32.0
 pyyaml>=6.0.0
 sse-starlette>=2.0.0
+
+# Core LLM & HTTP providers
+openai>=1.40.0
+anthropic>=0.34.0
+python-dotenv>=1.0.0
+httpx>=0.27.0
+
+# Vector database, SQL & hybrid retrieval
+psycopg2-binary>=2.9.0
+pgvector>=0.3.0
+rank-bm25>=0.2.0
+
+# LangGraph multi-agent orchestration & MCP
+langchain-core>=0.3.0
+langchain-openai>=0.2.0
+langchain-ollama>=0.2.0
+langchain-text-splitters>=0.3.0
+langgraph>=0.2.0
+langgraph-checkpoint-sqlite>=2.0.0
+mcp>=2.0.0
+
+# Observability & testing
 langfuse>=2.0.0
+pytest>=8.0.0
+

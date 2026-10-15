@@ -118,12 +118,12 @@ def run_worker(
         if result.get("chunks"):
             print(f" ({result['chunks']} chunks)", end="")
         if result.get("reason"):
-            print(f" — {result['reason']}", end="")
+            print(f": {result['reason']}", end="")
         print()
 
     ok = sum(1 for r in results if r["status"] == "ok")
     skipped = sum(1 for r in results if r["status"] == "skipped")
-    print(f"Processed {len(results)} events — ok={ok} skipped={skipped}")
+    print(f"Processed {len(results)} events: ok={ok} skipped={skipped}")
     return results
 
 

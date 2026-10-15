@@ -1,4 +1,4 @@
-"""Fine-tune constants — rights tier classifier."""
+"""Fine-tune constants for the rights tier classifier."""
 
 MODEL_ID = "google/flan-t5-base"
 LABELS = ("cleared", "pending", "denied", "unknown")

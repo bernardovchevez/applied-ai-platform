@@ -26,7 +26,7 @@ def _maybe_log_mlflow(summary: list[dict[str, Any]], *, gold_path: str, artifact
     from ops.mlflow_eval import log_rag_keyword_backend, mlflow_available, tracking_uri
 
     if not mlflow_available():
-        print("MLflow not installed — pip install mlflow")
+        print("MLflow not installed (pip install mlflow)")
         return
     for row in summary:
         run_id = log_rag_keyword_backend(row, artifact_path=artifact_path, gold_path=gold_path)

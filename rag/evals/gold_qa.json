@@ -15,7 +15,7 @@
     "question": "When does Season 2 premiere?",
     "expected_sources": ["press-release-series-renewal.md", "cast-announcement-season2-maya-chen.md", "press-kit-harbor-line-s01.md"],
     "expected_contains": ["March", "2027"],
-    "notes": "Press release / press kit — March 22, 2027"
+    "notes": "Press release / press kit: March 22, 2027"
   },
   {
     "question": "What territories are excluded from the distribution agreement?",
@@ -51,7 +51,7 @@
       "cannot answer",
       "unknown"
     ],
-    "notes": "Guardrail test — should refuse or say not in documents"
+    "notes": "Guardrail test: should refuse or say not in documents"
   },
   {
     "question": "Who is joining Harbor Line Season 2 as a series regular?",
@@ -64,13 +64,13 @@
     "question": "What is the total production budget for Harbor Line Season 2?",
     "expected_sources": ["production-budget-s02-summary.md"],
     "expected_contains_any": ["$38", "38.0", "38 million", "38.0M"],
-    "notes": "Finance budget summary — $38.0M planned"
+    "notes": "Finance budget summary: $38.0M planned"
   },
   {
     "question": "Is the Harbor Line main title cleared for Japan streaming?",
     "expected_sources": ["apac-music-clearance-update.md"],
     "expected_contains_any": ["Japan", "pending", "not cleared", "APAC", "Korea"],
-    "notes": "APAC update — Japan/Korea still pending"
+    "notes": "APAC update: Japan/Korea still pending"
   },
   {
     "question": "How many background talent releases are still outstanding for S01E04?",
@@ -88,7 +88,7 @@
     "question": "What location is locked for Harbor Line S01E07?",
     "expected_sources": ["production-brief-s01e07.md"],
     "expected_contains_any": ["Staten Island Ferry", "ferry"],
-    "notes": "Night shift episode — ferry deck"
+    "notes": "Night shift episode: ferry deck"
   },
   {
     "question": "What are the sponsorship tiers for the Harbor Line Q4 launch package?",
@@ -106,7 +106,7 @@
     "question": "Which East River location was rejected during the 2026 location scout?",
     "expected_sources": ["location-scout-east-river-2026.md"],
     "expected_contains_any": ["Roosevelt Island", "tram"],
-    "notes": "Roosevelt Island tram rejected — insurance declined"
+    "notes": "Roosevelt Island tram rejected: insurance declined"
   },
   {
     "question": "Who received writing credit for Harbor Line S01E04?",
@@ -136,13 +136,13 @@
     "question": "Is the Harbor Line theme song cleared for streaming in China?",
     "expected_sources": ["distribution-agreement-excerpt.md", "apac-music-clearance-update.md"],
     "expected_contains_any": ["China", "excluded", "not cleared", "pending"],
-    "notes": "Hallucination trap — must not claim cleared; China is excluded in distribution agreement"
+    "notes": "Hallucination trap: must not claim cleared; China is excluded in distribution agreement"
   },
   {
     "question": "Did Harbor Line Season 1 premiere on Netflix?",
     "expected_sources": ["press-kit-harbor-line-s01.md"],
     "expected_contains_any": ["Harbor Stream", "March", "2027"],
-    "notes": "Hallucination trap — Season 1 premiered on Harbor Stream (March 15, 2027), not Netflix"
+    "notes": "Hallucination trap: Season 1 premiered on Harbor Stream (March 15, 2027), not Netflix"
   },
   {
     "question": "What is the sync fee paid for the main title theme?",

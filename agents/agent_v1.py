@@ -49,7 +49,7 @@ __all__ = [
     "run_agent",
 ]
 
-from workflow import (  # noqa: E402 — re-exports for eval harness
+from workflow import (  # noqa: E402 - re-exports for eval harness
     answer_contradicts_lookup,
     claims_cleared,
     claims_pending,
@@ -67,7 +67,7 @@ def load_system_prompt() -> str:
         "If clearance is pending, unknown, or confidence is below 0.7, call escalate_legal. "
         "For summary or brief requests, call lookup_rights and search_docs first, then draft_brief "
         "with gathered context before your final answer. "
-        "Your final answer MUST agree with tool results — never contradict search_docs or lookup_rights. "
+        "Your final answer MUST agree with tool results; never contradict search_docs or lookup_rights. "
         "Never answer from general knowledge or training data. "
         "If search_docs says information is not in the documents, repeat that refusal; do not invent an answer. "
         "Cite source document filenames when answering from the corpus."

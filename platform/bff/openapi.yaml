@@ -5,8 +5,8 @@ info:
   description: |
     HTTP presentation layer for the Applied AI Platform.
 
-    **Platform** (this repo — `applied-ai-platform`): pgvector RAG, agents, MCP, data plane.
-    **Clients** (sibling repos): web, mobile, CTV — consume this contract only.
+    **Platform** (this repo, `applied-ai-platform`): pgvector RAG, agents, MCP, data plane.
+    **Clients** (sibling repos): web, mobile, CTV consume this contract only.
   contact:
     name: Applied AI Platform
   license:
@@ -133,10 +133,10 @@ paths:
         Retrieves context from pgvector, streams LLM tokens via Server-Sent Events.
 
         **Event types** (SSE `event:` field):
-        - `token` — partial answer text (`data` is plain string)
-        - `sources` — citation list (JSON array, sent once before or after tokens)
-        - `done` — stream complete (`data` is JSON `ChatDonePayload`)
-        - `error` — terminal error
+        - `token`: partial answer text (`data` is plain string)
+        - `sources`: citation list (JSON array, sent once before or after tokens)
+        - `done`: stream complete (`data` is JSON `ChatDonePayload`)
+        - `error`: terminal error
 
         Web: Vercel AI SDK compatible proxy in sibling `applied-ai-web`.
         Mobile / CTV: same SSE contract; use `format=compact` for shorter answers.
@@ -273,7 +273,7 @@ components:
           schema:
             $ref: "#/components/schemas/ErrorResponse"
     NotImplemented:
-      description: Stub — implementation pending
+      description: Stub (implementation pending)
       content:
         application/json:
           schema:
@@ -299,8 +299,8 @@ components:
       enum: [full, compact]
       default: full
       description: |
-        `compact` — shorter answers for mobile/CTV (max tokens, bullet summary).
-        `full` — default RAG answer with citations.
+        `compact`: shorter answers for mobile/CTV (max tokens, bullet summary).
+        `full`: default RAG answer with citations.
 
     MetadataFilters:
       type: object

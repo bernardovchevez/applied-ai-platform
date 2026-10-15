@@ -1,4 +1,4 @@
-# Rollback Runbook — Applied AI Platform
+# Rollback Runbook: Applied AI Platform
 
 **Purpose:** Undo a prompt, model, agent, or retrieval regression and verify system health against evaluation gates.
 
@@ -22,7 +22,7 @@
 
 ---
 
-## Step 0 — Capture current state (2 min)
+## Step 0: Capture current state (2 min)
 
 Before changing anything, record what is live:
 
@@ -59,7 +59,7 @@ Note the **git commit** and **Langfuse trace** (if keys set) for the failing ses
 
 ---
 
-## Step 1 — Identify last known good (LKG)
+## Step 1: Identify last known good (LKG)
 
 | Layer | LKG source | What to record |
 |-------|------------|----------------|
@@ -77,7 +77,7 @@ Note the **git commit** and **Langfuse trace** (if keys set) for the failing ses
 
 ---
 
-## Step 2 — Rollback by layer
+## Step 2: Rollback by layer
 
 ### A. RAG system prompt (most common)
 
@@ -136,7 +136,7 @@ Restart BFF (agent path loads workflow at request time; restart clears any cache
 # OLLAMA_CHAT_MODEL=llama3.2   ← set to LKG value
 ```
 
-Restart BFF and any standalone eval processes. Re-run evals — model swap can change pass rates without code changes.
+Restart BFF and any standalone eval processes. Re-run evals; model swaps can change pass rates without code changes.
 
 **Prod analog:** Pin model id in deployment manifest; rollback = previous model version in registry.
 
@@ -163,7 +163,7 @@ python rag/ingest_pgvector.py
 ### E. Vector index / corpus (heavy rollback)
 
 **When:** Bad re-ingest, chunking change, corrupted pgvector data  
-**Avoid unless necessary** — slow path.
+**Avoid unless necessary** (slow path).
 
 ```bash
 # Re-ingest from synthetic corpus (pgvector)
@@ -177,17 +177,17 @@ Compare retrieval on one gold question before full eval suite.
 
 ---
 
-## Step 3 — Smoke gate (required after any rollback)
+## Step 3: Smoke gate (required after any rollback)
 
 Run in order; all must pass before calling rollback complete.
 
 ```bash
 cd applied-ai-platform
 
-# 1. RAG keyword — fast hybrid slice (production BFF backend)
+# 1. RAG keyword: fast hybrid slice (production BFF backend)
 python rag/evals/run_eval.py --backend hybrid --limit 5 --no-write
 
-# 2. Agent — known guardrail scenarios
+# 2. Agent: known guardrail scenarios
 python agents/evals/run_agent_eval.py \
   --id out_of_scope_netflix --no-write
 python agents/evals/run_agent_eval.py \
@@ -200,7 +200,7 @@ curl -sN -X POST http://127.0.0.1:8000/v1/chat/stream \
   -d '{"question":"Is the theme song cleared for EMEA streaming?","top_k":4}' \
   | tail -3
 
-# 4. Optional — log clean MLflow point for audit trail
+# 4. Optional: log clean MLflow point for audit trail
 python agents/evals/run_agent_eval.py --mlflow --no-write
 ```
 
@@ -213,7 +213,7 @@ python agents/evals/run_agent_eval.py --mlflow
 
 ---
 
-## Step 4 — Verify observability alignment
+## Step 4: Verify observability alignment
 
 | Check | Action |
 |-------|--------|
@@ -229,7 +229,7 @@ python platform/ops/mlflow_list_runs.py --experiment agent
 
 ---
 
-## Step 5 — Document the incident (1 paragraph)
+## Step 5: Document the incident (1 paragraph)
 
 Record in the team incident log:
 
@@ -241,7 +241,7 @@ Record in the team incident log:
 
 ---
 
-## Quick reference — files that affect answers
+## Quick reference: files that affect answers
 
 | Component | Path |
 |-----------|------|

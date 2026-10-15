@@ -12,7 +12,7 @@ print_links() {
   echo "MLflow UI → http://${HOST}:${PORT}/"
   echo "Store: $DB"
   echo ""
-  echo "MLflow 3 UI (no hash URLs — #/experiments/1 will look empty):"
+  echo "MLflow 3 UI (no hash URLs; #/experiments/1 will look empty):"
   echo "  1. Open http://${HOST}:${PORT}/"
   echo "  2. Sidebar → Model development → Experiments"
   echo "  3. Click media-agent-evals or media-rag-evals"
@@ -41,7 +41,7 @@ if port_in_use; then
   print_links
   echo ""
   if mlflow_responding; then
-    echo "Port ${PORT} is already in use — MLflow UI is running. Use navigation above."
+    echo "Port ${PORT} is already in use; MLflow UI is running. Use navigation above."
   else
     echo "Port ${PORT} is already in use by another process."
     echo "Stop it: lsof -ti :${PORT} | xargs kill"

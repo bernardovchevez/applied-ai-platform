@@ -162,8 +162,8 @@ def run_backend(
     )
 
     metrics = build_metrics(metric_names, llm, embeddings)
-    print(f"Running RAGAS on {len(samples)} questions — metrics: {', '.join(metric_names)}")
-    print("(Local llama3.2 judge may return NaN on some rows — use --limit to smoke-test.)")
+    print(f"Running RAGAS on {len(samples)} questions, metrics: {', '.join(metric_names)}")
+    print("(Local llama3.2 judge may return NaN on some rows; use --limit to smoke-test.)")
 
     t0 = time.perf_counter()
     with warnings.catch_warnings():
@@ -233,19 +233,19 @@ def main() -> None:
         "--backend",
         choices=["chroma", "langchain", "llamaindex", "all"],
         default="chroma",
-        help="RAG pipeline to evaluate (default: chroma — fastest smoke test)",
+        help="RAG pipeline to evaluate (default: chroma, fastest smoke test)",
     )
     parser.add_argument(
         "--metrics",
         default="faithfulness",
         help="Comma-separated: faithfulness, answer_relevancy, context_precision "
-        "(default: faithfulness — most reliable with local Ollama judge)",
+        "(default: faithfulness, most reliable with local Ollama judge)",
     )
     parser.add_argument(
         "--judge",
         choices=["ollama", "openai", "auto"],
         default="auto",
-        help="RAGAS judge LLM (default: auto — openai if key set, else ollama)",
+        help="RAGAS judge LLM (default: auto, openai if key set, else ollama)",
     )
     parser.add_argument("--limit", type=int, default=0, help="Evaluate first N gold questions only")
     parser.add_argument("--verbose", action="store_true", help="Print per-question scores")
@@ -328,7 +328,7 @@ def main() -> None:
         from ops.mlflow_eval import log_ragas_backend, mlflow_available, tracking_uri
 
         if not mlflow_available():
-            print("MLflow not installed — pip install mlflow")
+            print("MLflow not installed (pip install mlflow)")
         else:
             artifact = args.output if not args.no_write else RAGAS_RESULTS_PATH
             for row in summary:

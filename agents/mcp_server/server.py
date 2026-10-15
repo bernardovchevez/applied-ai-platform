@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 """MCP server exposing RAG + workflow agent tools.
 
-Run (stdio — for Cursor / Claude Desktop):
+Run (stdio for IDE / desktop MCP clients):
   python agents/mcp_server/server.py
 
-Run (SSE — local HTTP):
+Run (SSE for local HTTP):
   python agents/mcp_server/server.py --transport sse --port 8765
 """
 
@@ -40,7 +40,7 @@ _TOOL_USE_RULES = (
     "Always call search_docs before answering factual questions. "
     "For territory clearance, call lookup_rights first, then search_docs for detail. "
     "If clearance is pending, unknown, or confidence is below 0.7, call escalate_legal. "
-    "Your answer MUST agree with tool results — never contradict search_docs or lookup_rights. "
+    "Your answer MUST agree with tool results; never contradict search_docs or lookup_rights. "
     "Cite source document filenames when answering from the corpus."
 )
 
@@ -58,7 +58,7 @@ server = MCPServer(
 @server.custom_route("/", methods=["GET"])
 @server.custom_route("/health", methods=["GET"])
 async def health(_request: Request) -> JSONResponse:
-    """Browser-friendly status — MCP protocol is on /sse, not /."""
+    """Browser-friendly status; MCP protocol is on /sse, not /."""
     tools = server._tool_manager.list_tools()
     resources = server._resource_manager.list_resources()
     prompts = server._prompt_manager.list_prompts()
@@ -126,7 +126,7 @@ def mcp_check_ip_flags(series: str, user_message: str) -> str:
 
 @server.tool(
     name="search_web_stub",
-    description="Disabled web search stub — corpus-only mode (returns not configured).",
+    description="Disabled web search stub in corpus-only mode (returns not configured).",
 )
 def mcp_search_web_stub(query: str) -> str:
     """Placeholder for external web research (intentionally disabled)."""
@@ -207,7 +207,7 @@ def legal_escalation_review_prompt(
 def clearance_index_resource() -> str:
     """JSON index of clearance-related documents."""
     if not CORPUS_META.exists():
-        return json.dumps({"error": "sharepoint-meta.json not found — run ingest first"})
+        return json.dumps({"error": "sharepoint-meta.json not found; run ingest first"})
     meta = json.loads(CORPUS_META.read_text(encoding="utf-8"))
     rows = meta.get("documents", meta if isinstance(meta, list) else [])
     clearance_docs = [
@@ -243,7 +243,7 @@ def agent_eval_results_resource() -> str:
 
 
 def smoke_test() -> None:
-    """Print tools/resources/prompts and run one lookup — for terminal verification."""
+    """Print tools/resources/prompts and run one lookup for terminal verification."""
     tools = server._tool_manager.list_tools()
     resources = server._resource_manager.list_resources()
     prompts = server._prompt_manager.list_prompts()
@@ -256,7 +256,7 @@ def smoke_test() -> None:
         f"  lookup_rights('Harbor Line', 'EMEA'): "
         f"status={sample.get('status')} confidence={sample.get('confidence')}"
     )
-    print("OK — use stdio via Cursor MCP, or --transport sse for HTTP.")
+    print("OK: use stdio via an MCP client, or --transport sse for HTTP.")
 
 
 def main() -> None:
@@ -265,7 +265,7 @@ def main() -> None:
         "--transport",
         choices=["stdio", "sse"],
         default="stdio",
-        help="Transport (stdio for Cursor; sse for HTTP clients)",
+        help="Transport (stdio for local MCP clients; sse for HTTP clients)",
     )
     parser.add_argument(
         "--smoke-test",
@@ -284,11 +284,11 @@ def main() -> None:
         base = f"http://{args.host}:{args.port}"
         print(f"MCP SSE server running", flush=True)
         print(f"  Health:  {base}/health", flush=True)
-        print(f"  MCP SSE: {base}/sse  (not {base}/ — use an MCP client)", flush=True)
+        print(f"  MCP SSE: {base}/sse  (not {base}/; use an MCP client)", flush=True)
         server.run(transport="sse", host=args.host, port=args.port)
     else:
         print(
-            "MCP stdio server running — waiting for client on stdin (Cursor MCP).\n"
+            "MCP stdio server running: waiting for client on stdin.\n"
             "This terminal will look idle until a client connects. Ctrl+C to stop.\n"
             "To test without a client: python .../server.py --smoke-test",
             file=sys.stderr,

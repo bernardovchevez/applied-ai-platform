@@ -29,7 +29,7 @@ TERRITORY_ALIASES = {
     "asia pacific": "apac",
 }
 
-# Territories without a dedicated memo file — match territory name in chunk body
+# Territories without a dedicated memo file: match territory name in chunk body
 TEXT_BODY_TERRITORY_MATCH = frozenset({"antarctica"})
 
 # APAC subregions map to APAC clearance memos (Japan/Korea in apac-music-clearance-update.md)
@@ -96,7 +96,7 @@ def search_docs_impl_for_guard(question: str) -> dict:
 
 
 def _search_docs_impl(question: str, top_k: int = 4) -> dict:
-    """RAG search — prefers pgvector, falls back to Chroma."""
+    """RAG search: prefers pgvector, falls back to Chroma."""
     try:
         mod = _load_query_module("rag_pgvector", "query_pgvector.py")
         return mod.answer(question, top_k=top_k)
@@ -247,7 +247,7 @@ def _lookup_rights_vector(series: str, territory: str, territory_key: str) -> di
 
 
 def _lookup_rights_impl(series: str, territory: str) -> dict:
-    """Structured clearance lookup — SQL warehouse rows first, vector fallback."""
+    """Structured clearance lookup: SQL warehouse rows first, vector fallback."""
     store = PgVectorStore()
     territory_key = normalize_territory(territory)
     sql_territories = _territories_for_sql(territory_key, territory)
@@ -296,7 +296,7 @@ IP_REVIEW_PATTERN = re.compile(
 
 
 def search_web_stub_impl(query: str) -> dict:
-    """Web search stub — disabled in corpus-only mode."""
+    """Web search stub: disabled in corpus-only mode."""
     return {
         "status": "disabled",
         "query": query,
@@ -430,7 +430,7 @@ def critic_llm_review_impl(
     search: dict | None,
     deterministic_issues: list[str] | None = None,
 ) -> str | None:
-    """LLM critic note — alignment, citations, launch readiness."""
+    """LLM critic note: alignment, citations, launch readiness."""
     text = (draft or "").strip()
     if not text:
         return None

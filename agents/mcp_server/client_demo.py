@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Thin MCP client demo — list tools/resources/prompts and call lookup_rights.
+"""Thin MCP client demo: list tools/resources/prompts and call lookup_rights.
 
 Spawns the local server over stdio (default) or connects to SSE.
 
@@ -114,7 +114,7 @@ async def _session_demo(
         print(f"\nPrompts ({len(prompts.prompts)}):")
         for p in prompts.prompts:
             title = p.title or p.name
-            print(f"  - {p.name}: {title} — {(p.description or '')[:55]}")
+            print(f"  - {p.name}: {title}: {(p.description or '')[:55]}")
 
         if prompt:
             args = {

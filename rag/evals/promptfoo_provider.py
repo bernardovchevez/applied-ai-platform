@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""promptfoo Python provider — calls RAG backends."""
+"""promptfoo Python provider calling RAG backends."""
 
 from __future__ import annotations
 
@@ -54,7 +54,7 @@ def _get_runner(backend: str):
 
 
 def call_api(prompt, options, context):
-    """promptfoo entrypoint — prompt is {{question}} from config."""
+    """promptfoo entrypoint; prompt is {{question}} from config."""
     config = (options or {}).get("config") or {}
     backend = config.get("backend", "chroma")
     vars_ = (context or {}).get("vars") or {}

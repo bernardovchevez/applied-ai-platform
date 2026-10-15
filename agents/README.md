@@ -59,7 +59,7 @@ python agents/graph.py --checkpoint sqlite
 # Checkpoint pause -> resume walkthrough
 python agents/checkpoint_resume.py full
 
-# MCP server (stdio for Cursor/Claude; SSE for HTTP clients)
+# MCP server (stdio for local MCP clients; SSE for HTTP clients)
 python agents/mcp_server/server.py --smoke-test
 python agents/mcp_server/client_demo.py
 python agents/mcp_server/server.py --transport sse --port 8765

@@ -43,9 +43,9 @@ Each path maintains its own index directory so they can run side-by-side without
 
 - **Adapter interface:** `stores/base.py` (`VectorStore`, `ChunkHit`)
 - **Corpus loader:** `stores/corpus.py` merges `sharepoint-meta.json` (`doc_type`, `confidentiality`, derived `rights_tier`)
-- **Postgres `pgvector` store:** `stores/pgvector.py` — `documents` + `document_chunks` tables, HNSW cosine index, metadata-filtered search with SQL join
-- **Pinecone store:** `stores/pinecone.py` — serverless index, metadata filters, auto-create index
-- **Hybrid BM25 + vector:** `stores/hybrid.py` — `BM25Okapi` + reciprocal rank fusion (RRF) with dense vector hits (`query_hybrid.py`)
+- **Postgres `pgvector` store:** `stores/pgvector.py` (`documents` + `document_chunks` tables, HNSW cosine index, metadata-filtered search with SQL join)
+- **Pinecone store:** `stores/pinecone.py` (serverless index, metadata filters, auto-create index)
+- **Hybrid BM25 + vector:** `stores/hybrid.py` (`BM25Okapi` + reciprocal rank fusion (RRF) with dense vector hits in `query_hybrid.py`)
 
 ## Data lake & incremental ingest
 

@@ -27,7 +27,7 @@
 
 # COMMAND ----------
 
-# Upload paths — adjust after copying from data/lake/databricks/
+# Upload paths: adjust after copying from data/lake/databricks/
 PARQUET_PATH = "/FileStore/applied_ai/gold_document_embeddings.parquet"
 QUERY_VECTORS_PATH = "/FileStore/applied_ai/query_vectors.json"
 
@@ -103,7 +103,7 @@ except Exception as exc:
     else:
         raise
 
-# Delta Sync index — source of truth is the gold Delta table
+# Delta Sync index: source of truth is the gold Delta table
 try:
     vsc.create_delta_sync_index(
         endpoint_name=ENDPOINT_NAME,
@@ -117,7 +117,7 @@ try:
     print(f"Created index {INDEX_NAME}")
 except Exception as exc:
     if "already exists" in str(exc).lower() or "RESOURCE_ALREADY_EXISTS" in str(exc):
-        print(f"Index {INDEX_NAME} already exists — triggering sync")
+        print(f"Index {INDEX_NAME} already exists; triggering sync")
         index = vsc.get_index(endpoint_name=ENDPOINT_NAME, index_name=INDEX_NAME)
         index.sync()
     else:
@@ -147,7 +147,7 @@ for attempt in range(30):
         break
     time.sleep(10)
 else:
-    print("Index may still be syncing — try re-running this cell.")
+    print("Index may still be syncing; try re-running this cell.")
 
 query_payload = json.loads(
     dbutils.fs.head(QUERY_VECTORS_PATH)  # noqa: F821

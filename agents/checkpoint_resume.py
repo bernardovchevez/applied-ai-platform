@@ -1,14 +1,14 @@
 #!/usr/bin/env python3
-"""Checkpoint resume CLI — pause at human approval, then resume later.
+"""Checkpoint resume CLI: pause at human approval, then resume later.
 
 Simulates a producer closing the terminal at the approval gate and resuming
 from SQLite the next day with the same thread-id.
 
 Usage:
-  # Step 1 — run until interrupt (fast: --no-react inside)
+  # Step 1: run until interrupt (fast: --no-react inside)
   python agents/checkpoint_resume.py start
 
-  # Step 2 — resume (separate shell / later session)
+  # Step 2: resume (separate shell / later session)
   python agents/checkpoint_resume.py resume
 
   # Or one-shot walkthrough (start + resume)
@@ -103,9 +103,9 @@ def cmd_resume(*, decision: str) -> None:
 
     snapshot = get_thread_snapshot(thread_id)
     if snapshot and snapshot.next:
-        print(f"Loaded checkpoint — next node(s): {snapshot.next}\n")
+        print(f"Loaded checkpoint, next node(s): {snapshot.next}\n")
     elif snapshot and snapshot.values:
-        print("Thread already completed — showing final output:\n")
+        print("Thread already completed, showing final output:\n")
         from graph import state_to_agent_result
 
         print(state_to_agent_result(snapshot.values).full_output)
@@ -123,7 +123,7 @@ def cmd_full(prompt: str, *, use_react: bool, decision: str) -> None:
     thread_id = cmd_start(prompt, use_react=use_react)
     print("\n" + "=" * 60 + "\n")
     cmd_resume(decision=decision)
-    print(f"\n✓ Demo complete — thread {thread_id} resumed from {CHECKPOINT_PATH}")
+    print(f"\n✓ Demo complete: thread {thread_id} resumed from {CHECKPOINT_PATH}")
 
 
 def main() -> None:

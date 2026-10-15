@@ -1,4 +1,4 @@
-"""Pinecone store — managed serverless vectors with metadata filters."""
+"""Pinecone store: managed serverless vectors with metadata filters."""
 
 from __future__ import annotations
 
@@ -129,7 +129,7 @@ class PineconeStore(VectorStore):
         try:
             index.delete(delete_all=True, namespace=self.namespace)
         except NotFoundError:
-            # Fresh index — namespace does not exist until first upsert
+            # Fresh index; namespace does not exist until first upsert
             pass
 
     def ingest(self, data_dir: Path | None = None, reset: bool = True) -> IngestStats:

@@ -309,7 +309,7 @@ def format_clearance_answer(lookup: dict) -> str:
 
     if status == "excluded":
         return (
-            f"**{series}** is **not cleared** for **{territory}** — territory is **excluded** "
+            f"**{series}** is **not cleared** for **{territory}**: territory is **excluded** "
             f"per distribution agreement (confidence {confidence}). Sources: {src}."
         )
     if status == "cleared":
@@ -323,7 +323,7 @@ def format_clearance_answer(lookup: dict) -> str:
             f"(confidence {confidence}). Do not launch until legal confirms. Sources: {src}."
         )
     return (
-        f"Clearance for **{series}** in **{territory}** is **unknown** — no territory-specific memo "
+        f"Clearance for **{series}** in **{territory}** is **unknown**: no territory-specific memo "
         f"(confidence {confidence}). Escalate to legal before distribution."
     )
 
@@ -368,7 +368,7 @@ def _escalation_reason(lookup: dict) -> str:
     status = lookup.get("status", "unknown")
     return (
         f"{series} clearance in {territory} is {status} "
-        f"(confidence {lookup.get('confidence')}) — below threshold {CONFIDENCE_THRESHOLD}"
+        f"(confidence {lookup.get('confidence')}), below threshold {CONFIDENCE_THRESHOLD}"
     )
 
 
@@ -463,7 +463,7 @@ def format_assessment_footer(result: AgentResult) -> str:
                 "---",
                 "**Scope assessment (search_docs)**",
                 "- **In corpus:** no",
-                "- **Action:** refused — question outside internal document scope",
+                "- **Action:** refused (question outside internal document scope)",
             ]
             if sources:
                 lines.append(f"- **Retrieved (unrelated):** {', '.join(sources[:4])}")
@@ -471,7 +471,7 @@ def format_assessment_footer(result: AgentResult) -> str:
                 lines.append("- **Grounding guard:** replaced hallucinated answer with tool refusal")
             return "\n".join(lines)
         return (
-            "**Clearance assessment:** lookup_rights was not called — "
+            "**Clearance assessment:** lookup_rights was not called; "
             "no confidence score available. Re-run or ask a territory-specific clearance question."
         )
 
@@ -534,5 +534,5 @@ def human_approval_gate(output: str, auto_approve: bool) -> str | None:
     decision = input("\nApprove and send? [y/N]: ").strip().lower()
     if decision == "y":
         return output
-    print("Output withheld — pending human revision or re-run.")
+    print("Output withheld: pending human revision or re-run.")
     return None

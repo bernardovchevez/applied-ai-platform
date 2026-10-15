@@ -55,7 +55,7 @@ if __name__ == "__main__":
         app = Path("/Applications/Ollama.app")
         if app.exists():
             subprocess.run(["open", "-a", "Ollama"], check=False)
-            print("Launched Ollama.app — wait a few seconds and re-run check.")
+            print("Launched Ollama.app; wait a few seconds and re-run check.")
         else:
             print("Ollama.app not found in /Applications. Download from https://ollama.com/download/mac")
         sys.exit(0)

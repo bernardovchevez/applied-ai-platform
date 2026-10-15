@@ -11,7 +11,7 @@
 #   PROMPTFOO_PYTHON=../../.venv/bin/python npx promptfoo@latest eval
 #   PROMPTFOO_PYTHON=../../.venv/bin/python npx promptfoo@latest view
 
-description: Harbor Line RAG — gold Q&A regression
+description: Harbor Line RAG gold Q&A regression
 
 prompts:
   - "{{question}}"

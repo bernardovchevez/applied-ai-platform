@@ -2,8 +2,6 @@
 
 from __future__ import annotations
 
-from chromadb.utils.embedding_functions import OpenAIEmbeddingFunction
-
 from shared.config import get_env, is_local, require_env
 from shared.ollama_client import OllamaEmbeddingFunction, embed_model as ollama_embed_model
 from shared.ollama_client import is_available as ollama_available
@@ -39,10 +37,24 @@ def get_embedding_function():
             )
         return OllamaEmbeddingFunction()
     require_env("OPENAI_API_KEY")
-    return OpenAIEmbeddingFunction(
-        api_key=get_env("OPENAI_API_KEY"),
-        model_name=get_env("EMBEDDING_MODEL", "text-embedding-3-small"),
-    )
+    model_name = get_env("EMBEDDING_MODEL", "text-embedding-3-small")
+    try:
+        from chromadb.utils.embedding_functions import OpenAIEmbeddingFunction
+
+        return OpenAIEmbeddingFunction(
+            api_key=get_env("OPENAI_API_KEY"),
+            model_name=model_name,
+        )
+    except ImportError:
+        from openai import OpenAI
+
+        client = OpenAI(api_key=get_env("OPENAI_API_KEY"))
+
+        def _openai_embed(texts: list[str]) -> list[list[float]]:
+            resp = client.embeddings.create(model=model_name, input=texts)
+            return [item.embedding for item in resp.data]
+
+        return _openai_embed
 
 
 # Known dimensions for pgvector schema

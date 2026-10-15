@@ -13,9 +13,9 @@ WORKDIR /app
 RUN apt-get update && apt-get install -y --no-install-recommends \
     libpq5 curl && rm -rf /var/lib/apt/lists/*
 
-COPY requirements.txt ./
+COPY platform/bff/requirements-bff.txt ./requirements-bff.txt
 RUN pip install --no-cache-dir --upgrade pip && \
-    pip install --no-cache-dir -r requirements.txt
+    pip install --no-cache-dir -r requirements-bff.txt
 
 COPY shared/ ./shared/
 COPY stores/ ./stores/

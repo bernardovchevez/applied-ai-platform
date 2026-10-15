@@ -1,4 +1,4 @@
-"""pgvector store — vectors in Postgres alongside relational document metadata."""
+"""pgvector store: vectors in Postgres alongside relational document metadata."""
 
 from __future__ import annotations
 

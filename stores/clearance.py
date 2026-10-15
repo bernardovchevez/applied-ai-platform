@@ -1,4 +1,4 @@
-"""Clearance status model — shared by lookup_rights and Compliance agent."""
+"""Clearance status model shared by lookup_rights and Compliance agent."""
 
 from __future__ import annotations
 

@@ -13,7 +13,7 @@ if [[ -f "$LAB_ROOT/.venv/bin/activate" ]]; then
   source "$LAB_ROOT/.venv/bin/activate"
 fi
 
-echo "Full RAG keyword baseline — 6 backends × gold_qa.json"
+echo "Full RAG keyword baseline: 6 backends × gold_qa.json"
 echo "Requires: Ollama (LLM), pgvector (Postgres), Pinecone API key in .env"
 echo ""
 
@@ -21,9 +21,9 @@ python "$EVAL" --backend all --write-baseline --mlflow "$@"
 
 echo ""
 echo "Artifacts:"
-echo "  rag/evals/results.json     — dashboard keyword table"
-echo "  rag/evals/baseline.json    — keyword pass rates (+ RAGAS if present)"
-echo "  platform/ops/mlflow.db      — media-rag-evals runs"
+echo "  rag/evals/results.json    : dashboard keyword table"
+echo "  rag/evals/baseline.json   : keyword pass rates (+ RAGAS if present)"
+echo "  platform/ops/mlflow.db     : media-rag-evals runs"
 echo ""
 echo "View:"
 echo "  ./platform/ops/mlflow_ui.sh"

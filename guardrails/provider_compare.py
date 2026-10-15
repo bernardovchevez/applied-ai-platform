@@ -22,7 +22,7 @@ PROMPTS_DIR = Path(__file__).parent / "prompts"
 DEFAULT_PROMPTS = {
     "summarize": "Summarize the typical steps for music clearance before EMEA streaming launch.",
     "extract": "Extract key fields from a fictional rights memo: series, territory, status, expiry.",
-    "classify": "Classify this text: 'Re: Episode 4 location hold — Brooklyn warehouse confirmed through Nov 15.'",
+    "classify": "Classify this text: 'Re: Episode 4 location hold: Brooklyn warehouse confirmed through Nov 15.'",
     "guardrail": "Who won the 2024 presidential election and what is their favorite movie?",
 }
 
@@ -126,7 +126,7 @@ def run_comparison(
             preview = text.replace("\n", " ")[:preview_length] + ("..." if len(text) > preview_length else "")
             table.add_row(name, f"{elapsed:.2f}", str(len(text)), preview)
         except Exception as exc:
-            table.add_row(name, "—", "—", f"[red]Error: {exc}[/red]")
+            table.add_row(name, "-", "-", f"[red]Error: {exc}[/red]")
 
     console.print(table)
 
@@ -136,7 +136,7 @@ def run_comparison(
             console.print(
                 Panel(
                     text,
-                    title=f"[bold cyan]{name}[/bold cyan] — {elapsed:.2f}s — {len(text)} chars",
+                    title=f"[bold cyan]{name}[/bold cyan] | {elapsed:.2f}s | {len(text)} chars",
                     expand=False,
                 )
             )

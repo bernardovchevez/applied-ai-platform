@@ -58,7 +58,7 @@ def load_system_prompt() -> str:
         "If clearance is pending, unknown, or confidence is below 0.7, call escalate_legal. "
         "For summary or brief requests, call lookup_rights and search_docs first, then draft_brief "
         "with gathered context before your final answer. "
-        "Your final answer MUST agree with tool results — never contradict search_docs or lookup_rights. "
+        "Your final answer MUST agree with tool results; never contradict search_docs or lookup_rights. "
         "Never answer from general knowledge or training data. "
         "If search_docs says information is not in the documents, repeat that refusal; do not invent an answer. "
         "Cite source document filenames when answering from the corpus."
@@ -147,7 +147,7 @@ def run_agent(
 
 def main() -> None:
     parser = argparse.ArgumentParser(
-        description="ReAct agent — tools via MCP (langchain-mcp-adapters)"
+        description="ReAct agent with tools via MCP (langchain-mcp-adapters)"
     )
     parser.add_argument(
         "prompt",

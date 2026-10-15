@@ -1,6 +1,6 @@
 """MLflow experiment logging for platform eval runs.
 
-Optional — pass --mlflow to eval scripts or set MLFLOW_TRACKING_URI in .env.
+Optional: pass --mlflow to eval scripts or set MLFLOW_TRACKING_URI in .env.
 Default tracking store: platform/ops/mlflow_runs/
 """
 
@@ -52,7 +52,7 @@ def eval_run(
 ) -> Iterator[Any]:
     """Context manager wrapping mlflow.start_run. No-op if mlflow is not installed."""
     if not mlflow_available():
-        logger.warning("mlflow not installed — skip logging (pip install mlflow)")
+        logger.warning("mlflow not installed; skip logging (pip install mlflow)")
         yield None
         return
 
