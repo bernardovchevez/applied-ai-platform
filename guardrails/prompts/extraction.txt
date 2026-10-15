@@ -1,0 +1,5 @@
+Extract structured fields from the document excerpt.
+Return JSON with keys: doc_type, series_title, episode, territories, clearance_status, effective_date, notes.
+
+Document:
+{text}

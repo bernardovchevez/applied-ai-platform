@@ -1,0 +1,8 @@
+Review the draft response below. Remove any claims not supported by the cited sources.
+Flag speculative language. Return only the cleaned response.
+
+Draft:
+{draft}
+
+Sources:
+{sources}

@@ -1,0 +1,10 @@
+# LoRA rights tier classifier (install on top of applied-ai-platform venv)
+# pip install -r requirements-finetune.txt
+
+torch>=2.0.0
+transformers>=4.40.0
+peft>=0.13.0
+datasets>=2.19.0
+accelerate>=0.30.0
+scikit-learn>=1.4.0
+sentencepiece>=0.2.0

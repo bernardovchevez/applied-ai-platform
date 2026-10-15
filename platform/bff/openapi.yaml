@@ -1,0 +1,622 @@
+openapi: 3.1.0
+info:
+  title: Media Ops Applied AI Platform BFF
+  version: 0.1.0
+  description: |
+    HTTP presentation layer for the Applied AI Platform.
+
+    **Platform** (this repo — `applied-ai-platform`): pgvector RAG, agents, MCP, data plane.
+    **Clients** (sibling repos): web, mobile, CTV — consume this contract only.
+  contact:
+    name: Applied AI Platform
+  license:
+    name: MIT
+
+servers:
+  - url: http://localhost:8000
+    description: Local BFF (uvicorn)
+  - url: https://api.example-media.com/ai/v1
+    description: Production placeholder
+
+tags:
+  - name: system
+    description: Health and version pins
+  - name: chat
+    description: Streaming RAG
+  - name: retrieval
+    description: Retrieve-only (no LLM) for client-side generation
+  - name: feedback
+    description: Human-in-the-loop ratings (SQLite)
+  - name: evals
+    description: Read-only eval summaries (gold set)
+  - name: agent
+    description: Multi-step agent workflow
+
+paths:
+  /health:
+    get:
+      tags: [system]
+      operationId: getHealth
+      summary: Liveness and dependency check
+      responses:
+        "200":
+          description: All dependencies healthy
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HealthResponse"
+              example:
+                status: ok
+                version: "0.1.0"
+                pgvector:
+                  status: ok
+                  chunk_count: 81
+                  document_count: 27
+                llm:
+                  provider: ollama
+                  status: ok
+        "503":
+          description: One or more dependencies unreachable
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HealthResponse"
+              example:
+                status: degraded
+                version: "0.1.0"
+                pgvector:
+                  status: unreachable
+                  error: connection refused
+                llm:
+                  provider: ollama
+                  status: ok
+
+  /v1/version:
+    get:
+      tags: [system]
+      operationId: getVersion
+      summary: Prompt and index version pins (rollback / audit)
+      responses:
+        "200":
+          description: Active version metadata
+          headers:
+            X-Prompt-Version:
+              schema:
+                type: string
+              description: Hash or semver of active system prompt
+            X-Embed-Model:
+              schema:
+                type: string
+              example: ollama-nomic-embed-text-768
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/VersionResponse"
+
+  /v1/retrieve:
+    post:
+      tags: [retrieval]
+      operationId: retrieve
+      summary: Semantic search over pgvector (no LLM)
+      description: |
+        Returns ranked chunks + sources. Use when the client runs its own LLM
+        (e.g. on-device) or for CTV voice pipelines that only need context snippets.
+      parameters:
+        - $ref: "#/components/parameters/ClientPlatform"
+        - $ref: "#/components/parameters/SessionId"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RetrieveRequest"
+      responses:
+        "200":
+          description: Ranked chunks
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RetrieveResponse"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "503":
+          $ref: "#/components/responses/ServiceUnavailable"
+
+  /v1/chat/stream:
+    post:
+      tags: [chat]
+      operationId: chatStream
+      summary: Streaming RAG chat (SSE)
+      description: |
+        Retrieves context from pgvector, streams LLM tokens via Server-Sent Events.
+
+        **Event types** (SSE `event:` field):
+        - `token` — partial answer text (`data` is plain string)
+        - `sources` — citation list (JSON array, sent once before or after tokens)
+        - `done` — stream complete (`data` is JSON `ChatDonePayload`)
+        - `error` — terminal error
+
+        Web: Vercel AI SDK compatible proxy in sibling `applied-ai-web`.
+        Mobile / CTV: same SSE contract; use `format=compact` for shorter answers.
+      parameters:
+        - $ref: "#/components/parameters/ClientPlatform"
+        - $ref: "#/components/parameters/SessionId"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ChatRequest"
+      responses:
+        "200":
+          description: SSE stream
+          content:
+            text/event-stream:
+              schema:
+                type: string
+                example: |
+                  event: sources
+                  data: [{"file_name":"music-clearance-emea.md","doc_type":"rights_clearance"}]
+
+                  event: token
+                  data: Cleared
+
+                  event: done
+                  data: {"session_id":"...","provider":"ollama","latency_ms":1200}
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "501":
+          $ref: "#/components/responses/NotImplemented"
+
+  /v1/feedback:
+    post:
+      tags: [feedback]
+      operationId: submitFeedback
+      summary: Record thumbs or approve/reject
+      description: |
+        Persists to SQLite (`web/data/feedback.db` or BFF-configured path).
+        Export to MLflow / Langfuse for prompt iteration metrics.
+      parameters:
+        - $ref: "#/components/parameters/ClientPlatform"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/FeedbackRequest"
+      responses:
+        "201":
+          description: Feedback stored
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/FeedbackResponse"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "501":
+          $ref: "#/components/responses/NotImplemented"
+
+  /v1/evals/summary:
+    get:
+      tags: [evals]
+      operationId: getEvalsSummary
+      summary: Read-only gold eval scores (admin dashboards)
+      description: Parses `rag/evals/results.json` and promptfoo summary.
+      responses:
+        "200":
+          description: Eval summary
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/EvalSummaryResponse"
+        "501":
+          $ref: "#/components/responses/NotImplemented"
+
+  /v1/agent/run:
+    post:
+      tags: [agent]
+      operationId: runAgent
+      summary: Run clearance agent workflow
+      description: |
+        Invokes LangGraph agent or MCP-backed flow. Returns draft + tool trace.
+        Human approval gate may return `202` with `thread_id` for resume.
+      parameters:
+        - $ref: "#/components/parameters/ClientPlatform"
+        - $ref: "#/components/parameters/SessionId"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AgentRunRequest"
+      responses:
+        "200":
+          description: Completed run
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AgentRunResponse"
+        "202":
+          description: Paused for human approval
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AgentPausedResponse"
+        "501":
+          $ref: "#/components/responses/NotImplemented"
+
+components:
+  parameters:
+    ClientPlatform:
+      name: X-Client-Platform
+      in: header
+      required: false
+      schema:
+        $ref: "#/components/schemas/ClientPlatform"
+      description: Identifies calling client for analytics and response shaping
+    SessionId:
+      name: X-Session-Id
+      in: header
+      required: false
+      schema:
+        type: string
+        format: uuid
+      description: Correlates chat, feedback, and traces
+
+  responses:
+    BadRequest:
+      description: Invalid request
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ErrorResponse"
+    NotImplemented:
+      description: Stub — implementation pending
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ErrorResponse"
+          example:
+            error: not_implemented
+            message: See platform/bff/README.md
+    ServiceUnavailable:
+      description: Upstream dependency down (pgvector, Ollama)
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ErrorResponse"
+
+  schemas:
+    ClientPlatform:
+      type: string
+      enum: [web, ios, android, ctv, mcp, internal]
+      default: web
+
+    ResponseFormat:
+      type: string
+      enum: [full, compact]
+      default: full
+      description: |
+        `compact` — shorter answers for mobile/CTV (max tokens, bullet summary).
+        `full` — default RAG answer with citations.
+
+    MetadataFilters:
+      type: object
+      properties:
+        doc_type:
+          type: string
+          example: rights_clearance
+        confidentiality:
+          type: string
+          example: internal
+        rights_tier:
+          type: string
+          enum: [cleared, pending, denied, excluded, unknown]
+        department:
+          type: string
+          example: legal
+
+    SourceCitation:
+      type: object
+      required: [file_name]
+      properties:
+        file_name:
+          type: string
+          example: music-clearance-emea.md
+        doc_type:
+          type: string
+        rights_tier:
+          type: string
+        sharepoint_path:
+          type: string
+        chunk_index:
+          type: integer
+        distance:
+          type: number
+          format: float
+          description: Cosine distance (lower = closer)
+
+    ChunkHit:
+      type: object
+      required: [chunk_id, text, source]
+      properties:
+        chunk_id:
+          type: string
+        text:
+          type: string
+        source:
+          $ref: "#/components/schemas/SourceCitation"
+
+    RetrieveRequest:
+      type: object
+      required: [question]
+      properties:
+        question:
+          type: string
+          minLength: 1
+          example: Is the theme song cleared for EMEA streaming?
+        top_k:
+          type: integer
+          minimum: 1
+          maximum: 20
+          default: 4
+        filters:
+          $ref: "#/components/schemas/MetadataFilters"
+
+    RetrieveResponse:
+      type: object
+      required: [question, chunks, sources]
+      properties:
+        question:
+          type: string
+        chunks:
+          type: array
+          items:
+            $ref: "#/components/schemas/ChunkHit"
+        sources:
+          type: array
+          items:
+            $ref: "#/components/schemas/SourceCitation"
+
+    ChatRequest:
+      type: object
+      required: [question]
+      properties:
+        question:
+          type: string
+          minLength: 1
+        top_k:
+          type: integer
+          default: 4
+        filters:
+          $ref: "#/components/schemas/MetadataFilters"
+        format:
+          $ref: "#/components/schemas/ResponseFormat"
+
+    ChatDonePayload:
+      type: object
+      properties:
+        session_id:
+          type: string
+          format: uuid
+        provider:
+          type: string
+          example: ollama
+        latency_ms:
+          type: integer
+        prompt_version:
+          type: string
+
+    FeedbackRating:
+      type: string
+      enum: [up, down, approve, reject]
+
+    FeedbackRequest:
+      type: object
+      required: [session_id, prompt, response, rating]
+      properties:
+        session_id:
+          type: string
+          format: uuid
+        prompt:
+          type: string
+        response:
+          type: string
+        rating:
+          $ref: "#/components/schemas/FeedbackRating"
+        sources:
+          type: array
+          items:
+            $ref: "#/components/schemas/SourceCitation"
+        comment:
+          type: string
+          maxLength: 2000
+
+    FeedbackResponse:
+      type: object
+      required: [id, created_at]
+      properties:
+        id:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+
+    HealthResponse:
+      type: object
+      required: [status, version, pgvector, llm]
+      properties:
+        status:
+          type: string
+          enum: [ok, degraded]
+        version:
+          type: string
+          example: 0.1.0
+        pgvector:
+          $ref: "#/components/schemas/PgvectorHealth"
+        llm:
+          $ref: "#/components/schemas/LlmHealth"
+
+    PgvectorHealth:
+      oneOf:
+        - $ref: "#/components/schemas/PgvectorHealthOk"
+        - $ref: "#/components/schemas/PgvectorHealthFailed"
+      discriminator:
+        propertyName: status
+        mapping:
+          ok: "#/components/schemas/PgvectorHealthOk"
+          unreachable: "#/components/schemas/PgvectorHealthFailed"
+
+    PgvectorHealthOk:
+      type: object
+      required: [status, chunk_count, document_count]
+      properties:
+        status:
+          type: string
+          enum: [ok]
+        chunk_count:
+          type: integer
+        document_count:
+          type: integer
+
+    PgvectorHealthFailed:
+      type: object
+      required: [status, error]
+      properties:
+        status:
+          type: string
+          enum: [unreachable]
+        error:
+          type: string
+
+    LlmHealth:
+      oneOf:
+        - $ref: "#/components/schemas/LlmHealthOk"
+        - $ref: "#/components/schemas/LlmHealthFailed"
+      discriminator:
+        propertyName: status
+        mapping:
+          ok: "#/components/schemas/LlmHealthOk"
+          unreachable: "#/components/schemas/LlmHealthFailed"
+
+    LlmHealthOk:
+      type: object
+      required: [provider, status]
+      properties:
+        provider:
+          type: string
+          example: ollama
+        status:
+          type: string
+          enum: [ok]
+
+    LlmHealthFailed:
+      type: object
+      required: [provider, status, error]
+      properties:
+        provider:
+          type: string
+          example: ollama
+        status:
+          type: string
+          enum: [unreachable]
+        error:
+          type: string
+
+    VersionResponse:
+      type: object
+      properties:
+        api_version:
+          type: string
+        prompt_version:
+          type: string
+        embed_model:
+          type: string
+        index_document_count:
+          type: integer
+
+    EvalBackendScore:
+      type: object
+      properties:
+        backend:
+          type: string
+        passed:
+          type: integer
+        total:
+          type: integer
+        note:
+          type: string
+
+    EvalSummaryResponse:
+      type: object
+      properties:
+        gold_questions:
+          type: integer
+          example: 23
+        keyword_eval:
+          type: array
+          items:
+            $ref: "#/components/schemas/EvalBackendScore"
+        promptfoo:
+          type: object
+          properties:
+            passed:
+              type: integer
+            total:
+              type: integer
+
+    AgentRunRequest:
+      type: object
+      properties:
+        prompt:
+          type: string
+          example: Prepare clearance summary for Harbor Line S01E04 EMEA launch
+        auto_approve:
+          type: boolean
+          default: false
+        thread_id:
+          type: string
+          description: Resume a paused session (use with resume)
+        resume:
+          type: string
+          enum: [approve, reject]
+          description: Approve or reject a paused agent run
+
+    AgentRunResponse:
+      type: object
+      properties:
+        answer:
+          type: string
+        sources:
+          type: array
+          items:
+            $ref: "#/components/schemas/SourceCitation"
+        tool_trace:
+          type: array
+          items:
+            type: object
+            additionalProperties: true
+
+    AgentPausedResponse:
+      type: object
+      properties:
+        thread_id:
+          type: string
+        message:
+          type: string
+          example: Human approval required
+        proposed_output:
+          type: string
+          description: Agent draft awaiting approval
+        prompt:
+          type: string
+          description: Original user prompt for the paused run
+
+    ErrorResponse:
+      type: object
+      required: [error, message]
+      properties:
+        error:
+          type: string
+        message:
+          type: string

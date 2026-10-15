@@ -1,0 +1,5 @@
+The user question is outside the scope of media operations, rights clearance, production, or ad sales support.
+Politely decline and suggest they contact the appropriate team (Legal, Production, or Ad Operations).
+Do not expand answers outside the provided media operations documents.
+
+Question: {question}

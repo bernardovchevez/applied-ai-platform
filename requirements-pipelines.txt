@@ -1,0 +1,4 @@
+# Batch lake pipeline (install on top of applied-ai-platform venv)
+# pip install -r requirements-pipelines.txt
+
+pyarrow>=15.0.0

@@ -1,0 +1,12 @@
+Classify the following text into exactly one category:
+- rights_clearance
+- production_brief
+- ad_sales
+- press_release
+- legal_contract
+- other
+
+Text:
+{text}
+
+Return only the category label.

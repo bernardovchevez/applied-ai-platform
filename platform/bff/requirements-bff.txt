@@ -1,0 +1,11 @@
+# BFF dependencies — also included in applied-ai-platform/requirements.txt
+# One-time install from this directory:
+#   pip install -r requirements-bff.txt
+# Or from applied-ai-platform root:
+#   pip install -r platform/bff/requirements-bff.txt
+
+fastapi>=0.115.0
+uvicorn[standard]>=0.32.0
+pyyaml>=6.0.0
+sse-starlette>=2.0.0
+langfuse>=2.0.0

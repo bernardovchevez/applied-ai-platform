@@ -1,0 +1,45 @@
+# yaml-language-server: $schema=https://promptfoo.dev/config-schema.json
+# promptfoo regression tests for RAG (gold_qa.json)
+#
+# Prerequisites:
+#   - Node.js 18+ (for npx)
+#   - Ollama running; indexes built (ingest.py / --reindex)
+#   - From applied-ai-platform/: export PROMPTFOO_PYTHON=.venv/bin/python
+#
+# Run:
+#   cd applied-ai-platform/rag/evals
+#   PROMPTFOO_PYTHON=../../.venv/bin/python npx promptfoo@latest eval
+#   PROMPTFOO_PYTHON=../../.venv/bin/python npx promptfoo@latest view
+
+description: Harbor Line RAG — gold Q&A regression
+
+prompts:
+  - "{{question}}"
+
+providers:
+  - id: file://promptfoo_provider.py
+    label: chroma-rag
+    config:
+      backend: chroma
+      pythonExecutable: ../../.venv/bin/python
+
+  - id: file://promptfoo_provider.py
+    label: langchain-rag
+    config:
+      backend: langchain
+      pythonExecutable: ../../.venv/bin/python
+
+  - id: file://promptfoo_provider.py
+    label: llamaindex-rag
+    config:
+      backend: llamaindex
+      pythonExecutable: ../../.venv/bin/python
+
+defaultTest:
+  assert:
+    - type: python
+      value: file://promptfoo_assert.py:check
+
+tests: file://generate_promptfoo_tests.py:generate_tests
+
+outputPath: promptfoo-results.json

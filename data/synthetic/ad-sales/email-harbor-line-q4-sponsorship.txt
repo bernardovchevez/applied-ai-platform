@@ -1,0 +1,20 @@
+From: brand-partnerships@example-media.com
+To: adops-northeast@example-media.com; prod-harborline@example-media.com
+Subject: RE: Q4 Harbor Line launch — presenting sponsor hold
+Date: Fri, 11 Jul 2026 16:40:00 -0400
+
+Ad Ops,
+
+Quick update on Q4 Harbor Line premiere package (see sponsorship-deck-harbor-line-q4.md):
+
+1. Harbor Brew Co. has a **72-hour hold** on Presenting tier ($650K) pending Season 2 product placement talks.
+2. If they decline, slot goes to national scatter at CPM floor $38.50 — same as Riverdale Docs Q3 policy.
+3. Anchor automotive deal in legal redlines — cannot announce until Aug 2026 earliest.
+
+Please do not commit incremental AVOD inventory for Harbor Line in October until Brand Partnerships releases the avails hold.
+
+Harbor Line Ep 4 coffee placement is cleared for Season 1 only — do not imply S2 integration in sponsor creative.
+
+Thanks,
+M. Torres
+Brand Partnerships

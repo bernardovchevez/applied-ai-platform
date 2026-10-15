@@ -1,0 +1,26 @@
+From: post-supervisor@example-media.com
+To: prod-harborline@example-media.com; color@example-media.com
+Subject: Color notes — Harbor Line S01E04 "The Warehouse"
+Date: Mon, 21 Jul 2026 09:15:00 -0400
+
+Team,
+
+Color session for Ep 4 locked picture completed July 19. Summary for editorial and producers:
+
+LOOK TARGET
+- Interior warehouse: cool shadows, warm tungsten accents on practicals
+- Pier exteriors (Red Hook): neutral daylight; push contrast +8% vs S01E03 for continuity
+
+SCENE-SPECIFIC
+- Scene 4A (cold open flashback — 1987 strike footage): desaturate 15%; add slight grain to match Getty archival
+- Scene 4C (coffee brand placement): **do not** grade logo warmer — brand legal requires color fidelity per product-placement-coffee-brand.md
+- Scene 4F (warehouse confrontation): leave headroom for VFX rain on windows in final composite
+
+TECHNICAL
+- Deliverables: ProRes 4444 + H.264 review copies
+- HDR pass: not required for Season 1 domestic; **required** for EMEA tier-1 SVOD (see deliverables checklist)
+
+Archival clip clearance now cleared — safe to finalize flashback grade.
+
+— Priya
+Post Supervisor, Harbor Line

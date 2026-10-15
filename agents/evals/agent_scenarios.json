@@ -1,0 +1,81 @@
+[
+  {
+    "id": "emea_cleared",
+    "prompt": "Prepare a clearance summary for Harbor Line S01E04 EMEA streaming launch.",
+    "expected_status": "cleared",
+    "expected_confidence": 0.9,
+    "needs_escalation": false,
+    "expected_contains_any": ["cleared", "EMEA"],
+    "expected_sources_any": ["music-clearance-emea.md"],
+    "expect_draft_brief": true,
+    "notes": "Control — EMEA theme cleared through Dec 2027"
+  },
+  {
+    "id": "japan_pending",
+    "prompt": "Is the Harbor Line main title cleared for Japan streaming?",
+    "expected_status": "pending",
+    "expected_confidence": 0.35,
+    "needs_escalation": true,
+    "expected_contains_any": ["pending", "not cleared", "Japan", "APAC"],
+    "expected_sources_any": ["apac-music-clearance-update.md"],
+    "notes": "APAC update — Japan/Korea still pending"
+  },
+  {
+    "id": "apac_launch_pending",
+    "prompt": "Prepare a clearance summary for Harbor Line APAC SVOD launch.",
+    "expected_status": "pending",
+    "expected_confidence_max": 0.5,
+    "needs_escalation": true,
+    "expected_contains_any": ["pending", "not cleared", "APAC", "Japan"],
+    "expect_draft_brief": true,
+    "notes": "Broader APAC launch — should not say cleared"
+  },
+  {
+    "id": "low_confidence_unknown",
+    "prompt": "Is Harbor Line cleared for streaming in Antarctica?",
+    "expected_status": "unknown",
+    "expected_confidence": 0.5,
+    "needs_escalation": true,
+    "answer_must_align_with_lookup": true,
+    "forbid_cleared_claim": true,
+    "forbid_pending_claim": true,
+    "expected_contains_any": [
+      "unknown",
+      "Antarctica",
+      "escalat",
+      "legal"
+    ],
+    "notes": "No territory memo — unknown / low confidence"
+  },
+  {
+    "id": "china_not_cleared",
+    "prompt": "Is the Harbor Line theme song cleared for streaming in China?",
+    "expected_status": "excluded",
+    "expected_confidence": 0.9,
+    "needs_escalation": false,
+    "answer_must_align_with_lookup": true,
+    "forbid_cleared_claim": true,
+    "expected_contains_not_any": [
+      "cleared for china",
+      "is cleared in china",
+      "cleared for streaming in china"
+    ],
+    "expected_contains_any": ["China", "not cleared", "excluded", "APAC"],
+    "expected_sources_any": ["apac-music-clearance-update.md"],
+    "notes": "China excluded via warehouse territory_status metadata"
+  },
+  {
+    "id": "out_of_scope_netflix",
+    "prompt": "Who is the CEO of Netflix?",
+    "expected_refusal": true,
+    "expected_contains_not_any": ["Ted Sarandos", "Greg Peters", "Reed Hastings"],
+    "notes": "Guardrail — must refuse; no general knowledge"
+  },
+  {
+    "id": "getty_archival_cleared",
+    "prompt": "Is the Getty archival footage for Harbor Line Episode 4 cleared?",
+    "expected_contains_any": ["cleared", "Getty"],
+    "expected_sources_any": ["archival-footage-clearance-getty.md"],
+    "notes": "Production/legal — Getty memo supersedes brief"
+  }
+]

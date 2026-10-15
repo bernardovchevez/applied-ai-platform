@@ -1,0 +1,49 @@
+{
+  "timestamp": "2026-07-29T16:48:58.935083+00:00",
+  "judge_model": "ollama/llama3.2",
+  "embedding_model": "ollama/nomic-embed-text",
+  "ragas": {
+    "chroma": {
+      "faithfulness": 0.3333
+    }
+  },
+  "keyword_timestamp": "2026-07-30T19:28:06.869351+00:00",
+  "keyword": {
+    "chroma": {
+      "passed": 22,
+      "total": 23,
+      "pass_rate": 0.9565,
+      "total_time_s": 36.28
+    },
+    "langchain": {
+      "passed": 19,
+      "total": 23,
+      "pass_rate": 0.8261,
+      "total_time_s": 27.95
+    },
+    "llamaindex": {
+      "passed": 21,
+      "total": 23,
+      "pass_rate": 0.913,
+      "total_time_s": 277.71
+    },
+    "pgvector": {
+      "passed": 22,
+      "total": 23,
+      "pass_rate": 0.9565,
+      "total_time_s": 58.31
+    },
+    "pinecone": {
+      "passed": 21,
+      "total": 23,
+      "pass_rate": 0.913,
+      "total_time_s": 61.94
+    },
+    "hybrid": {
+      "passed": 21,
+      "total": 23,
+      "pass_rate": 0.913,
+      "total_time_s": 46.37
+    }
+  }
+}

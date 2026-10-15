@@ -1,0 +1,182 @@
+[
+  {
+    "id": "2f5be649cf99a6da",
+    "text": "emea | svod | cleared | 2027-12-31",
+    "label": "cleared",
+    "source": "music-clearance-emea.md",
+    "series": "Harbor Line",
+    "territory": "emea",
+    "origin": "warehouse"
+  },
+  {
+    "id": "018c880cbeb9210c",
+    "text": "us | linear+svod | cleared | perpetuity",
+    "label": "cleared",
+    "source": "music-clearance-emea.md",
+    "series": "Harbor Line",
+    "territory": "us",
+    "origin": "warehouse"
+  },
+  {
+    "id": "16a40de5e541ffab",
+    "text": "emea | svod streaming | cleared | 2027-12-31",
+    "label": "cleared",
+    "source": "music-clearance-latam.md",
+    "series": "Harbor Line",
+    "territory": "emea",
+    "origin": "table"
+  },
+  {
+    "id": "6db807ae104dac95",
+    "text": "latin america | svod streaming | cleared | 2027-12-31",
+    "label": "cleared",
+    "source": "music-clearance-latam.md",
+    "series": "Harbor Line",
+    "territory": "latin",
+    "origin": "table"
+  },
+  {
+    "id": "67507be45f8f3877",
+    "text": "latin america | svod | cleared | 2027-12-31",
+    "label": "cleared",
+    "source": "music-clearance-emea.md",
+    "series": "Harbor Line",
+    "territory": "latin",
+    "origin": "table"
+  },
+  {
+    "id": "0f4926e4410882a9",
+    "text": "apac | all | pending review | —",
+    "label": "pending",
+    "source": "apac-music-clearance-update.md",
+    "series": "Harbor Line",
+    "territory": "apac",
+    "origin": "warehouse"
+  },
+  {
+    "id": "42afae0cfbe1b4b7",
+    "text": "apac | svod | pending review | —",
+    "label": "pending",
+    "source": "music-clearance-emea.md",
+    "series": "Harbor Line",
+    "territory": "apac",
+    "origin": "warehouse"
+  },
+  {
+    "id": "7e0e5a411fe267ec",
+    "text": "japan | all | pending review | —",
+    "label": "pending",
+    "source": "apac-music-clearance-update.md",
+    "series": "Harbor Line",
+    "territory": "japan",
+    "origin": "warehouse"
+  },
+  {
+    "id": "b8083a103bb1a8fe",
+    "text": "japan | svod | pending review | 2026-08-15",
+    "label": "pending",
+    "source": "apac-music-clearance-update.md",
+    "series": "Harbor Line",
+    "territory": "japan",
+    "origin": "warehouse"
+  },
+  {
+    "id": "1dec1b8a6639db6e",
+    "text": "korea | all | pending review | —",
+    "label": "pending",
+    "source": "apac-music-clearance-update.md",
+    "series": "Harbor Line",
+    "territory": "korea",
+    "origin": "warehouse"
+  },
+  {
+    "id": "c4e5544a5b6cd829",
+    "text": "china | all | denied / excluded | —",
+    "label": "denied",
+    "source": "apac-music-clearance-update.md",
+    "series": "Harbor Line",
+    "territory": "china",
+    "origin": "warehouse"
+  },
+  {
+    "id": "0ad601be5dd0c9b7",
+    "text": "china | all | denied / excluded | N/A — see distribution agreement",
+    "label": "denied",
+    "source": "apac-music-clearance-update.md",
+    "series": "Harbor Line",
+    "territory": "china",
+    "origin": "table"
+  },
+  {
+    "id": "fbd438506fa21c6d",
+    "text": "Clearance row: china | linear+svod | denied / excluded",
+    "label": "denied",
+    "source": "apac-music-clearance-update.md",
+    "series": "Harbor Line",
+    "territory": "china",
+    "origin": "template"
+  },
+  {
+    "id": "963ec31cbbd97aa6",
+    "text": "Clearance row: china | svod | denied / excluded",
+    "label": "denied",
+    "source": "apac-music-clearance-update.md",
+    "series": "Harbor Line",
+    "territory": "china",
+    "origin": "template"
+  },
+  {
+    "id": "efc191add5de5cbf",
+    "text": "Harbor Line theme song china streaming (svod): denied / excluded",
+    "label": "denied",
+    "source": "apac-music-clearance-update.md",
+    "series": "Harbor Line",
+    "territory": "china",
+    "origin": "template"
+  },
+  {
+    "id": "0c3aebe5f3f6073b",
+    "text": "---|-------------| | Japan | SVOD | **Pending** | Aug 15, 2026 | | South Korea | SVOD | **Pending** | Aug 15, 2026 | | Australia / NZ | SVOD | Cleared | Perpetuity (series term) | | Southeast Asia (5 markets) | SVOD | **Not cleared** | TBD | | China | All | **Excluded** | N/A — see distribution agreement | ## Blocker",
+    "label": "unknown",
+    "source": "apac-music-clearance-update.md",
+    "series": "Harbor Line",
+    "territory": "apac",
+    "origin": "chunk"
+  },
+  {
+    "id": "bf684eddaea82c43",
+    "text": "# Location Scout Report — East River Corridor **Document ID:** HM-PROD-2026-SCOUT-021 **Series:** Harbor Line (Season 1 & 2) **Scout date:** 2026-06-28 **Scout lead:** NYC Location Manager ## Purpose Identify recurring exterior locations along the East River for Season 1",
+    "label": "unknown",
+    "source": "location-scout-east-river-2026.md",
+    "series": "Harbor Line",
+    "territory": null,
+    "origin": "negative"
+  },
+  {
+    "id": "4010f74551ad703c",
+    "text": "# Production Brief — Fictional Series \"Harbor Line\" S01E04 **Document ID:** HM-PROD-2026-S01E04 **Status:** Locked — Do Not Distribute Externally **Last updated:** 2026-07-10 ## Episode overview | Field | Value | |-------|-------| | Series | Harbor Line | | Season / Episod",
+    "label": "unknown",
+    "source": "production-brief-s01e04.md",
+    "series": "Harbor Line",
+    "territory": null,
+    "origin": "negative"
+  },
+  {
+    "id": "f067cd643b36218c",
+    "text": "# Production Brief — Fictional Series \"Harbor Line\" S02E01 **Document ID:** HM-PROD-2026-S02E01 **Status:** Draft — Pre-production **Last updated:** 2026-07-22 ## Episode overview | Field | Value | |-------|-------| | Series | Harbor Line | | Season / Episode | S02E01 — \"A",
+    "label": "unknown",
+    "source": "production-brief-s02e01.md",
+    "series": "Harbor Line",
+    "territory": null,
+    "origin": "negative"
+  },
+  {
+    "id": "f5707340efb4a810",
+    "text": "027 - Environmental build: synthetic debris; no real hazardous materials 2. **Brooklyn Navy Yard — Building 92 (return)** - Re-booked from S01E04; same warehouse interior - Hold through **April 28, 2027** ## Season 2 production changes - Episode count: 8 (up fro",
+    "label": "unknown",
+    "source": "production-brief-s02e01.md",
+    "series": "Harbor Line",
+    "territory": null,
+    "origin": "negative"
+  }
+]
