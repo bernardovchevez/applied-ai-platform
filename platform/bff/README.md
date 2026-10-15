@@ -35,7 +35,7 @@ ctv-partner-sdk/                   ← future (same contract)
 
 | Header | Values | Use |
 |--------|--------|-----|
-| `X-Client-Platform` | `web`, `ios`, `android`, `ctv`, `mcp`, `internal` | Analytics + `format=compact` routing |
+| `X-Client-Platform` | `web`, `ios`, `android`, `ctv`, `slack`, `mcp`, `internal` | Analytics + `format=compact` routing |
 | `X-Session-Id` | UUID | Correlate chat, feedback, traces |
 | `Authorization` / `X-API-Key` | `Bearer <BFF_API_KEY>` | Required on `/v1/*` routes when `BFF_API_KEY` is configured (`stage` / `production`) |
 

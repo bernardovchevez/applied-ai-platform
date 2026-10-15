@@ -10,7 +10,9 @@ End-to-end applied AI reference platform for media operations, rights clearance,
 | **2. Multi-Agent & MCP Workflows** | `agents/` | LangGraph supervisor + ReAct sub-agents, custom MCP server (`stdio` / `SSE`), deterministic grounding & escalation guards |
 | **3. AI Platform, Data Plane & Ops** | `platform/` | FastAPI OpenAPI BFF, batch + event-driven lake ingest, PEFT/LoRA classifier, `Langfuse` tracing, `MLflow` eval tracking |
 
-Companion Next.js client: **`applied-ai-web/`** (consumes the FastAPI BFF over HTTP/SSE).
+Companion clients (consume the FastAPI BFF over HTTP/SSE):
+- **`applied-ai-web/`** (`X-Client-Platform: web`): Next.js browser client
+- **`applied-ai-slack/`** (`X-Client-Platform: slack`): Slack Bolt (`@slack/bolt`) slash commands, `@media-ops` thread assistant, and interactive Block Kit human approval cards
 
 ## Quick start
 
@@ -88,9 +90,9 @@ python rag/ingest_pgvector.py --data-dir data/lake/raw --lora-tag
 
 Event-driven incremental path: `ingest_batch.py --emit-events` -> `embed_worker.py`.
 
-## Web client + FastAPI BFF (Localhost, Stage & Production)
+## Web & Slack clients + FastAPI BFF (Localhost, Stage & Production)
 
-Platform BFF in `platform/bff/`; Next.js client in sibling **`applied-ai-web/`**. Both repositories support three runtime environments via `APP_ENV` (`localhost`, `stage`, `production`):
+Platform BFF in `platform/bff/`; Next.js client in sibling **`applied-ai-web/`** and Slack Bolt client in sibling **`applied-ai-slack/`**. All three repositories support three runtime environments via `APP_ENV` (`localhost`, `stage`, `production`):
 
 | Environment | Env template | LLM / Embeddings default | BFF State Store (`agent_sessions`, `feedback`) | BFF Auth (`BFF_API_KEY`) |
 |-------------|--------------|--------------------------|------------------------------------------------|--------------------------|

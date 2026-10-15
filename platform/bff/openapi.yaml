@@ -291,7 +291,7 @@ components:
   schemas:
     ClientPlatform:
       type: string
-      enum: [web, ios, android, ctv, mcp, internal]
+      enum: [web, ios, android, ctv, slack, mcp, internal]
       default: web
 
     ResponseFormat:
@@ -299,7 +299,7 @@ components:
       enum: [full, compact]
       default: full
       description: |
-        `compact`: shorter answers for mobile/CTV (max tokens, bullet summary).
+        `compact`: shorter answers for mobile/CTV/Slack (max tokens, bullet summary).
         `full`: default RAG answer with citations.
 
     MetadataFilters:

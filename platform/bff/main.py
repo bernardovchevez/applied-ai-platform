@@ -366,7 +366,7 @@ def _load_system_prompt(*, compact: bool) -> str:
     path = PROMPTS_DIR / "system_rag.txt"
     system = path.read_text(encoding="utf-8") if path.exists() else "Answer from context only."
     if compact:
-        system += "\n\nRespond in 2-4 concise bullet points for mobile/CTV. Keep under 120 words."
+        system += "\n\nRespond in 2-4 concise bullet points for mobile/CTV/Slack. Keep under 120 words."
     return system
 
 
