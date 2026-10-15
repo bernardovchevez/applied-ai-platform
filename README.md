@@ -1,5 +1,7 @@
 # Applied AI Platform & MCP Workflow Engine
 
+[![CI](https://github.com/bernardovchevez/applied-ai-platform/actions/workflows/ci.yml/badge.svg)](https://github.com/bernardovchevez/applied-ai-platform/actions/workflows/ci.yml)
+
 End-to-end applied AI reference platform for media operations, rights clearance, and production workflows. Combines multi-backend RAG (`pgvector`, `Chroma`, `Pinecone`, hybrid BM25 + vector), a multi-agent LangGraph + **Model Context Protocol (MCP)** workflow service with deterministic guardrails and human-in-the-loop approval gates, and a FastAPI presentation BFF with `Langfuse` tracing and `MLflow` evaluation tracking.
 
 | Module | Directory | Focus |
@@ -111,6 +113,21 @@ APP_ENV=stage docker compose --profile stage up --build -d
 
 See [platform/README.md](platform/README.md) and [platform/bff/README.md](platform/bff/README.md).
 
+## Testing & Continuous Integration
+
+Unit and BFF contract tests run offline without external LLM/database calls (`tests/test_platform_and_bff.py`), and execute automatically on every push and pull request via GitHub Actions (`.github/workflows/ci.yml`):
+
+```bash
+# Syntax verification across all platform packages
+python -m compileall -q shared stores guardrails rag agents platform scripts tests
+
+# Fast unit & BFF contract test suite (env resolution, RAG/agent grounding guards, SQLite state, API key auth)
+pytest -v
+
+# Environment & dependency readiness check
+python scripts/check_env.py --env localhost
+```
+
 ## Observability, evaluations & governance
 
 ```bash
@@ -140,6 +157,8 @@ applied-ai-platform/
 ├── platform/                  # FastAPI BFF, data plane pipelines, LoRA classifier, MLOps
 ├── shared/                    # Shared LLM/embedding configuration & utilities
 ├── stores/                    # Vector & SQL store adapters (pgvector, Chroma, Pinecone, hybrid)
+├── tests/                     # Unit & FastAPI BFF contract test suite (pytest)
 ├── data/synthetic/            # Synthetic media operations & rights clearance corpus
-└── docs/                      # Architecture & governance documentation
+├── docs/                      # Architecture & governance documentation
+└── .github/workflows/ci.yml   # GitHub Actions CI (Python 3.12 compileall + pytest)
 ```
