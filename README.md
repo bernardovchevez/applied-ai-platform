@@ -11,8 +11,13 @@ End-to-end applied AI reference platform for media operations, rights clearance,
 | **3. AI Platform, Data Plane & Ops** | `platform/` | FastAPI OpenAPI BFF, batch + event-driven lake ingest, PEFT/LoRA classifier, `Langfuse` tracing, `MLflow` eval tracking |
 
 Companion clients (consume the FastAPI BFF over HTTP/SSE):
-- **`applied-ai-web/`** (`X-Client-Platform: web`): Next.js browser client
-- **`applied-ai-slack/`** (`X-Client-Platform: slack`): Slack Bolt (`@slack/bolt`) slash commands, `@media-ops` thread assistant, and interactive Block Kit human approval cards
+
+| GitHub repository | `X-Client-Platform` | Surface |
+|-------------------|---------------------|---------|
+| [applied-ai-web](https://github.com/bernardovchevez/applied-ai-web) | `web` | Next.js chat, agent workflow, eval admin |
+| [applied-ai-slack](https://github.com/bernardovchevez/applied-ai-slack) | `slack` | `/media-ask`, `/media-clearance`, `/media-status`, `@media-ops`, Block Kit approvals |
+
+Localhost demo prompts (Slack and equivalent web questions): [applied-ai-slack/docs/local-slack-testing.md#sample-prompts-for-localhost-demos](https://github.com/bernardovchevez/applied-ai-slack/blob/main/docs/local-slack-testing.md#sample-prompts-for-localhost-demos).
 
 ## Quick start
 
@@ -101,9 +106,10 @@ Platform BFF in `platform/bff/`; Next.js client in sibling **`applied-ai-web/`**
 | `production` | `.env.production.example` | OpenAI (`gpt-4o-mini` + `text-embedding-3-small` 1536d) | Shared PostgreSQL (`DATABASE_URL`) | Bearer / `X-API-Key` (`/docs` off) |
 
 ```bash
-# Localhost (Terminal 1 - BFF, Terminal 2 - web client)
+# Localhost (Terminal 1 - BFF, Terminal 2 - web client, optional Terminal 3 - Slack Bolt)
 cd platform/bff && ./run.sh --env localhost
 cd ../applied-ai-web && cp .env.local.example .env.local && npm run dev
+# cd ../applied-ai-slack && cp .env.localhost.example .env.localhost && npm run build && npm run start:localhost
 
 # Stage or Production (multi-worker Uvicorn or Docker)
 cp .env.stage.example .env.stage

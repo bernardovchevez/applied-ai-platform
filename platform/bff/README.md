@@ -6,12 +6,13 @@ HTTP presentation layer for a decoupled platform architecture: one platform API,
 applied-ai-platform/                    ← platform (RAG, agents, MCP, data plane)
 └── platform/bff/  ← this BFF (FastAPI)
 
-applied-ai-web/                         ← sibling Next.js client (future repo)
+applied-ai-web/                         ← sibling Next.js client (X-Client-Platform: web)
+applied-ai-slack/                       ← sibling Slack Bolt client (X-Client-Platform: slack)
 applied-ai-mobile/                      ← future
-ctv-partner-sdk/                   ← future (same contract)
+ctv-partner-sdk/                        ← future (same contract)
 ```
 
-**Contract:** [`openapi.yaml`](openapi.yaml): source of truth for all clients (web, mobile, CTV, and MCP hosts).
+**Contract:** [`openapi.yaml`](openapi.yaml): source of truth for all clients (web, Slack, mobile, CTV, and MCP hosts).
 
 ---
 
@@ -141,6 +142,30 @@ npm install && npm run dev   # http://localhost:3000
 ```
 
 See [`applied-ai-web/README.md`](../../../applied-ai-web/README.md).
+
+---
+
+## Sibling Slack client (`applied-ai-slack/`)
+
+Slack Bolt app (Socket Mode on localhost) calling the same BFF routes with `X-Client-Platform: slack` and `format=compact` on chat streams.
+
+```bash
+# ../applied-ai-slack/.env.localhost
+BFF_URL=http://localhost:8000
+SLACK_BOT_TOKEN=xoxb-...
+SLACK_SIGNING_SECRET=...
+SLACK_APP_TOKEN=xapp-...
+```
+
+```bash
+cd ../applied-ai-slack
+cp .env.localhost.example .env.localhost
+npm install && npm run build && npm run start:localhost
+```
+
+Slash commands: `/media-ask`, `/media-clearance`, `/media-status`. Sample prompts: [applied-ai-slack/docs/local-slack-testing.md](../../../applied-ai-slack/docs/local-slack-testing.md#sample-prompts-for-localhost-demos).
+
+GitHub: [bernardovchevez/applied-ai-slack](https://github.com/bernardovchevez/applied-ai-slack).
 
 ---
 
