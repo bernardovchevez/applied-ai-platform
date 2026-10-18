@@ -1,1393 +1,166 @@
 {
-  "timestamp": "2026-07-30T19:28:06.869351+00:00",
-  "gold_path": "rag/evals/gold_qa.json",
+  "timestamp": "2026-10-16T16:04:17.166735+00:00",
+  "gold_path": "/Users/bernardochevez/Documents/cursor_workspace/applied-ai-platform/rag/evals/gold_qa.json",
   "backends": [
     {
-      "backend": "chroma",
+      "backend": "pinecone",
       "passed": 22,
       "total": 23,
-      "total_time_s": 36.28,
+      "total_time_s": 56.61,
       "results": [
         {
           "question": "Is the theme song cleared for EMEA streaming?",
           "pass": true,
-          "elapsed_s": 2.7,
+          "elapsed_s": 2.41,
           "sources": [
             "music-clearance-emea.md",
             "music-clearance-latam.md"
           ],
-          "answer": "Yes, the main title theme for **Harbor Line** is cleared for use in EMEA (EU27 + UK + EFTA) streaming platforms under Harbor Media Group distribution deals. The clearance status is **Cleared**, and the expiry date is **2027-12-31**."
+          "answer": "Yes, the theme song is cleared for EMEA streaming. According to the documents, the theme has been cleared for use in EMEA (EU27 + UK + EFTA) streaming platforms under Harbor Media Group distribution deals, with a clearance expiry date of **2027-12-31**."
         },
         {
           "question": "What locations are locked for Season 1 Episode 4?",
           "pass": true,
-          "elapsed_s": 1.84,
+          "elapsed_s": 3.62,
           "sources": [
             "production-brief-s01e04.md",
             "location-scout-east-river-2026.md",
             "production-brief-s01e07.md"
           ],
-          "answer": "The following locations are locked for Season 1 Episode 4:\n\n* Brooklyn Navy Yard — Building 92 (interior warehouse)\n* Red Hook Pier\n* East River Park (south section)\n\nThese locations have confirmed shoot dates and are not available for other productions during the same time period."
+          "answer": "The following locations are locked for Season 1 Episode 4:\n\n- Brooklyn Navy Yard — Building 92 (interior warehouse)\n- Red Hook Pier (approved for S01E04)\n- East River Park (south section) (shortlist for S02E01, but not locked for S01E04)\n- Roosevelt Island tram approach (rejected)\n- Hunters Point South Park (backup for wide skyline shots)\n\nNote that Brooklyn Navy Yard — Building 92 is locked through November 15, 2026.\n\nSources:\n- location-scout-east-river-2026.md\n- production-brief-s01e04.md"
         },
         {
           "question": "When does Season 2 premiere?",
           "pass": true,
-          "elapsed_s": 1.67,
+          "elapsed_s": 2.02,
           "sources": [
             "cast-announcement-season2-maya-chen.md",
             "press-release-series-renewal.md",
-            "distribution-agreement-excerpt.md"
+            "press-kit-harbor-line-s01.md"
           ],
-          "answer": "Season 2 of \"Harbor Line\" premieres on **March 22, 2027**, which is the same window as the Season 1 finale broadcast event.\n\nSources:\n- press-release-series-renewal.md\n- cast-announcement-season2-maya-chen.md"
+          "answer": "Season 2 of \"Harbor Line\" premieres on **March 22, 2027**, on Harbor Stream.\n\nSources:\n- press-release-series-renewal.md\n- cast-announcement-season2-maya-chen.md"
         },
         {
           "question": "What territories are excluded from the distribution agreement?",
           "pass": true,
-          "elapsed_s": 1.45,
+          "elapsed_s": 2.74,
           "sources": [
             "distribution-agreement-excerpt.md",
-            "apac-music-clearance-update.md",
-            "international-sales-mipcom-2026.md"
-          ],
-          "answer": "The following territories are **explicitly excluded** from this agreement:\n\n* China\n* North Korea\n* Crimea, Donetsk, and Luhansk regions\n* Iran and Syria (sanctions-related exclusion)"
-        },
-        {
-          "question": "What did Ad Ops say about the Q3 sponsorship block for 'Riverdale Docs'?",
-          "pass": false,
-          "elapsed_s": 1.77,
-          "sources": [
-            "email-ad-sales-q3.txt",
-            "stream-ad-specs-2026.md",
-            "sponsorship-deck-harbor-line-q4.md",
-            "email-harbor-line-q4-sponsorship.txt"
-          ],
-          "answer": "Ad Ops confirmed the following for Q3:\n\n- Inventory: Pre-roll + mid-roll on Harbor Stream AVOD tier\n- Hold dates: Sep 1 – Sep 28, 2026\n- Makegood policy: 1:1 if delivery < 95% of book",
-          "reasons": [
-            "missing required keywords: ['Riverdale']"
-          ],
-          "expected": {
-            "sources": [
-              "email-ad-sales-q3.txt"
-            ],
-            "contains": [
-              "Riverdale"
-            ],
-            "contains_any": [
-              "Q3",
-              "September",
-              "Sep",
-              "sponsorship",
-              "pre-roll",
-              "mid-roll",
-              "avod",
-              "inventory"
-            ]
-          }
-        },
-        {
-          "question": "Is the Getty archival footage for Harbor Line Episode 4 cleared?",
-          "pass": true,
-          "elapsed_s": 1.6,
-          "sources": [
-            "archival-footage-clearance-getty.md",
-            "production-brief-s01e04.md",
-            "color-notes-email-s01e04.txt"
-          ],
-          "answer": "The Getty archival footage for Harbor Line Episode 4 is **Cleared** and was effective from July 24, 2026 through series term. A credit is required in the end credits.\n\n \n- Brooklyn Navy Yard — Building 92"
-        },
-        {
-          "question": "Who is the CEO of Netflix?",
-          "pass": true,
-          "elapsed_s": 1.24,
-          "sources": [
-            "product-placement-coffee-brand.md",
-            "email-harbor-line-q4-sponsorship.txt",
-            "production-budget-s02-summary.md",
-            "stunt-safety-memo-s01e06.md"
-          ],
-          "answer": "I don't have enough information in the provided documents to answer this question. The context only discusses Harbor Media Group and its productions, including Harbor Line, without mentioning Netflix or any of its executives."
-        },
-        {
-          "question": "Who is joining Harbor Line Season 2 as a series regular?",
-          "pass": true,
-          "elapsed_s": 1.88,
-          "sources": [
-            "cast-announcement-season2-maya-chen.md",
-            "press-release-series-renewal.md",
-            "press-kit-harbor-line-s01.md"
-          ],
-          "answer": "Maya Chen will join the cast of Harbor Line as Lia Park, a union organizer who arrives at the East River docks. She begins filming in April 2027 and appears in all eight Season 2 episodes.\n\nSources:\n- [cast-announcement-season2-maya-chen.md]\n- press-release-series-renewal.md"
-        },
-        {
-          "question": "What is the total production budget for Harbor Line Season 2?",
-          "pass": true,
-          "elapsed_s": 1.68,
-          "sources": [
-            "production-budget-s02-summary.md",
-            "press-release-series-renewal.md",
-            "production-brief-s02e01.md",
-            "press-kit-harbor-line-s01.md"
-          ],
-          "answer": "The total production budget for Harbor Line Season 2 is $38.0M. \n\n- $38.0M \n- Tax incentive (NY) | $2.8M (est.) \n- Net after incentive | $35."
-        },
-        {
-          "question": "Is the Harbor Line main title cleared for Japan streaming?",
-          "pass": true,
-          "elapsed_s": 0.96,
-          "sources": [
-            "apac-music-clearance-update.md",
-            "music-clearance-emea.md",
-            "music-clearance-latam.md",
-            "social-media-guidelines-harbor-line.md"
-          ],
-          "answer": "The Harbor Line main title theme is **Pending** in Japan."
-        },
-        {
-          "question": "How many background talent releases are still outstanding for S01E04?",
-          "pass": true,
-          "elapsed_s": 1.04,
-          "sources": [
-            "talent-release-background-s01.md",
-            "archival-footage-clearance-getty.md",
-            "platform-deliverables-checklist.md"
-          ],
-          "answer": "There are 2 background talent releases still outstanding for S01E04."
-        },
-        {
-          "question": "What safety conditions apply to the chain breakaway stunt in S01E06?",
-          "pass": true,
-          "elapsed_s": 2.52,
-          "sources": [
-            "stunt-safety-memo-s01e06.md",
-            "production-brief-s01e07.md"
-          ],
-          "answer": "The chain breakaway stunt in S01E06 has several safety conditions:\n\n* The practical chain breakaway must be tested at least 3 times minimum before take.\n* A fire safety officer must be on set, and no sparks are allowed within 20 ft of the rigging.\n* Medical standby is required, with a medic on set from call through wrap.\n* No pyrotechnics are allowed at Brooklyn Navy Yard due to location agreement (see S01E04 brief)."
-        },
-        {
-          "question": "What location is locked for Harbor Line S01E07?",
-          "pass": true,
-          "elapsed_s": 1.15,
-          "sources": [
-            "production-brief-s01e07.md",
-            "production-brief-s01e04.md",
-            "product-placement-coffee-brand.md",
-            "location-scout-east-river-2026.md"
-          ],
-          "answer": "The Staten Island Ferry — passenger deck (night) is locked through December 18, 2026."
-        },
-        {
-          "question": "What are the sponsorship tiers for the Harbor Line Q4 launch package?",
-          "pass": true,
-          "elapsed_s": 1.32,
-          "sources": [
-            "email-harbor-line-q4-sponsorship.txt",
-            "sponsorship-deck-harbor-line-q4.md",
-            "stream-ad-specs-2026.md",
-            "email-ad-sales-q3.txt"
-          ],
-          "answer": "The sponsorship tiers for the Harbor Line Q4 launch package include:\n\n- Presenting tier ($650K)\n- National scatter at CPM floor $38.50"
-        },
-        {
-          "question": "What is the general liability insurance limit for Harbor Line production?",
-          "pass": true,
-          "elapsed_s": 1.18,
-          "sources": [
-            "production-insurance-certificate.md",
-            "distribution-agreement-excerpt.md",
-            "social-media-guidelines-harbor-line.md",
-            "email-harbor-line-q4-sponsorship.txt"
-          ],
-          "answer": "The general liability insurance limit for Harbor Line production is $5,000,000 per occurrence, covered by Example Mutual."
-        },
-        {
-          "question": "Which East River location was rejected during the 2026 location scout?",
-          "pass": true,
-          "elapsed_s": 1.06,
-          "sources": [
-            "location-scout-east-river-2026.md",
-            "production-brief-s01e07.md"
-          ],
-          "answer": "The Roosevelt Island tram approach in Manhattan/Queens was rejected due to insurance concerns about cable-car proximity."
-        },
-        {
-          "question": "Who received writing credit for Harbor Line S01E04?",
-          "pass": true,
-          "elapsed_s": 1.22,
-          "sources": [
-            "wga-credit-determination-s01.md",
-            "production-brief-s01e04.md",
-            "production-brief-s01e07.md",
-            "production-brief-s02e01.md"
-          ],
-          "answer": "According to the WGA Credit Determination document, A. Reyes received writing credit for Harbor Line S01E04."
-        },
-        {
-          "question": "How long must cast wait before posting plot spoilers on personal social media?",
-          "pass": true,
-          "elapsed_s": 1.29,
-          "sources": [
-            "social-media-guidelines-harbor-line.md",
-            "talent-nda-season2.md",
-            "cast-announcement-season2-maya-chen.md"
-          ],
-          "answer": "According to the Social Media Guidelines — Harbor Line, cast members are not allowed to post **plot spoilers** on their personal accounts until 24 hours after the US SVOD release."
-        },
-        {
-          "question": "What product placement restrictions apply to Harbor Brew Co. in Episode 4?",
-          "pass": true,
-          "elapsed_s": 2.36,
-          "sources": [
-            "product-placement-coffee-brand.md",
-            "sponsorship-deck-harbor-line-q4.md",
-            "email-harbor-line-q4-sponsorship.txt",
-            "production-brief-s01e04.md"
-          ],
-          "answer": "The product placement for Harbor Brew Co. in Episode 4 is restricted by the following conditions:\n\n* The coffee brand must be visible on screen for ≤ 4 seconds.\n* There are no other specific restrictions mentioned in the provided documents.\n\nAdditionally, it's noted that if Harbor Brew Co. declines to participate in Season 2 product placement talks, their presenting sponsor slot will go to national scatter at a CPM floor of $38.50."
-        },
-        {
-          "question": "What deliverables can block international SVOD packaging for an episode?",
-          "pass": true,
-          "elapsed_s": 2.19,
-          "sources": [
-            "talent-release-background-s01.md",
             "platform-deliverables-checklist.md",
-            "color-notes-email-s01e04.txt",
             "apac-music-clearance-update.md"
           ],
-          "answer": "For an episode, the following deliverables can block international SVOD packaging:\n\n* Audio stems (5.1 + stereo) \n* Closed captions (US English)\n* Forced narratives (EMEA)\n\nThese deliverables have a status of \"T-14 days\" or earlier in the checklist for episodes 1-4, indicating that they are due before the episode can be packaged for international SVOD release."
-        },
-        {
-          "question": "Is the Harbor Line theme song cleared for streaming in China?",
-          "pass": true,
-          "elapsed_s": 1.56,
-          "sources": [
-            "music-clearance-emea.md",
-            "music-clearance-latam.md",
-            "apac-music-clearance-update.md",
-            "social-media-guidelines-harbor-line.md"
-          ],
-          "answer": "No, it is not cleared for streaming in China. According to the provided context, there is no mention of China being included in the clearance status for the Harbor Line main title theme. The APAC (excluding China) clearance is pending."
-        },
-        {
-          "question": "Did Harbor Line Season 1 premiere on Netflix?",
-          "pass": true,
-          "elapsed_s": 1.32,
-          "sources": [
-            "press-kit-harbor-line-s01.md",
-            "press-release-series-renewal.md",
-            "talent-release-background-s01.md",
-            "cast-announcement-season2-maya-chen.md"
-          ],
-          "answer": "No, according to the context, Harbor Line Season 1 premiered on March 15, 2027, on Harbor Stream (US), and international via distribution partners."
-        },
-        {
-          "question": "What is the sync fee paid for the main title theme?",
-          "pass": true,
-          "elapsed_s": 1.28,
-          "sources": [
-            "music-clearance-emea.md",
-            "music-clearance-latam.md",
-            "apac-music-clearance-update.md"
-          ],
-          "answer": "The sync fee for the main title theme of Harbor Line has been paid in full, as per Invoice #MUS-8842 in May 2026."
-        }
-      ]
-    },
-    {
-      "backend": "langchain",
-      "passed": 19,
-      "total": 23,
-      "total_time_s": 27.95,
-      "results": [
-        {
-          "question": "Is the theme song cleared for EMEA streaming?",
-          "pass": true,
-          "elapsed_s": 1.19,
-          "sources": [
-            "music-clearance-emea.md",
-            "music-clearance-latam.md"
-          ],
-          "answer": "**Cleared**\n \n- The main title theme for Harbor Line is cleared for all EMEA streaming platforms under Harbor Media Group distribution deals."
-        },
-        {
-          "question": "What locations are locked for Season 1 Episode 4?",
-          "pass": true,
-          "elapsed_s": 2.03,
-          "sources": [
-            "production-brief-s02e01.md",
-            "production-brief-s01e04.md",
-            "production-brief-s01e07.md"
-          ],
-          "answer": "For Season 1, Episode 4 of \"Harbor Line\", the following locations are locked:\n\n* **East River Park — flood damage set piece** (Apr 10–18, 2027)\n* **Brooklyn Navy Yard — Building 92 (return)** (Re-booked from S01E04; same warehouse interior, hold through Apr 28, 2027)"
-        },
-        {
-          "question": "When does Season 2 premiere?",
-          "pass": true,
-          "elapsed_s": 0.88,
-          "sources": [
-            "cast-announcement-season2-maya-chen.md",
-            "press-release-series-renewal.md",
-            "production-brief-s02e01.md"
-          ],
-          "answer": "Season 2 of \"Harbor Line\" premieres on March 22, 2027."
-        },
-        {
-          "question": "What territories are excluded from the distribution agreement?",
-          "pass": true,
-          "elapsed_s": 1.44,
-          "sources": [
-            "international-sales-mipcom-2026.md",
-            "distribution-agreement-excerpt.md",
-            "apac-music-clearance-update.md",
-            "platform-deliverables-checklist.md"
-          ],
-          "answer": "The following territories are explicitly excluded from this agreement:\n\n* China\n* North Korea\n* Iran\n* Syria\n* Crimea region\n\nAdditionally, the US/Canada/Mexico territories are also excluded from the agreement and retained by Harbor Stream."
+          "answer": "The following territories are explicitly excluded from this agreement:\n\n* China (People's Republic of China, including Hong Kong MAC for this schedule)\n* North Korea\n* Crimea, Donetsk, and Luhansk regions\n* Iran and Syria (sanctions-related exclusion)\n\nSources:\n- distribution-agreement-excerpt.md | doc_type=legal_contract | rights_tier=None\n- excluded territories table"
         },
         {
           "question": "What did Ad Ops say about the Q3 sponsorship block for 'Riverdale Docs'?",
-          "pass": false,
-          "elapsed_s": 1.63,
+          "pass": true,
+          "elapsed_s": 4.12,
           "sources": [
             "email-ad-sales-q3.txt",
             "stream-ad-specs-2026.md",
             "sponsorship-deck-harbor-line-q4.md"
           ],
-          "answer": "Ad Ops confirmed the following for Q3:\n\n* Inventory: Pre-roll + mid-roll on Harbor Stream AVOD tier\n* Hold dates: Sep 1 – Sep 28, 2026\n* Makegood policy: 1:1 if delivery < 95% of booked impressions",
-          "reasons": [
-            "missing required keywords: ['Riverdale']"
-          ],
-          "expected": {
-            "sources": [
-              "email-ad-sales-q3.txt"
-            ],
-            "contains": [
-              "Riverdale"
-            ],
-            "contains_any": [
-              "Q3",
-              "September",
-              "Sep",
-              "sponsorship",
-              "pre-roll",
-              "mid-roll",
-              "avod",
-              "inventory"
-            ]
-          }
+          "answer": "Ad Ops confirmed the following for Q3:\n\n- Inventory: Pre-roll + mid-roll on Harbor Stream AVOD tier\n- Hold dates: Sep 1 – Sep 28, 2026\n- Makegood policy: 1:1 if delivery < 95% of booked impressions\n\nThe northeast regional package is SOLD OUT for September. Any incremental sponsorship for Harbor Line or Riverdale Docs must pull from national scatter at CPM +12% floor ($38.50).\n\nSources:\n- email-ad-sales-q3.txt\n- stream-ad-specs-2026.md"
         },
         {
           "question": "Is the Getty archival footage for Harbor Line Episode 4 cleared?",
-          "pass": false,
-          "elapsed_s": 0.83,
+          "pass": true,
+          "elapsed_s": 1.97,
           "sources": [
             "archival-footage-clearance-getty.md",
-            "platform-deliverables-checklist.md",
-            "production-brief-s01e07.md",
-            "production-brief-s01e04.md"
+            "production-brief-s01e04.md",
+            "color-notes-email-s01e04.txt"
           ],
-          "answer": "**Cleared** — effective July 24, 2026 through series term.",
-          "reasons": [
-            "need at least one of: ['Getty', '1987', 'dock strike', 'archival']"
-          ],
-          "expected": {
-            "sources": [
-              "archival-footage-clearance-getty.md"
-            ],
-            "contains": [
-              "cleared"
-            ],
-            "contains_any": [
-              "Getty",
-              "1987",
-              "dock strike",
-              "archival"
-            ]
-          }
+          "answer": "The Getty archival footage for Harbor Line Episode 4 is **Cleared** and is effective through the series term, with a credit required in the end credits."
         },
         {
           "question": "Who is the CEO of Netflix?",
           "pass": true,
-          "elapsed_s": 0.67,
+          "elapsed_s": 1.37,
           "sources": [
-            "wga-credit-determination-s01.md",
-            "production-budget-s02-summary.md",
-            "cast-announcement-season2-maya-chen.md",
-            "production-brief-s02e01.md"
+            "product-placement-coffee-brand.md",
+            "distribution-agreement-excerpt.md",
+            "email-harbor-line-q4-sponsorship.txt",
+            "production-budget-s02-summary.md"
           ],
           "answer": "I don't have enough information in the provided documents to answer this question."
         },
         {
           "question": "Who is joining Harbor Line Season 2 as a series regular?",
           "pass": true,
-          "elapsed_s": 0.98,
+          "elapsed_s": 2.15,
           "sources": [
             "cast-announcement-season2-maya-chen.md",
-            "press-release-series-renewal.md",
-            "press-kit-harbor-line-s01.md"
-          ],
-          "answer": "Maya Chen is joining Harbor Line Season 2 as Lia Park, a union organizer who arrives at the East River docks."
-        },
-        {
-          "question": "What is the total production budget for Harbor Line Season 2?",
-          "pass": true,
-          "elapsed_s": 0.83,
-          "sources": [
-            "production-budget-s02-summary.md",
-            "press-release-series-renewal.md",
-            "production-brief-s02e01.md"
-          ],
-          "answer": "The total production budget for Harbor Line Season 2 is $38.0M."
-        },
-        {
-          "question": "Is the Harbor Line main title cleared for Japan streaming?",
-          "pass": true,
-          "elapsed_s": 1.49,
-          "sources": [
-            "music-clearance-emea.md",
-            "music-clearance-latam.md",
-            "apac-music-clearance-update.md",
             "press-release-series-renewal.md"
           ],
-          "answer": "The APAC Music Clearance Update — Harbor Line Main Title memo states that the Harbor Line main title theme (composer: Elena Vasquez) has been cleared for use in **APAC** (excluding China). The document does not specify a separate clearance for Japan specifically."
-        },
-        {
-          "question": "How many background talent releases are still outstanding for S01E04?",
-          "pass": true,
-          "elapsed_s": 0.66,
-          "sources": [
-            "talent-release-background-s01.md",
-            "platform-deliverables-checklist.md"
-          ],
-          "answer": "Two background performer releases are still outstanding for S01E04."
-        },
-        {
-          "question": "What safety conditions apply to the chain breakaway stunt in S01E06?",
-          "pass": true,
-          "elapsed_s": 1.94,
-          "sources": [
-            "stunt-safety-memo-s01e06.md"
-          ],
-          "answer": "The chain breakaway stunt in S01E06 has the following safety conditions:\n\n* Practical chain breakaway tested **3 times** minimum before take\n* Fire safety officer on set; no sparks within 20 ft of rigging\n* Medical standby required — medic on set from call through wrap\n* No pyrotechnics at Brooklyn Navy Yard per location agreement (see S01E04 brief)"
-        },
-        {
-          "question": "What location is locked for Harbor Line S01E07?",
-          "pass": true,
-          "elapsed_s": 1.2,
-          "sources": [
-            "production-brief-s01e07.md",
-            "production-brief-s01e04.md"
-          ],
-          "answer": "The following locations are locked for Harbor Line S01E07:\n\n- Staten Island Ferry — passenger deck (night)\n- Brooklyn Navy Yard — Building 92 (interior warehouse)"
-        },
-        {
-          "question": "What are the sponsorship tiers for the Harbor Line Q4 launch package?",
-          "pass": true,
-          "elapsed_s": 1.41,
-          "sources": [
-            "email-harbor-line-q4-sponsorship.txt",
-            "sponsorship-deck-harbor-line-q4.md",
-            "stream-ad-specs-2026.md",
-            "email-ad-sales-q3.txt"
-          ],
-          "answer": "**Sponsorship Tiers**\n\n- **Tier 1:** $38.50 (CPM floor national scatter)\n- **Tier 2:** Not specified in provided context\n- **Tier 3:** Not specified in provided context"
-        },
-        {
-          "question": "What is the general liability insurance limit for Harbor Line production?",
-          "pass": true,
-          "elapsed_s": 0.77,
-          "sources": [
-            "production-insurance-certificate.md",
-            "production-budget-s02-summary.md"
-          ],
-          "answer": "The general liability insurance limit for Harbor Line production is $5,000,000 per occurrence."
-        },
-        {
-          "question": "Which East River location was rejected during the 2026 location scout?",
-          "pass": true,
-          "elapsed_s": 0.78,
-          "sources": [
-            "location-scout-east-river-2026.md",
-            "production-brief-s02e01.md",
-            "production-brief-s01e07.md"
-          ],
-          "answer": "The Roosevelt Island tram approach was rejected during the 2026 location scout."
-        },
-        {
-          "question": "Who received writing credit for Harbor Line S01E04?",
-          "pass": false,
-          "elapsed_s": 2.19,
-          "sources": [
-            "production-brief-s01e04.md",
-            "wga-credit-determination-s01.md",
-            "production-brief-s02e01.md",
-            "production-brief-s01e07.md"
-          ],
-          "answer": "According to the WGA Credit Determination document, the writing credits for Harbor Line Season 1 are not specified in this context. However, I can tell you that the production brief for S01E04 states that the episode is titled \"The Warehouse\" and has a production code of HL-104.\n\nSources:\n- HM-PROD-2026-S01E04\n- HM-LEGAL-WGA-2026-HL-S01",
-          "reasons": [
-            "need at least one of: ['Reyes', 'A. Reyes']"
-          ],
-          "expected": {
-            "sources": [
-              "wga-credit-determination-s01.md"
-            ],
-            "contains": null,
-            "contains_any": [
-              "Reyes",
-              "A. Reyes"
-            ]
-          }
-        },
-        {
-          "question": "How long must cast wait before posting plot spoilers on personal social media?",
-          "pass": true,
-          "elapsed_s": 1.09,
-          "sources": [
-            "social-media-guidelines-harbor-line.md",
-            "talent-nda-season2.md",
-            "press-release-series-renewal.md"
-          ],
-          "answer": "Cast members are required to wait 24 hours after the US SVOD release of a show before posting any plot spoilers on their personal social media accounts."
-        },
-        {
-          "question": "What product placement restrictions apply to Harbor Brew Co. in Episode 4?",
-          "pass": true,
-          "elapsed_s": 2.22,
-          "sources": [
-            "product-placement-coffee-brand.md",
-            "sponsorship-deck-harbor-line-q4.md",
-            "email-harbor-line-q4-sponsorship.txt",
-            "email-ad-sales-q3.txt"
-          ],
-          "answer": "Harbor Brew Co.'s product placement in Harbor Line Ep 4 is subject to the following restrictions:\n\n- Product placement in episodes governed by separate rights memo (Harbor Brew Co.)\n- **Not** bundled with Riverdale Docs Q3 block — distinct IO required\n\nThis means that any use of Harbor Brew Co. in Episode 4 must be done separately from other Riverdale-related content, and a distinct agreement or contract is required for the placement."
-        },
-        {
-          "question": "What deliverables can block international SVOD packaging for an episode?",
-          "pass": true,
-          "elapsed_s": 0.86,
-          "sources": [
-            "distribution-agreement-excerpt.md",
-            "platform-deliverables-checklist.md",
-            "talent-release-background-s01.md"
-          ],
-          "answer": "Missing Background (BG) release and uncleared music in M&E can block international SVOD packaging for an episode."
-        },
-        {
-          "question": "Is the Harbor Line theme song cleared for streaming in China?",
-          "pass": false,
-          "elapsed_s": 0.72,
-          "sources": [
-            "music-clearance-emea.md",
-            "music-clearance-latam.md",
-            "apac-music-clearance-update.md",
-            "social-media-guidelines-harbor-line.md"
-          ],
-          "answer": "**Cleared**\n2026-07-31",
-          "reasons": [
-            "need at least one of: ['China', 'excluded', 'not cleared', 'pending']"
-          ],
-          "expected": {
-            "sources": [
-              "distribution-agreement-excerpt.md",
-              "apac-music-clearance-update.md"
-            ],
-            "contains": null,
-            "contains_any": [
-              "China",
-              "excluded",
-              "not cleared",
-              "pending"
-            ]
-          }
-        },
-        {
-          "question": "Did Harbor Line Season 1 premiere on Netflix?",
-          "pass": true,
-          "elapsed_s": 1.26,
-          "sources": [
-            "press-kit-harbor-line-s01.md",
-            "press-release-series-renewal.md",
-            "talent-release-background-s01.md",
-            "sponsorship-deck-harbor-line-q4.md"
-          ],
-          "answer": "No. According to the context, **Harbor Line** is available on Harbor Stream (US), and international distribution partners are also mentioned, but there's no mention of Netflix."
-        },
-        {
-          "question": "What is the sync fee paid for the main title theme?",
-          "pass": true,
-          "elapsed_s": 0.87,
-          "sources": [
-            "music-clearance-emea.md",
-            "music-clearance-latam.md",
-            "apac-music-clearance-update.md"
-          ],
-          "answer": "The sync fee paid for the main title theme of Harbor Line was $5,000."
-        }
-      ]
-    },
-    {
-      "backend": "llamaindex",
-      "passed": 21,
-      "total": 23,
-      "total_time_s": 277.71,
-      "results": [
-        {
-          "question": "Is the theme song cleared for EMEA streaming?",
-          "pass": true,
-          "elapsed_s": 21.41,
-          "sources": [
-            "music-clearance-emea.md",
-            "music-clearance-latam.md"
-          ],
-          "answer": "The theme song is **Cleared** for EMEA streaming platforms under Harbor Media Group distribution deals. The expiry date for this clearance is **2027-12-31**."
-        },
-        {
-          "question": "What locations are locked for Season 1 Episode 4?",
-          "pass": true,
-          "elapsed_s": 25.94,
-          "sources": [
-            "production-brief-s01e04.md",
-            "production-brief-s02e01.md",
-            "production-brief-s01e07.md"
-          ],
-          "answer": "**Locked locations**\n\n- **Brooklyn Navy Yard — Building 92 (interior warehouse)**\n  - Hold confirmed through **November 15, 2026**\n  - Contact: NYC Location Manager — ext. 4421\n  - Restrictions: No pyrotechnics; max crew 45\n\n- **Red Hook Pier — exterior establishing**\n  - Hold: Nov 1–3, 2026 (weather backup Nov 8)\n  - Permit status: Approved"
-        },
-        {
-          "question": "When does Season 2 premiere?",
-          "pass": true,
-          "elapsed_s": 8.2,
-          "sources": [
-            "cast-announcement-season2-maya-chen.md",
-            "press-release-series-renewal.md",
-            "production-brief-s02e01.md"
-          ],
-          "answer": "Season 2 of \"Harbor Line\" premieres on March 22, 2027."
-        },
-        {
-          "question": "What territories are excluded from the distribution agreement?",
-          "pass": true,
-          "elapsed_s": 3.88,
-          "sources": [
-            "distribution-agreement-excerpt.md",
-            "international-sales-mipcom-2026.md",
-            "apac-music-clearance-update.md"
-          ],
-          "answer": "The following territories are explicitly excluded from this agreement:\n- China\n- North Korea\n- Iran\n- Syria\n- Crimea region"
-        },
-        {
-          "question": "What did Ad Ops say about the Q3 sponsorship block for 'Riverdale Docs'?",
-          "pass": true,
-          "elapsed_s": 21.07,
-          "sources": [
-            "email-ad-sales-q3.txt",
-            "sponsorship-deck-harbor-line-q4.md",
-            "stream-ad-specs-2026.md"
-          ],
-          "answer": "Ad Ops confirmed that the Q3 sponsorship block for \"Riverdale Docs\" includes pre-roll + mid-roll on Harbor Stream AVOD tier. The hold dates are Sep 1 – Sep 28, 2026, and the makegood policy is 1:1 if delivery < 95% of booked impressions.\n\n• Inventory: Pre-roll + mid-roll on Harbor Stream AVOD tier\n• Hold dates: Sep 1 – Sep 28, 2026\n• Makegood policy: 1:1 if delivery < 95% of booked impressions"
-        },
-        {
-          "question": "Is the Getty archival footage for Harbor Line Episode 4 cleared?",
-          "pass": false,
-          "elapsed_s": 7.51,
-          "sources": [
-            "archival-footage-clearance-getty.md",
-            "production-brief-s01e07.md",
-            "production-brief-s01e04.md"
-          ],
-          "answer": "**Cleared** — effective July 24, 2026 through series term.",
-          "reasons": [
-            "need at least one of: ['Getty', '1987', 'dock strike', 'archival']"
-          ],
-          "expected": {
-            "sources": [
-              "archival-footage-clearance-getty.md"
-            ],
-            "contains": [
-              "cleared"
-            ],
-            "contains_any": [
-              "Getty",
-              "1987",
-              "dock strike",
-              "archival"
-            ]
-          }
-        },
-        {
-          "question": "Who is the CEO of Netflix?",
-          "pass": true,
-          "elapsed_s": 6.79,
-          "sources": [
-            "production-budget-s02-summary.md",
-            "music-clearance-emea.md",
-            "wga-credit-determination-s01.md",
-            "cast-announcement-season2-maya-chen.md"
-          ],
-          "answer": "I don't have enough information in the provided documents to answer who the CEO of Netflix is."
-        },
-        {
-          "question": "Who is joining Harbor Line Season 2 as a series regular?",
-          "pass": true,
-          "elapsed_s": 24.56,
-          "sources": [
-            "cast-announcement-season2-maya-chen.md",
-            "press-release-series-renewal.md",
-            "press-kit-harbor-line-s01.md"
-          ],
-          "answer": "Maya Chen will join Harbor Line Season 2 as Lia Park, a union organizer who arrives at the East River docks as labor tensions escalate in Season 2.\n\nSources:\n- data/synthetic/press/cast-announcement-season2-maya-chen.md\n- data/synthetic/press/press-release-series-renewal.md"
+          "answer": "Maya Chen is joining Harbor Line Season 2 as Lia Park, a union organizer who arrives at the East River docks as labor tensions escalate in Season 2.\n\nSources:\n- cast-announcement-season2-maya-chen.md\n- press-release-series-renewal.md"
         },
         {
           "question": "What is the total production budget for Harbor Line Season 2?",
           "pass": true,
-          "elapsed_s": 19.34,
+          "elapsed_s": 2.57,
           "sources": [
             "production-budget-s02-summary.md",
             "press-release-series-renewal.md",
-            "press-kit-harbor-line-s01.md"
-          ],
-          "answer": "The total production budget for Harbor Line Season 2 is $38.0M. \n\n* Total production budget | $38.0M \n* Per-episode average | $4.75M \n* Tax incentive (NY) | $2.8M (est.) \n* Net after incentive | $35.2M"
-        },
-        {
-          "question": "Is the Harbor Line main title cleared for Japan streaming?",
-          "pass": true,
-          "elapsed_s": 11.61,
-          "sources": [
-            "music-clearance-emea.md",
-            "music-clearance-latam.md",
-            "apac-music-clearance-update.md",
-            "press-release-series-renewal.md"
-          ],
-          "answer": "The Harbor Line main title theme has been cleared for use in APAC (excluding China), but there is no specific mention of Japan. The relevant document does not provide information on Japan streaming clearance."
-        },
-        {
-          "question": "How many background talent releases are still outstanding for S01E04?",
-          "pass": true,
-          "elapsed_s": 5.7,
-          "sources": [
-            "talent-release-background-s01.md",
-            "platform-deliverables-checklist.md"
-          ],
-          "answer": "Two background performers have not returned signed releases."
-        },
-        {
-          "question": "What safety conditions apply to the chain breakaway stunt in S01E06?",
-          "pass": true,
-          "elapsed_s": 14.79,
-          "sources": [
-            "stunt-safety-memo-s01e06.md"
-          ],
-          "answer": "The chain hoist practical — breakaway rig in Scene 6C has a risk level of **High** and is approved with conditions. The conditions include:\n- Practical chain breakaway tested minimum 3 times before take\n- Fire safety officer on set; no sparks within 20 ft of rigging\n- Medical standby required — medic on set from call through wrap"
-        },
-        {
-          "question": "What location is locked for Harbor Line S01E07?",
-          "pass": true,
-          "elapsed_s": 9.12,
-          "sources": [
-            "production-brief-s01e07.md",
-            "production-brief-s01e04.md"
-          ],
-          "answer": "The location locked for Harbor Line S01E07 is Staten Island Ferry — passenger deck (night), with a confirmed hold through December 18, 2026. Restrictions include no handheld weapons visible and an NYPD liaison on set. The permit number is FilmNY #FN-2026-8841."
-        },
-        {
-          "question": "What are the sponsorship tiers for the Harbor Line Q4 launch package?",
-          "pass": true,
-          "elapsed_s": 8.05,
-          "sources": [
-            "sponsorship-deck-harbor-line-q4.md",
-            "email-harbor-line-q4-sponsorship.txt",
-            "stream-ad-specs-2026.md"
-          ],
-          "answer": "The sponsorship tiers for the Harbor Line Q4 launch package include:\n- Presenting tier ($650K)\n- National scatter at CPM floor $38.50"
-        },
-        {
-          "question": "What is the general liability insurance limit for Harbor Line production?",
-          "pass": true,
-          "elapsed_s": 8.67,
-          "sources": [
-            "production-insurance-certificate.md",
-            "email-harbor-line-q4-sponsorship.txt"
-          ],
-          "answer": "The general liability insurance limit for Harbor Line production is $5,000,000 per occurrence."
-        },
-        {
-          "question": "Which East River location was rejected during the 2026 location scout?",
-          "pass": true,
-          "elapsed_s": 10.35,
-          "sources": [
-            "location-scout-east-river-2026.md"
-          ],
-          "answer": "The Roosevelt Island tram approach was rejected during the 2026 location scout due to insurance concerns about cable-car proximity."
-        },
-        {
-          "question": "Who received writing credit for Harbor Line S01E04?",
-          "pass": true,
-          "elapsed_s": 7.3,
-          "sources": [
-            "production-brief-s01e04.md",
-            "wga-credit-determination-s01.md",
             "production-brief-s02e01.md"
           ],
-          "answer": "A. Reyes received writing credit for Harbor Line S01E04."
-        },
-        {
-          "question": "How long must cast wait before posting plot spoilers on personal social media?",
-          "pass": true,
-          "elapsed_s": 6.93,
-          "sources": [
-            "social-media-guidelines-harbor-line.md",
-            "cast-announcement-season2-maya-chen.md",
-            "talent-nda-season2.md"
-          ],
-          "answer": "Cast members must wait 24 hours after US SVOD release before posting plot spoilers on their personal social media accounts."
-        },
-        {
-          "question": "What product placement restrictions apply to Harbor Brew Co. in Episode 4?",
-          "pass": true,
-          "elapsed_s": 15.8,
-          "sources": [
-            "product-placement-coffee-brand.md",
-            "sponsorship-deck-harbor-line-q4.md",
-            "email-harbor-line-q4-sponsorship.txt",
-            "email-ad-sales-q3.txt"
-          ],
-          "answer": "Harbor Brew Co.'s coffee brand placement in Episode 4 is cleared for Season 1 only.\n\n- Season 1 — S01E04 \n| Scene | Duration | Status |\n|---------|-------|----------|\n| Warehouse break room | ≤ 4 seconds logo visibility | **Cleared** |\n\nThe Harbor Line Ep 4 coffee placement does not automatically include doc anthology sponsorship. Separate IO required."
-        },
-        {
-          "question": "What deliverables can block international SVOD packaging for an episode?",
-          "pass": true,
-          "elapsed_s": 12.66,
-          "sources": [
-            "apac-music-clearance-update.md",
-            "platform-deliverables-checklist.md",
-            "international-sales-mipcom-2026.md"
-          ],
-          "answer": "- Missing BG release — episode **not** accepted for international packaging  \n- Uncleared music in M&E — hold for APAC until publisher sign-off"
-        },
-        {
-          "question": "Is the Harbor Line theme song cleared for streaming in China?",
-          "pass": false,
-          "elapsed_s": 6.7,
-          "sources": [
-            "music-clearance-emea.md",
-            "apac-music-clearance-update.md",
-            "music-clearance-latam.md",
-            "social-media-guidelines-harbor-line.md"
-          ],
-          "answer": "**Cleared**, 2027-12-31.",
-          "reasons": [
-            "need at least one of: ['China', 'excluded', 'not cleared', 'pending']"
-          ],
-          "expected": {
-            "sources": [
-              "distribution-agreement-excerpt.md",
-              "apac-music-clearance-update.md"
-            ],
-            "contains": null,
-            "contains_any": [
-              "China",
-              "excluded",
-              "not cleared",
-              "pending"
-            ]
-          }
-        },
-        {
-          "question": "Did Harbor Line Season 1 premiere on Netflix?",
-          "pass": true,
-          "elapsed_s": 10.27,
-          "sources": [
-            "press-kit-harbor-line-s01.md",
-            "press-release-series-renewal.md",
-            "talent-release-background-s01.md"
-          ],
-          "answer": "No. According to the press kit, Harbor Line Season 1 premiered on March 15, 2027, on Harbor Stream (US), with international distribution via partners."
-        },
-        {
-          "question": "What is the sync fee paid for the main title theme?",
-          "pass": true,
-          "elapsed_s": 11.01,
-          "sources": [
-            "music-clearance-latam.md",
-            "music-clearance-emea.md"
-          ],
-          "answer": "The sync fee for the main title theme of \"Harbor Line\" was paid in full (Invoice #MUS-8842), with no additional publisher approval required for Season 1 episodes 1–10."
-        }
-      ]
-    },
-    {
-      "backend": "pgvector",
-      "passed": 22,
-      "total": 23,
-      "total_time_s": 58.31,
-      "results": [
-        {
-          "question": "Is the theme song cleared for EMEA streaming?",
-          "pass": true,
-          "elapsed_s": 4.47,
-          "sources": [
-            "music-clearance-emea.md",
-            "music-clearance-latam.md"
-          ],
-          "answer": "The main title theme for **Harbor Line** has been cleared for use in EMEA streaming platforms under Harbor Media Group distribution deals, with an expiry date of **2027-12-31**.\n\nSources:\n- music-clearance-emea.md\n- music-clearance-latam.md"
-        },
-        {
-          "question": "What locations are locked for Season 1 Episode 4?",
-          "pass": true,
-          "elapsed_s": 2.18,
-          "sources": [
-            "production-brief-s01e04.md",
-            "location-scout-east-river-2026.md",
-            "production-brief-s01e07.md"
-          ],
-          "answer": "The following locations are locked for Season 1 Episode 4:\n\n- Brooklyn Navy Yard — Building 92 (interior warehouse)\n- Red Hook Pier\n- East River Park (south section)\n\nSources:\n- production-brief-s01e04.md\n- location-scout-east-river-2026.md\n- production-brief-s01e07.md"
-        },
-        {
-          "question": "When does Season 2 premiere?",
-          "pass": true,
-          "elapsed_s": 1.42,
-          "sources": [
-            "cast-announcement-season2-maya-chen.md",
-            "press-release-series-renewal.md",
-            "distribution-agreement-excerpt.md"
-          ],
-          "answer": "Season 2 of \"Harbor Line\" premieres on **March 22, 2027**, on Harbor Stream.\n\nSources:\n- cast-announcement-season2-maya-chen.md\n- press-release-series-renewal.md\n- distribution-agreement-excerpt.md"
-        },
-        {
-          "question": "What territories are excluded from the distribution agreement?",
-          "pass": true,
-          "elapsed_s": 1.93,
-          "sources": [
-            "distribution-agreement-excerpt.md",
-            "apac-music-clearance-update.md",
-            "international-sales-mipcom-2026.md"
-          ],
-          "answer": "The following territories are **explicitly excluded** from this agreement:\n\n* China\n* North Korea\n* Crimea, Donetsk, and Luhansk regions\n* Iran and Syria (sanctions-related exclusion)\n\nSources:\n- distribution-agreement-excerpt.md\n- apac-music-clearance-update.md\n- international-sales-mipcom-2026.md"
-        },
-        {
-          "question": "What did Ad Ops say about the Q3 sponsorship block for 'Riverdale Docs'?",
-          "pass": false,
-          "elapsed_s": 3.27,
-          "sources": [
-            "email-ad-sales-q3.txt",
-            "stream-ad-specs-2026.md",
-            "sponsorship-deck-harbor-line-q4.md",
-            "email-harbor-line-q4-sponsorship.txt"
-          ],
-          "answer": "Ad Ops confirmed the following for Q3:\n\n- Inventory: Pre-roll + mid-roll on Harbor Stream AVOD tier\n- Hold dates: Sep 1 – Sep 28, 2026\n- Makegood policy: 1:1 if delivery < 95% of book\n\nSources:\n- email-ad-sales-q3.txt\n- stream-ad-specs-2026.md\n- sponsorship-deck-harbor-line-q4.md\n- email-harbor-line-q4-sponsorship.txt",
-          "reasons": [
-            "missing required keywords: ['Riverdale']"
-          ],
-          "expected": {
-            "sources": [
-              "email-ad-sales-q3.txt"
-            ],
-            "contains": [
-              "Riverdale"
-            ],
-            "contains_any": [
-              "Q3",
-              "September",
-              "Sep",
-              "sponsorship",
-              "pre-roll",
-              "mid-roll",
-              "avod",
-              "inventory"
-            ]
-          }
-        },
-        {
-          "question": "Is the Getty archival footage for Harbor Line Episode 4 cleared?",
-          "pass": true,
-          "elapsed_s": 3.11,
-          "sources": [
-            "archival-footage-clearance-getty.md",
-            "production-brief-s01e04.md",
-            "color-notes-email-s01e04.txt"
-          ],
-          "answer": "The Getty Images archival footage for Harbor Line Episode 4 is **Cleared**. It was cleared on July 24, 2026, and will remain available through the series term.\n\nSources:\n* archival-footage-clearance-getty.md\n* production-brief-s01e04.md\n\nSources:\n- archival-footage-clearance-getty.md\n- production-brief-s01e04.md\n- color-notes-email-s01e04.txt"
-        },
-        {
-          "question": "Who is the CEO of Netflix?",
-          "pass": true,
-          "elapsed_s": 1.91,
-          "sources": [
-            "product-placement-coffee-brand.md",
-            "email-harbor-line-q4-sponsorship.txt",
-            "production-budget-s02-summary.md",
-            "stunt-safety-memo-s01e06.md"
-          ],
-          "answer": "There is no information in the provided context about the CEO of Netflix. The documents only discuss Harbor Media Group-related topics, such as product placement, sponsorship, production budgets, and stunt safety.\n\nSources:\n- product-placement-coffee-brand.md\n- email-harbor-line-q4-sponsorship.txt\n- production-budget-s02-summary.md\n- stunt-safety-memo-s01e06.md"
-        },
-        {
-          "question": "Who is joining Harbor Line Season 2 as a series regular?",
-          "pass": true,
-          "elapsed_s": 3.15,
-          "sources": [
-            "cast-announcement-season2-maya-chen.md",
-            "press-release-series-renewal.md",
-            "press-kit-harbor-line-s01.md"
-          ],
-          "answer": "Maya Chen will join the cast of Harbor Line as Lia Park, a union organizer who arrives at the East River docks as labor tensions escalate in Season 2. She begins filming in April 2027.\n\nSources:\n-md\"\n\nSources:\n- cast-announcement-season2-maya-chen.md\n- press-release-series-renewal.md\n- press-kit-harbor-line-s01.md"
-        },
-        {
-          "question": "What is the total production budget for Harbor Line Season 2?",
-          "pass": true,
-          "elapsed_s": 2.33,
-          "sources": [
-            "production-budget-s02-summary.md",
-            "press-release-series-renewal.md",
-            "production-brief-s02e01.md",
-            "press-kit-harbor-line-s01.md"
-          ],
-          "answer": "The total production budget for Harbor Line Season 2 is $38.0M.\n\nSources:\n-md\"\n\nSources:\n- production-budget-s02-summary.md\n- press-release-series-renewal.md\n- production-brief-s02e01.md\n- press-kit-harbor-line-s01.md"
+          "answer": "The total production budget for Harbor Line Season 2 is $38.0M.\n\nSources:\n- $38.0M | Season 2 (planned) | Total production budget\n- $35.0M | Season 2 (planned) | Net after incentive"
         },
         {
           "question": "Is the Harbor Line main title cleared for Japan streaming?",
           "pass": true,
-          "elapsed_s": 2.51,
+          "elapsed_s": 1.74,
           "sources": [
             "apac-music-clearance-update.md",
             "music-clearance-emea.md",
             "music-clearance-latam.md",
-            "social-media-guidelines-harbor-line.md"
-          ],
-          "answer": "No. According to\n\nSources:\n- apac-music-clearance-update.md\n- music-clearance-emea.md\n- music-clearance-latam.md\n- social-media-guidelines-harbor-line.md"
-        },
-        {
-          "question": "How many background talent releases are still outstanding for S01E04?",
-          "pass": true,
-          "elapsed_s": 1.8,
-          "sources": [
-            "talent-release-background-s01.md",
-            "archival-footage-clearance-getty.md",
-            "platform-deliverables-checklist.md"
-          ],
-          "answer": "There are 2 background talent releases still outstanding for S01E04.\n\nSources:\n- talent-release-background-s01.md\n- archival-footage-clearance-getty.md\n- platform-deliverables-checklist.md"
-        },
-        {
-          "question": "What safety conditions apply to the chain breakaway stunt in S01E06?",
-          "pass": true,
-          "elapsed_s": 4.23,
-          "sources": [
-            "stunt-safety-memo-s01e06.md",
-            "production-brief-s01e07.md"
-          ],
-          "answer": "The chain breakaway stunt in S01E06 has several safety conditions:\n\n* The practical chain breakaway must be tested at least 3 times minimum before take.\n* A fire safety officer must be on set, and no sparks are allowed within 20 ft of the rigging.\n* Medical standby is required, with a medic on set from call through wrap.\n* No pyrotechnics are allowed at Brooklyn Navy Yard due to location agreement (see S01E04 brief).\n\nSources:\n- stunt-safety-memo-s01e06.md\n- production-brief-s01e07.md"
-        },
-        {
-          "question": "What location is locked for Harbor Line S01E07?",
-          "pass": true,
-          "elapsed_s": 1.85,
-          "sources": [
-            "production-brief-s01e07.md",
-            "production-brief-s01e04.md",
-            "product-placement-coffee-brand.md",
-            "location-scout-east-river-2026.md"
-          ],
-          "answer": "The Staten Island Ferry — passenger deck (night) is locked through December 18, 2026.\n\nSources:\n- production-brief-s01e07.md\n- production-brief-s01e04.md\n- product-placement-coffee-brand.md\n- location-scout-east-river-2026.md"
-        },
-        {
-          "question": "What are the sponsorship tiers for the Harbor Line Q4 launch package?",
-          "pass": true,
-          "elapsed_s": 2.09,
-          "sources": [
-            "email-harbor-line-q4-sponsorship.txt",
-            "sponsorship-deck-harbor-line-q4.md",
-            "stream-ad-specs-2026.md",
-            "email-ad-sales-q3.txt"
-          ],
-          "answer": "The sponsorship tiers for the Harbor Line Q4 launch package include:\n\n- Presenting tier ($650K)\n- National scatter at CPM floor $38.50\n\nSources:\n- email-harbor-line-q4-sponsorship.txt\n- sponsorship-deck-harbor-line-q4.md\n- stream-ad-specs-2026.md\n- email-ad-sales-q3.txt"
-        },
-        {
-          "question": "What is the general liability insurance limit for Harbor Line production?",
-          "pass": true,
-          "elapsed_s": 1.77,
-          "sources": [
-            "production-insurance-certificate.md",
-            "distribution-agreement-excerpt.md",
-            "social-media-guidelines-harbor-line.md",
-            "email-harbor-line-q4-sponsorship.txt"
-          ],
-          "answer": "The general liability insurance limit for Harbor Line production is $5,000,000 per occurrence, covered by Example Mutual.\n\nSources:\n- production-insurance-certificate.md\n- distribution-agreement-excerpt.md\n- social-media-guidelines-harbor-line.md\n- email-harbor-line-q4-sponsorship.txt"
-        },
-        {
-          "question": "Which East River location was rejected during the 2026 location scout?",
-          "pass": true,
-          "elapsed_s": 1.66,
-          "sources": [
-            "location-scout-east-river-2026.md",
-            "production-brief-s01e07.md"
-          ],
-          "answer": "The Roosevelt Island tram approach in Manhattan/Queens was rejected due to insurance concerns about cable-car proximity.\n\nSources:\n- location-scout-east-river-2026.md\n- production-brief-s01e07.md"
-        },
-        {
-          "question": "Who received writing credit for Harbor Line S01E04?",
-          "pass": true,
-          "elapsed_s": 2.19,
-          "sources": [
-            "wga-credit-determination-s01.md",
-            "production-brief-s01e04.md",
-            "production-brief-s01e07.md",
-            "production-brief-s02e01.md"
-          ],
-          "answer": "According to the Reyes received writing credit for Harbor Line S01E04.\n\nSources:\n- wga-credit-determination-s01.md\n- production-brief-s01e04.md\n- production-brief-s01e07.md\n- production-brief-s02e01.md"
-        },
-        {
-          "question": "How long must cast wait before posting plot spoilers on personal social media?",
-          "pass": true,
-          "elapsed_s": 2.12,
-          "sources": [
-            "social-media-guidelines-harbor-line.md",
-            "talent-nda-season2.md",
-            "cast-announcement-season2-maya-chen.md"
-          ],
-          "answer": "According to the Social Media Guidelines — Harbor Line document, cast members are not allowed to post **plot spoilers** on their personal accounts until 24 hours after the US SVOD release of Season 2.\n\nSources:\n- social-media-guidelines-harbor-line.md\n- talent-nda-season2.md\n- cast-announcement-season2-maya-chen.md"
-        },
-        {
-          "question": "What product placement restrictions apply to Harbor Brew Co. in Episode 4?",
-          "pass": true,
-          "elapsed_s": 5.35,
-          "sources": [
-            "product-placement-coffee-brand.md",
-            "sponsorship-deck-harbor-line-q4.md",
-            "email-harbor-line-q4-sponsorship.txt",
-            "production-brief-s01e04.md"
-          ],
-          "answer": "The product placement for Harbor Brew Co. in Episode 4 is restricted to ≤ 4 seconds of logo visibility.\n\n- Brooklyn Navy Yard — Building 92\n- Sponsorship Decks:\n  • Harbor Line Q4: Exclusions - Product placement in episodes governed by separate rights memo (Harbor Brew Co.)\n  • Harbor Line Q4: Status - Anchor tier: **in negotiation** (auto manufacturer — name under NDA)\n  • Harbor Line Q4: Status - Presenting: 1 slot held for Harbor Brew Co. renewal discussion\n  • Harbor Line Q4: Status - Legal review: standard sponsorship agreement template v4.1\n\nSources:\n- product-placement-coffee-brand.md\n- sponsorship-deck-harbor-line-q4.md\n- email-harbor-line-q4-sponsorship.txt\n- production-brief-s01e04.md"
-        },
-        {
-          "question": "What deliverables can block international SVOD packaging for an episode?",
-          "pass": true,
-          "elapsed_s": 3.1,
-          "sources": [
-            "talent-release-background-s01.md",
-            "platform-deliverables-checklist.md",
-            "color-notes-email-s01e04.txt",
-            "apac-music-clearance-update.md"
-          ],
-          "answer": "For an episode to be blocked from international SVOD packaging, the following deliverables must not be completed:\n\n* Picture master (ProRes 4444) \n* Audio stems (5.1 + stereo)\n* Closed captions (US English)\n\nThese are due within T-21 days for picture and audio, and T-14 days for closed captions.\n\nSources:\n- talent-release-background-s01.md\n- platform-deliverables-checklist.md\n- color-notes-email-s01e04.txt\n- apac-music-clearance-update.md"
-        },
-        {
-          "question": "Is the Harbor Line theme song cleared for streaming in China?",
-          "pass": true,
-          "elapsed_s": 1.93,
-          "sources": [
-            "music-clearance-emea.md",
-            "music-clearance-latam.md",
-            "apac-music-clearance-update.md",
-            "social-media-guidelines-harbor-line.md"
-          ],
-          "answer": "No, it is not mentioned that the Harbor Line theme song is cleared for streaming in China. The relevant documents do not provide information about China's clearance status.\n\nSources:\n- music-clearance-emea.md\n- music-clearance-latam.md\n- apac-music-clearance-update.md\n- social-media-guidelines-harbor-line.md"
-        },
-        {
-          "question": "Did Harbor Line Season 1 premiere on Netflix?",
-          "pass": true,
-          "elapsed_s": 2.08,
-          "sources": [
-            "press-kit-harbor-line-s01.md",
-            "press-release-series-renewal.md",
-            "talent-release-background-s01.md",
-            "cast-announcement-season2-maya-chen.md"
-          ],
-          "answer": "No, according to the context, Harbor Line Season 1 premiered on March 15, 2027, on Harbor Stream (US), and international via distribution partners.\n\nSources:\n- press-kit-harbor-line-s01.md\n- press-release-series-renewal.md\n- talent-release-background-s01.md\n- cast-announcement-season2-maya-chen.md"
-        },
-        {
-          "question": "What is the sync fee paid for the main title theme?",
-          "pass": true,
-          "elapsed_s": 1.88,
-          "sources": [
-            "music-clearance-latam.md",
-            "music-clearance-emea.md",
-            "apac-music-clearance-update.md"
-          ],
-          "answer": "The sync fee was paid in full, as stated in Invoice #MUS-8842, which was issued in May 2026.\n\nSources:\n- music-clearance-latam.md\n- music-clearance-emea.md\n- apac-music-clearance-update.md"
-        }
-      ]
-    },
-    {
-      "backend": "pinecone",
-      "passed": 21,
-      "total": 23,
-      "total_time_s": 61.94,
-      "results": [
-        {
-          "question": "Is the theme song cleared for EMEA streaming?",
-          "pass": true,
-          "elapsed_s": 4.23,
-          "sources": [
-            "music-clearance-emea.md",
-            "music-clearance-latam.md"
-          ],
-          "answer": "Yes, the main title theme for **Harbor Line** is cleared for use in EMEA streaming platforms under Harbor Media Group distribution deals. The document ID is HM-RIGHTS-MUS-2026-0142 and the effective date is 2026-06-01."
-        },
-        {
-          "question": "What locations are locked for Season 1 Episode 4?",
-          "pass": true,
-          "elapsed_s": 3.2,
-          "sources": [
-            "production-brief-s01e04.md",
-            "location-scout-east-river-2026.md",
-            "production-brief-s01e07.md"
-          ],
-          "answer": "The following locations are locked for Season 1 Episode 4:\n\n* Brooklyn Navy Yard — Building 92 (interior warehouse)\n* Red Hook Pier\n* East River Park (south section)\n\nThese locations have confirmed hold dates through November 15, 2026."
-        },
-        {
-          "question": "When does Season 2 premiere?",
-          "pass": true,
-          "elapsed_s": 1.96,
-          "sources": [
-            "cast-announcement-season2-maya-chen.md",
-            "press-release-series-renewal.md",
-            "distribution-agreement-excerpt.md"
-          ],
-          "answer": "Season 2 of \"Harbor Line\" premieres on **March 22, 2027**, on Harbor Stream."
-        },
-        {
-          "question": "What territories are excluded from the distribution agreement?",
-          "pass": true,
-          "elapsed_s": 2.88,
-          "sources": [
-            "distribution-agreement-excerpt.md",
-            "apac-music-clearance-update.md",
             "international-sales-mipcom-2026.md"
           ],
-          "answer": "The following territories are explicitly excluded from this agreement:\n\n* China\n* North Korea\n* Crimea, Donetsk, and Luhansk regions\n* Iran and Syria (sanctions-related exclusion)\n\nThese territories have all rights retained by Licensor."
-        },
-        {
-          "question": "What did Ad Ops say about the Q3 sponsorship block for 'Riverdale Docs'?",
-          "pass": false,
-          "elapsed_s": 3.1,
-          "sources": [
-            "email-ad-sales-q3.txt",
-            "stream-ad-specs-2026.md",
-            "sponsorship-deck-harbor-line-q4.md",
-            "email-harbor-line-q4-sponsorship.txt"
-          ],
-          "answer": "Ad Ops confirmed the following for Q3:\n\n- Inventory: Pre-roll + mid-roll on Harbor Stream AVOD tier\n- Hold dates: Sep 1 – Sep 28, 2026\n- Makegood policy: 1:1 if delivery < 95% of book",
-          "reasons": [
-            "missing required keywords: ['Riverdale']"
-          ],
-          "expected": {
-            "sources": [
-              "email-ad-sales-q3.txt"
-            ],
-            "contains": [
-              "Riverdale"
-            ],
-            "contains_any": [
-              "Q3",
-              "September",
-              "Sep",
-              "sponsorship",
-              "pre-roll",
-              "mid-roll",
-              "avod",
-              "inventory"
-            ]
-          }
-        },
-        {
-          "question": "Is the Getty archival footage for Harbor Line Episode 4 cleared?",
-          "pass": true,
-          "elapsed_s": 4.18,
-          "sources": [
-            "archival-footage-clearance-getty.md",
-            "production-brief-s01e04.md",
-            "color-notes-email-s01e04.txt"
-          ],
-          "answer": "The Getty archival footage for Harbor Line Episode 4 is **Cleared** and effective from July 24, 2026 through series term. A credit is required in the end credits.\n\n- Getty #1287743921 \n| Description | 1987 dock strike — news B-roll, NYC waterfront |\n| Intended use | Ep 4 cold open flashback, ≤ 45 seconds |\n| Territory | Worldwide, all media |"
-        },
-        {
-          "question": "Who is the CEO of Netflix?",
-          "pass": true,
-          "elapsed_s": 2.14,
-          "sources": [
-            "product-placement-coffee-brand.md",
-            "email-harbor-line-q4-sponsorship.txt",
-            "production-budget-s02-summary.md",
-            "stunt-safety-memo-s01e06.md"
-          ],
-          "answer": "I don't have enough information in the provided documents to answer this question. The context only discusses Harbor Media Group and its productions, including Harbor Line, without mentioning Netflix or any of its executives."
-        },
-        {
-          "question": "Who is joining Harbor Line Season 2 as a series regular?",
-          "pass": true,
-          "elapsed_s": 3.17,
-          "sources": [
-            "cast-announcement-season2-maya-chen.md",
-            "press-release-series-renewal.md",
-            "press-kit-harbor-line-s01.md"
-          ],
-          "answer": "Maya Chen will join the cast of Harbor Line as Lia Park, a union organizer who arrives at the East River docks as labor tensions escalate in Season 2. She begins filming in April 2027 and will appear in all eight Season 2 episodes.\n\n- Brooklyn Navy Yard — Building 92"
-        },
-        {
-          "question": "What is the total production budget for Harbor Line Season 2?",
-          "pass": true,
-          "elapsed_s": 2.85,
-          "sources": [
-            "production-budget-s02-summary.md",
-            "press-release-series-renewal.md",
-            "production-brief-s02e01.md",
-            "press-kit-harbor-line-s01.md"
-          ],
-          "answer": "The total production budget for Harbor Line Season 2 is $38.0M. \n\n- $38.0M \n| Total production budget | $38.0M |"
-        },
-        {
-          "question": "Is the Harbor Line main title cleared for Japan streaming?",
-          "pass": true,
-          "elapsed_s": 1.71,
-          "sources": [
-            "apac-music-clearance-update.md",
-            "music-clearance-emea.md",
-            "music-clearance-latam.md",
-            "social-media-guidelines-harbor-line.md"
-          ],
-          "answer": "The Harbor Line main title theme is **Pending** in Japan."
+          "answer": "No, the Harbor Line main title theme is **Pending** for Japan streaming."
         },
         {
           "question": "How many background talent releases are still outstanding for S01E04?",
           "pass": true,
-          "elapsed_s": 1.85,
+          "elapsed_s": 1.68,
           "sources": [
             "talent-release-background-s01.md",
-            "archival-footage-clearance-getty.md",
-            "platform-deliverables-checklist.md"
+            "archival-footage-clearance-getty.md"
           ],
           "answer": "There are 2 background talent releases still outstanding for S01E04."
         },
         {
           "question": "What safety conditions apply to the chain breakaway stunt in S01E06?",
           "pass": true,
-          "elapsed_s": 4.35,
+          "elapsed_s": 4.72,
           "sources": [
             "stunt-safety-memo-s01e06.md",
             "production-brief-s01e07.md"
           ],
-          "answer": "The chain breakaway stunt in S01E06 has several safety conditions:\n\n* The practical chain breakaway must be tested at least 3 times minimum before take.\n* A fire safety officer must be on set, and no sparks are allowed within 20 ft of the rigging.\n* Medical standby is required, with a medic on set from call through wrap.\n* No pyrotechnics are allowed at Brooklyn Navy Yard due to location agreement (see S01E04 brief)."
+          "answer": "The chain breakaway stunt in S01E06 has the following safety conditions:\n\n- Practical chain breakaway tested **3 times** minimum before take\n- Fire safety officer on set; no sparks within 20 ft of rigging\n- Medical standby required — medic on set from call through wrap\n- **No pyrotechnics** at Brooklyn Navy Yard per location agreement (see S01E04 brief)\n\nSources:\n- stunt-safety-memo-s01e06.md | doc_type=safety_memo | rights_tier=None\n- stunt-safety-memo-s01e06.md | doc_type=safety_memo | rights_tier=None"
         },
         {
           "question": "What location is locked for Harbor Line S01E07?",
           "pass": true,
-          "elapsed_s": 2.05,
+          "elapsed_s": 2.53,
           "sources": [
             "production-brief-s01e07.md",
             "production-brief-s01e04.md",
             "product-placement-coffee-brand.md",
             "location-scout-east-river-2026.md"
           ],
-          "answer": "The Staten Island Ferry — passenger deck (night) is locked through December 18, 2026."
+          "answer": "The Staten Island Ferry — passenger deck (night) is locked for Harbor Line S01E07, with a confirmed hold through December 18, 2026.\n\n• Staten Island Ferry — passenger deck (night)\n  - Hold confirmed through **December 18, 2026**\n  - R"
         },
         {
           "question": "What are the sponsorship tiers for the Harbor Line Q4 launch package?",
           "pass": true,
-          "elapsed_s": 2.4,
+          "elapsed_s": 2.67,
           "sources": [
             "email-harbor-line-q4-sponsorship.txt",
             "sponsorship-deck-harbor-line-q4.md",
             "stream-ad-specs-2026.md",
             "email-ad-sales-q3.txt"
           ],
-          "answer": "The sponsorship tiers for the Harbor Line Q4 launch package include:\n\n- Presenting tier ($650K)\n- National scatter at CPM floor $38.50"
+          "answer": "The sponsorship tiers for the Harbor Line Q4 launch package are as follows:\n\n- **Presenting tier**: $650K, with a **72-hour hold** pending Season 2 product placement talks.\n- National scatter at CPM floor $38.50, which is the same as Riverdale Docs' CPM floor."
         },
         {
           "question": "What is the general liability insurance limit for Harbor Line production?",
@@ -1396,67 +169,66 @@
           "sources": [
             "production-insurance-certificate.md",
             "distribution-agreement-excerpt.md",
-            "social-media-guidelines-harbor-line.md",
-            "email-harbor-line-q4-sponsorship.txt"
+            "social-media-guidelines-harbor-line.md"
           ],
-          "answer": "The general liability insurance limit for Harbor Line production is $5,000,000 per occurrence. The carrier is Example Mutual."
+          "answer": "The general liability insurance limit for Harbor Line production is $5,000,000 per occurrence.\n\n* Sources:\n  - $5,000,000 per occurrence | Example Mutual"
         },
         {
           "question": "Which East River location was rejected during the 2026 location scout?",
           "pass": true,
-          "elapsed_s": 1.92,
+          "elapsed_s": 1.84,
           "sources": [
             "location-scout-east-river-2026.md",
             "production-brief-s01e07.md"
           ],
-          "answer": "The Roosevelt Island tram approach in Manhattan/Queens was rejected due to insurance declining cable-car proximity."
+          "answer": "The Roosevelt Island tram approach was rejected during the 2026 location scout.\n\n* Roosevelt Island tram approach | Manhattan/Queens | **Rejected** | Insurance declined cable-car proximity |"
         },
         {
           "question": "Who received writing credit for Harbor Line S01E04?",
           "pass": true,
-          "elapsed_s": 2.22,
+          "elapsed_s": 2.0,
           "sources": [
             "wga-credit-determination-s01.md",
             "production-brief-s01e04.md",
             "production-brief-s01e07.md",
-            "production-brief-s02e01.md"
+            "talent-release-background-s01.md"
           ],
-          "answer": "According to the WGA Credit Determination document, A. Reyes received writing credit for Harbor Line S01E04."
+          "answer": "A. Reyes received writing credit for Harbor Line S01E04. \n- Brooklyn Navy Yard - Building 92 \n- Staten Island Ferry - passenger deck (night)"
         },
         {
           "question": "How long must cast wait before posting plot spoilers on personal social media?",
           "pass": true,
-          "elapsed_s": 2.26,
+          "elapsed_s": 1.9,
           "sources": [
             "social-media-guidelines-harbor-line.md",
             "talent-nda-season2.md",
             "cast-announcement-season2-maya-chen.md"
           ],
-          "answer": "According to the Social Media Guidelines — Harbor Line, cast members are not allowed to post **plot spoilers** on their personal accounts until 24 hours after the US SVOD release."
+          "answer": "According to the Social Media Guidelines, cast members must wait 24 hours after the US SVOD release of the show before posting plot spoilers on their personal social media accounts."
         },
         {
           "question": "What product placement restrictions apply to Harbor Brew Co. in Episode 4?",
           "pass": true,
-          "elapsed_s": 3.15,
+          "elapsed_s": 2.3,
           "sources": [
             "product-placement-coffee-brand.md",
             "sponsorship-deck-harbor-line-q4.md",
             "email-harbor-line-q4-sponsorship.txt",
-            "production-brief-s01e04.md"
+            "email-ad-sales-q3.txt"
           ],
-          "answer": "The product placement for Harbor Brew Co. in Episode 4 is restricted to ≤ 4 seconds of logo visibility.\n\n- Harbor Brew Co. coffee brand — ≤ 4 seconds logo visibility \n| Duration | Status |\n|----------|--------|\n| ≤ 4 seconds | **Cleared** |"
+          "answer": "Harbor Brew Co. has a 72-hour hold on the Presenting tier ($650K) pending Season 2 product placement talks. If they decline, the slot goes to national scatter at a CPM floor of $38.50."
         },
         {
           "question": "What deliverables can block international SVOD packaging for an episode?",
           "pass": false,
-          "elapsed_s": 3.37,
+          "elapsed_s": 2.17,
           "sources": [
             "talent-release-background-s01.md",
             "platform-deliverables-checklist.md",
-            "color-notes-email-s01e04.txt",
-            "apac-music-clearance-update.md"
+            "apac-music-clearance-update.md",
+            "production-insurance-certificate.md"
           ],
-          "answer": "For an episode, the following deliverables can block international SVOD packaging:\n\n* Audio stems (5.1 + stereo) \n* Closed captions (US English)\n* Forced narratives (EMEA)\n\nThese items have a status of \"delivered\" or \"T-14 days\" for EMEA, indicating that they are not yet ready for international SVOD packaging.",
+          "answer": "For an episode, the following deliverables can block international SVOD packaging:\n\n- Picture master (ProRes 4444) \n- Audio stems (5.1 + stereo) \n- Closed captions (US English) \n- Forced narratives (EMEA)",
           "reasons": [
             "need at least one of: ['background', 'release', 'clearance', 'rejection']"
           ],
@@ -1476,340 +248,36 @@
         {
           "question": "Is the Harbor Line theme song cleared for streaming in China?",
           "pass": true,
-          "elapsed_s": 2.68,
+          "elapsed_s": 2.86,
           "sources": [
             "music-clearance-emea.md",
             "music-clearance-latam.md",
             "apac-music-clearance-update.md",
             "social-media-guidelines-harbor-line.md"
           ],
-          "answer": "No, it is not cleared for streaming in China. According to the provided context, the APAC Music Clearance Update shows that the Harbor Line main title theme is **Pending** for Japan (SVOD), but there is no information about China specifically."
+          "answer": "No, the Harbor Line theme song is not cleared for streaming in China. According to the music-clearance-latam.md document, the Harbor Line main title theme (composer: Elena Vasquez) has been cleared for use in the EMEA (EU27 + UK + EFTA) territory, but the APAC (excluding China) clearance is **Pending**."
         },
         {
           "question": "Did Harbor Line Season 1 premiere on Netflix?",
-          "pass": true,
-          "elapsed_s": 2.31,
-          "sources": [
-            "press-kit-harbor-line-s01.md",
-            "press-release-series-renewal.md",
-            "talent-release-background-s01.md",
-            "cast-announcement-season2-maya-chen.md"
-          ],
-          "answer": "No. According to the context, Harbor Line Season 1 premiered on March 15, 2027, on Harbor Stream (US), and international via distribution partners, but there is no mention of Netflix."
-        },
-        {
-          "question": "What is the sync fee paid for the main title theme?",
-          "pass": true,
-          "elapsed_s": 1.95,
-          "sources": [
-            "music-clearance-latam.md",
-            "music-clearance-emea.md",
-            "apac-music-clearance-update.md"
-          ],
-          "answer": "The sync fee for the main title theme of Harbor Line has been paid in full, as per Invoice #MUS-8842 in May 2026."
-        }
-      ]
-    },
-    {
-      "backend": "hybrid",
-      "passed": 21,
-      "total": 23,
-      "total_time_s": 46.37,
-      "results": [
-        {
-          "question": "Is the theme song cleared for EMEA streaming?",
-          "pass": true,
-          "elapsed_s": 2.51,
-          "sources": [
-            "music-clearance-emea.md",
-            "music-clearance-latam.md"
-          ],
-          "answer": "Yes, the main title theme for **Harbor Line** is cleared for use in EMEA (EU27 + UK + EFTA) streaming platforms under Harbor Media Group distribution deals. The clearance status is **Cleared**, and the expiry date is **2027-12-31**."
-        },
-        {
-          "question": "What locations are locked for Season 1 Episode 4?",
-          "pass": true,
-          "elapsed_s": 1.89,
-          "sources": [
-            "production-brief-s01e04.md",
-            "production-brief-s01e07.md",
-            "location-scout-east-river-2026.md",
-            "production-brief-s02e01.md"
-          ],
-          "answer": "The following locations are locked for Season 1 Episode 4:\n\n- Brooklyn Navy Yard — Building 92 (interior warehouse)\n- Staten Island Ferry — passenger deck (night)"
-        },
-        {
-          "question": "When does Season 2 premiere?",
-          "pass": true,
-          "elapsed_s": 1.38,
-          "sources": [
-            "press-release-series-renewal.md",
-            "press-kit-harbor-line-s01.md",
-            "distribution-agreement-excerpt.md",
-            "international-sales-mipcom-2026.md"
-          ],
-          "answer": "Season 2 of \"Harbor Line\" premieres on March 22, 2027."
-        },
-        {
-          "question": "What territories are excluded from the distribution agreement?",
-          "pass": true,
-          "elapsed_s": 2.62,
-          "sources": [
-            "distribution-agreement-excerpt.md",
-            "international-sales-mipcom-2026.md",
-            "apac-music-clearance-update.md"
-          ],
-          "answer": "The following territories are **explicitly excluded** from this agreement:\n\n* China (People's Republic of China, including Hong Kong MAC for this schedule)\n* North Korea\n* Crimea, Donetsk, and Luhansk regions\n* Iran and Syria (sanctions-related exclusion)\n\nSources:\n- distribution-agreement-excerpt.md\n- international-sales-mipcom-2026.md"
-        },
-        {
-          "question": "What did Ad Ops say about the Q3 sponsorship block for 'Riverdale Docs'?",
-          "pass": false,
-          "elapsed_s": 2.3,
-          "sources": [
-            "email-ad-sales-q3.txt",
-            "stream-ad-specs-2026.md",
-            "sponsorship-deck-harbor-line-q4.md"
-          ],
-          "answer": "Ad Ops confirmed the following for Q3:\n\n- Inventory: Pre-roll + mid-roll on Harbor Stream AVOD tier\n- Hold dates: Sep 1 – Sep 28, 2026\n- Makegood policy: 1:1 if delivery < 95% of booked impressions",
-          "reasons": [
-            "missing required keywords: ['Riverdale']"
-          ],
-          "expected": {
-            "sources": [
-              "email-ad-sales-q3.txt"
-            ],
-            "contains": [
-              "Riverdale"
-            ],
-            "contains_any": [
-              "Q3",
-              "September",
-              "Sep",
-              "sponsorship",
-              "pre-roll",
-              "mid-roll",
-              "avod",
-              "inventory"
-            ]
-          }
-        },
-        {
-          "question": "Is the Getty archival footage for Harbor Line Episode 4 cleared?",
-          "pass": true,
-          "elapsed_s": 4.57,
-          "sources": [
-            "archival-footage-clearance-getty.md",
-            "production-brief-s01e04.md",
-            "color-notes-email-s01e04.txt",
-            "product-placement-coffee-brand.md"
-          ],
-          "answer": "Yes, according to the context provided. The document \"Archival Footage Clearance — Getty Images\" states that the asset is **Cleared** and has an effective date of July 24, 2026 through series term.\n\n- Getty #1287743921 \n| Clip ID | Getty #1287743921 |\n| Description | 1987 dock strike — news B-roll, NYC waterfront |\n| Intended use | Ep 4 cold open flashback, ≤ 45 seconds |\n| Territory | Worldwide, all media |\n\nThe document \"production-brief-s01e04.md\" also confirms that the archival footage is **Cleared** with an effective date of July 24, 2026."
-        },
-        {
-          "question": "Who is the CEO of Netflix?",
-          "pass": true,
-          "elapsed_s": 1.36,
-          "sources": [
-            "press-release-series-renewal.md",
-            "email-ad-sales-q3.txt",
-            "distribution-agreement-excerpt.md"
-          ],
-          "answer": "I don't have enough information in the provided documents to answer this question. The context does not mention Netflix or its leadership."
-        },
-        {
-          "question": "Who is joining Harbor Line Season 2 as a series regular?",
-          "pass": true,
-          "elapsed_s": 1.71,
-          "sources": [
-            "cast-announcement-season2-maya-chen.md",
-            "press-release-series-renewal.md"
-          ],
-          "answer": "Maya Chen will join the cast of Harbor Line as Lia Park, a union organizer who arrives at the East River docks. She begins filming in April 2027 and will appear in all eight Season 2 episodes."
-        },
-        {
-          "question": "What is the total production budget for Harbor Line Season 2?",
-          "pass": true,
-          "elapsed_s": 1.34,
-          "sources": [
-            "production-budget-s02-summary.md",
-            "press-release-series-renewal.md",
-            "production-brief-s02e01.md",
-            "cast-announcement-season2-maya-chen.md"
-          ],
-          "answer": "The total production budget for Harbor Line Season 2 is $38.0M."
-        },
-        {
-          "question": "Is the Harbor Line main title cleared for Japan streaming?",
-          "pass": true,
-          "elapsed_s": 1.44,
-          "sources": [
-            "apac-music-clearance-update.md",
-            "music-clearance-emea.md",
-            "music-clearance-latam.md",
-            "press-release-series-renewal.md"
-          ],
-          "answer": "No. According to the context, the Harbor Line main title theme is **Pending** in Japan (SVOD platform)."
-        },
-        {
-          "question": "How many background talent releases are still outstanding for S01E04?",
-          "pass": true,
-          "elapsed_s": 1.41,
-          "sources": [
-            "talent-release-background-s01.md",
-            "platform-deliverables-checklist.md",
-            "distribution-agreement-excerpt.md"
-          ],
-          "answer": "For S01E04, there are **2** background talent releases that have not been signed."
-        },
-        {
-          "question": "What safety conditions apply to the chain breakaway stunt in S01E06?",
-          "pass": true,
-          "elapsed_s": 3.42,
-          "sources": [
-            "stunt-safety-memo-s01e06.md",
-            "press-kit-harbor-line-s01.md"
-          ],
-          "answer": "The chain breakaway stunt in S01E06 has several safety conditions that must be met:\n\n* The practical chain breakaway must have been tested at least 3 times minimum before take.\n* A fire safety officer must be on set, and no sparks are allowed within 20 ft of the rigging.\n* Medical standby is required, with a medic on set from call through wrap.\n* No pyrotechnics are allowed at Brooklyn Navy Yard due to location agreement (as stated in S01E04 brief)."
-        },
-        {
-          "question": "What location is locked for Harbor Line S01E07?",
           "pass": true,
           "elapsed_s": 1.75,
           "sources": [
-            "production-brief-s01e07.md",
-            "location-scout-east-river-2026.md",
-            "production-brief-s01e04.md"
-          ],
-          "answer": "The Staten Island Ferry — passenger deck (night) is locked for Harbor Line S01E07. Hold confirmed through December 18, 2026."
-        },
-        {
-          "question": "What are the sponsorship tiers for the Harbor Line Q4 launch package?",
-          "pass": true,
-          "elapsed_s": 1.7,
-          "sources": [
-            "email-harbor-line-q4-sponsorship.txt",
-            "sponsorship-deck-harbor-line-q4.md",
-            "stream-ad-specs-2026.md",
-            "email-ad-sales-q3.txt"
-          ],
-          "answer": "The sponsorship tiers for the Harbor Line Q4 launch package include:\n\n- Presenting tier ($650K)\n- National scatter at CPM floor $38.50"
-        },
-        {
-          "question": "What is the general liability insurance limit for Harbor Line production?",
-          "pass": true,
-          "elapsed_s": 1.52,
-          "sources": [
-            "production-insurance-certificate.md",
-            "email-harbor-line-q4-sponsorship.txt",
-            "email-ad-sales-q3.txt",
-            "stunt-safety-memo-s01e06.md"
-          ],
-          "answer": "The general liability insurance limit for Harbor Line production is $5,000,000 per occurrence."
-        },
-        {
-          "question": "Which East River location was rejected during the 2026 location scout?",
-          "pass": true,
-          "elapsed_s": 1.37,
-          "sources": [
-            "location-scout-east-river-2026.md",
-            "production-brief-s02e01.md"
-          ],
-          "answer": "The Roosevelt Island tram approach was rejected due to insurance concerns about cable-car proximity."
-        },
-        {
-          "question": "Who received writing credit for Harbor Line S01E04?",
-          "pass": true,
-          "elapsed_s": 1.43,
-          "sources": [
-            "wga-credit-determination-s01.md",
-            "production-brief-s01e04.md",
-            "cast-announcement-season2-maya-chen.md",
-            "product-placement-coffee-brand.md"
-          ],
-          "answer": "Harbor Media Group has confirmed that A. Reyes received a writing credit for Harbor Line S01E04."
-        },
-        {
-          "question": "How long must cast wait before posting plot spoilers on personal social media?",
-          "pass": true,
-          "elapsed_s": 1.67,
-          "sources": [
-            "social-media-guidelines-harbor-line.md",
-            "cast-announcement-season2-maya-chen.md",
-            "talent-release-background-s01.md"
-          ],
-          "answer": "According to the Social Media Guidelines, cast and crew are not allowed to post **any** plot spoilers on their personal accounts until 24 hours after the US SVOD release."
-        },
-        {
-          "question": "What product placement restrictions apply to Harbor Brew Co. in Episode 4?",
-          "pass": true,
-          "elapsed_s": 3.13,
-          "sources": [
-            "product-placement-coffee-brand.md",
-            "sponsorship-deck-harbor-line-q4.md",
-            "email-harbor-line-q4-sponsorship.txt",
-            "production-brief-s01e04.md"
-          ],
-          "answer": "The product placement for Harbor Brew Co. in Episode 4 is restricted by the following conditions:\n\n* The coffee brand must be visible on screen for ≤ 4 seconds.\n* There are no other specific restrictions mentioned in the provided documents.\n\nAdditionally, it's noted that if Harbor Brew Co. declines to participate in Season 2 product placement talks, their presenting sponsor slot will go to national scatter at a CPM floor of $38.50."
-        },
-        {
-          "question": "What deliverables can block international SVOD packaging for an episode?",
-          "pass": true,
-          "elapsed_s": 2.85,
-          "sources": [
-            "talent-release-background-s01.md",
-            "color-notes-email-s01e04.txt",
-            "platform-deliverables-checklist.md"
-          ],
-          "answer": "Missing Background (BG) release is the only deliverable that can block international SVOD packaging for an episode. \n\n*   **Background (BG) release**: \n    -   100% BG clearance is required for SVOD packaging — no exceptions for EMEA or LATAM.\n*   Other deliverables, such as music and credits, have specific requirements but do not block international SVOD packaging on their own."
-        },
-        {
-          "question": "Is the Harbor Line theme song cleared for streaming in China?",
-          "pass": false,
-          "elapsed_s": 1.9,
-          "sources": [
-            "music-clearance-emea.md",
-            "music-clearance-latam.md"
-          ],
-          "answer": "No, according to the provided context, the Harbor Line theme song is not cleared for use in APAC (excluding China), with a status of \"Pending\" and an expiry date of \"--\".",
-          "reasons": [
-            "expected source in ['distribution-agreement-excerpt.md', 'apac-music-clearance-update.md'], got ['music-clearance-emea.md', 'music-clearance-latam.md']"
-          ],
-          "expected": {
-            "sources": [
-              "distribution-agreement-excerpt.md",
-              "apac-music-clearance-update.md"
-            ],
-            "contains": null,
-            "contains_any": [
-              "China",
-              "excluded",
-              "not cleared",
-              "pending"
-            ]
-          }
-        },
-        {
-          "question": "Did Harbor Line Season 1 premiere on Netflix?",
-          "pass": true,
-          "elapsed_s": 1.46,
-          "sources": [
             "press-kit-harbor-line-s01.md",
             "press-release-series-renewal.md",
-            "sponsorship-deck-harbor-line-q4.md",
             "cast-announcement-season2-maya-chen.md"
           ],
-          "answer": "No, according to the context, Harbor Line Season 1 premiered on Harbor Stream (US) and international distribution partners."
+          "answer": "No.\n\nThe press kit states that Season 1 premiered on Harbor Stream (US) and international distribution partner, but does not mention Netflix."
         },
         {
           "question": "What is the sync fee paid for the main title theme?",
           "pass": true,
-          "elapsed_s": 1.65,
+          "elapsed_s": 3.5,
           "sources": [
-            "music-clearance-emea.md",
             "music-clearance-latam.md",
+            "music-clearance-emea.md",
             "apac-music-clearance-update.md"
           ],
-          "answer": "The sync fee for the main title theme of Harbor Line has been paid in full, as per Invoice #MUS-8842 in May 2026."
+          "answer": "The sync fee for the main title theme was paid in full, as stated in Invoice #MUS-8842, which was paid in May 2026.\n\nSources:\n- music-clearance-latam.md | doc_type=rights_clearance | rights_tier=cleared\n- music-clearance-emea.md | doc_type=rights_clearance | rights_tier=cleared\n- music-clearance-latam.md | doc_type=rights_clearance | rights_tier=cleared"
         }
       ]
     }

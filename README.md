@@ -16,6 +16,9 @@ Companion clients (consume the FastAPI BFF over HTTP/SSE):
 |-------------------|---------------------|---------|
 | [applied-ai-web](https://github.com/bernardovchevez/applied-ai-web) | `web` | Next.js chat, agent workflow, eval admin |
 | [applied-ai-slack](https://github.com/bernardovchevez/applied-ai-slack) | `slack` | `/media-ask`, `/media-clearance`, `/media-status`, `@media-ops`, Block Kit approvals |
+| [applied-ai-docs](https://github.com/bernardovchevez/applied-ai-docs) | (catalog) | SharePoint-style document library; **publish** → lake raw → pgvector index |
+
+**Document SoT:** [applied-ai-docs](https://github.com/bernardovchevez/applied-ai-docs) owns content and metadata; this repo owns the **index and AI APIs** after publish. See [docs/document-corpus-sources.md](docs/document-corpus-sources.md).
 
 Localhost demo prompts (Slack and equivalent web questions): [applied-ai-slack/docs/local-slack-testing.md#sample-prompts-for-localhost-demos](https://github.com/bernardovchevez/applied-ai-slack/blob/main/docs/local-slack-testing.md#sample-prompts-for-localhost-demos).
 
@@ -84,16 +87,16 @@ python rag/evals/run_eval.py --backend hybrid
 
 ## Data plane & incremental ingest
 
-Lake ingest + pgvector from `data/lake/raw/` (see [docs/data-plane.md](docs/data-plane.md)):
+Published corpus lives in `data/lake/raw/` (from **applied-ai-docs** publish). See [docs/document-corpus-sources.md](docs/document-corpus-sources.md) and [docs/data-plane.md](docs/data-plane.md):
 
 ```bash
 pip install -r requirements-pipelines.txt
-python platform/pipelines/ingest_batch.py
+python platform/pipelines/ingest_batch.py --emit-events
+python platform/pipelines/embed_worker.py
 python rag/ingest_pgvector.py --data-dir data/lake/raw
-python rag/ingest_pgvector.py --data-dir data/lake/raw --lora-tag
 ```
 
-Event-driven incremental path: `ingest_batch.py --emit-events` -> `embed_worker.py`.
+Dev-only seed from `data/synthetic/`: add `--seed-from-synthetic` to `ingest_batch.py`.
 
 ## Web & Slack clients + FastAPI BFF (Localhost, Stage & Production)
 
@@ -120,6 +123,15 @@ APP_ENV=stage docker compose --profile stage up --build -d
 ```
 
 See [platform/README.md](platform/README.md) and [platform/bff/README.md](platform/bff/README.md).
+
+## RAG backend comparison (prototype evals)
+
+Compare retrieval approaches on the same 23-question gold set, log to MLflow, and chart pass rates: **[docs/rag-backend-comparison.md](docs/rag-backend-comparison.md)** (includes localhost benchmark snapshot `rag/evals/results-localhost-2026-10-16.json`).
+
+```bash
+./platform/ops/run_rag_keyword_baseline.sh   # all backends + baseline.json + MLflow
+python rag/evals/run_eval.py --backend pgvector   # single backend iteration
+```
 
 ## Testing & Continuous Integration
 
@@ -166,7 +178,8 @@ applied-ai-platform/
 ├── shared/                    # Shared LLM/embedding configuration & utilities
 ├── stores/                    # Vector & SQL store adapters (pgvector, Chroma, Pinecone, hybrid)
 ├── tests/                     # Unit & FastAPI BFF contract test suite (pytest)
-├── data/synthetic/            # Synthetic media operations & rights clearance corpus
+├── data/synthetic/            # Seed pack (bootstrap via applied-ai-docs or --seed-from-synthetic)
+├── data/lake/raw/             # Published bronze corpus (SoT for indexing after docs publish)
 ├── docs/                      # Architecture & governance documentation
 └── .github/workflows/ci.yml   # GitHub Actions CI (Python 3.12 compileall + pytest)
 ```

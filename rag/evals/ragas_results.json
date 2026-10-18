@@ -1,6 +1,6 @@
 {
-  "timestamp": "2026-07-29T16:48:58.935083+00:00",
-  "gold_path": "rag/evals/gold_qa.json",
+  "timestamp": "2026-10-16T16:10:24.036524+00:00",
+  "gold_path": "/Users/bernardochevez/Documents/cursor_workspace/applied-ai-platform/rag/evals/gold_qa.json",
   "judge_model": "ollama/llama3.2",
   "embedding_model": "ollama/nomic-embed-text",
   "judge_provider": "ollama",
@@ -11,109 +11,24 @@
     {
       "backend": "chroma",
       "metrics": {
-        "faithfulness": 0.3333
+        "faithfulness": 0.75
       },
-      "total_time_s": 881.45,
-      "questions": 20,
+      "total_time_s": 348.69,
+      "questions": 3,
       "results": [
         {
           "question": "Is the theme song cleared for EMEA streaming?",
-          "elapsed_s": 8.85,
-          "faithfulness": null
+          "elapsed_s": 1.72,
+          "faithfulness": 0.75
         },
         {
           "question": "What locations are locked for Season 1 Episode 4?",
-          "elapsed_s": 21.3,
+          "elapsed_s": 2.9,
           "faithfulness": null
         },
         {
           "question": "When does Season 2 premiere?",
-          "elapsed_s": 12.64,
-          "faithfulness": null
-        },
-        {
-          "question": "What territories are excluded from the distribution agreement?",
-          "elapsed_s": 18.54,
-          "faithfulness": null
-        },
-        {
-          "question": "What did Ad Ops say about the Q3 sponsorship block for 'Riverdale Docs'?",
-          "elapsed_s": 13.68,
-          "faithfulness": null
-        },
-        {
-          "question": "Is the Getty archival footage for Harbor Line Episode 4 cleared?",
-          "elapsed_s": 46.92,
-          "faithfulness": null
-        },
-        {
-          "question": "Who is the CEO of Netflix?",
-          "elapsed_s": 19.59,
-          "faithfulness": 0.5
-        },
-        {
-          "question": "Who is joining Harbor Line Season 2 as a series regular?",
-          "elapsed_s": 21.12,
-          "faithfulness": null
-        },
-        {
-          "question": "What is the total production budget for Harbor Line Season 2?",
-          "elapsed_s": 12.85,
-          "faithfulness": null
-        },
-        {
-          "question": "Is the Harbor Line main title cleared for Japan streaming?",
-          "elapsed_s": 27.06,
-          "faithfulness": null
-        },
-        {
-          "question": "How many background talent releases are still outstanding for S01E04?",
-          "elapsed_s": 56.16,
-          "faithfulness": null
-        },
-        {
-          "question": "What safety conditions apply to the chain breakaway stunt in S01E06?",
-          "elapsed_s": 14.75,
-          "faithfulness": null
-        },
-        {
-          "question": "What location is locked for Harbor Line S01E07?",
-          "elapsed_s": 19.04,
-          "faithfulness": null
-        },
-        {
-          "question": "What are the sponsorship tiers for the Harbor Line Q4 launch package?",
-          "elapsed_s": 2.65,
-          "faithfulness": null
-        },
-        {
-          "question": "What is the general liability insurance limit for Harbor Line production?",
-          "elapsed_s": 2.1,
-          "faithfulness": null
-        },
-        {
-          "question": "Which East River location was rejected during the 2026 location scout?",
-          "elapsed_s": 2.18,
-          "faithfulness": 0.0
-        },
-        {
-          "question": "Who received writing credit for Harbor Line S01E04?",
-          "elapsed_s": 1.71,
-          "faithfulness": null
-        },
-        {
-          "question": "How long must cast wait before posting plot spoilers on personal social media?",
-          "elapsed_s": 1.73,
-          "faithfulness": null
-        },
-        {
-          "question": "What product placement restrictions apply to Harbor Brew Co. in Episode 4?",
-          "elapsed_s": 3.14,
-          "faithfulness": 0.5
-        },
-        {
-          "question": "What deliverables can block international SVOD packaging for an episode?",
-          "elapsed_s": 2.38,
+          "elapsed_s": 1.85,
           "faithfulness": null
         }
       ]

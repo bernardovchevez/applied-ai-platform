@@ -11,8 +11,14 @@ from dotenv import load_dotenv
 AppEnv = Literal["localhost", "stage", "production"]
 
 LAB_ROOT = Path(__file__).resolve().parent.parent
-DATA_DIR = LAB_ROOT / "data" / "synthetic"
-SYNTHETIC_META = DATA_DIR / "sharepoint-meta.json"
+LAKE_RAW_DIR = Path(
+    os.getenv("LAKE_RAW_DIR", str(LAB_ROOT / "data" / "lake" / "raw"))
+).resolve()
+SYNTHETIC_DIR = LAB_ROOT / "data" / "synthetic"
+# Published corpus (default): lake bronze written by applied-ai-docs publish pipeline.
+DATA_DIR = Path(os.getenv("DATA_DIR", str(LAKE_RAW_DIR))).resolve()
+LAKE_META = LAKE_RAW_DIR / "sharepoint-meta.json"
+SYNTHETIC_META = SYNTHETIC_DIR / "sharepoint-meta.json"
 
 _ENV_ALIASES: dict[str, AppEnv] = {
     "local": "localhost",

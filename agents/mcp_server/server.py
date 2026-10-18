@@ -33,7 +33,7 @@ from tools import (
     search_web_stub_impl,
 )
 
-CORPUS_META = LAB_ROOT / "data" / "synthetic" / "sharepoint-meta.json"
+CORPUS_META = LAB_ROOT / "data" / "lake" / "raw" / "sharepoint-meta.json"
 EVAL_RESULTS = AGENTS_DIR / "evals" / "agent_results.json"
 
 _TOOL_USE_RULES = (

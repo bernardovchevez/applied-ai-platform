@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
-"""Batch ingest: synthetic → lake raw → parquet manifest.
+"""Batch ingest: lake raw → parquet manifest (+ optional synthetic seed copy).
 
 Usage:
   python platform/pipelines/ingest_batch.py
-  python platform/pipelines/ingest_batch.py --skip-sync
-  python platform/pipelines/ingest_batch.py --parquet-only
+  python platform/pipelines/ingest_batch.py --emit-events
+  python platform/pipelines/ingest_batch.py --seed-from-synthetic --emit-events
 """
 
 from __future__ import annotations
@@ -160,13 +160,16 @@ def run_batch_ingest(
     raw_dir: Path,
     parquet_path: Path,
     manifest_path: Path,
-    skip_sync: bool,
+    skip_sync: bool = True,
     emit_events_flag: bool = False,
     events_dir: Path | None = None,
 ) -> dict:
     synced = None if skip_sync else sync_synthetic_to_lake(raw_dir)
     if skip_sync and not raw_dir.exists():
-        raise SystemExit(f"Raw lake not found: {raw_dir}\nRun without --skip-sync first.")
+        raise SystemExit(
+            f"Raw lake not found: {raw_dir}\n"
+            "Publish from applied-ai-docs or run with --seed-from-synthetic (dev seed only)."
+        )
 
     rows = build_document_rows(raw_dir)
     if not rows:
@@ -198,13 +201,15 @@ def run_batch_ingest(
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Batch ingest synthetic corpus to lake parquet")
+    parser = argparse.ArgumentParser(
+        description="Batch ingest published lake raw corpus to parquet manifest"
+    )
     parser.add_argument("--raw-dir", type=Path, default=LAKE_RAW)
     parser.add_argument("--parquet-dir", type=Path, default=LAKE_PARQUET)
     parser.add_argument(
-        "--skip-sync",
+        "--seed-from-synthetic",
         action="store_true",
-        help="Skip synthetic→raw copy; build parquet from existing raw lake",
+        help="Dev only: copy data/synthetic/ into lake raw before building manifest",
     )
     parser.add_argument(
         "--emit-events",
@@ -221,7 +226,7 @@ def main() -> None:
         raw_dir=args.raw_dir,
         parquet_path=parquet_path,
         manifest_path=manifest_path,
-        skip_sync=args.skip_sync,
+        skip_sync=not args.seed_from_synthetic,
         emit_events_flag=args.emit_events,
         events_dir=args.events_dir,
     )

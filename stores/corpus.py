@@ -7,15 +7,20 @@ import json
 from pathlib import Path
 from typing import Iterator
 
-from shared.config import DATA_DIR, SYNTHETIC_META
+from shared.config import DATA_DIR, LAKE_META, SYNTHETIC_META
 
 CHUNK_SIZE = 512
 CHUNK_OVERLAP = 50
 
 
 def load_sharepoint_meta(meta_path: Path | None = None) -> dict[str, dict]:
-    """Index sharepoint-meta.json by file_name."""
-    path = meta_path or SYNTHETIC_META
+    """Index sharepoint-meta.json by file_name (lake catalog first, synthetic seed fallback)."""
+    if meta_path is not None:
+        path = meta_path
+    elif LAKE_META.exists():
+        path = LAKE_META
+    else:
+        path = SYNTHETIC_META
     if not path.exists():
         return {}
     data = json.loads(path.read_text(encoding="utf-8"))

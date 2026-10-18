@@ -1,6 +1,6 @@
 {
-  "library": "Harbor Media Operations — Synthetic SharePoint Index",
-  "last_synced": "2026-07-29T11:00:00Z",
+  "library": "Harbor Media Operations — Synthetic SharePoint Index (expanded catalog)",
+  "last_synced": "2026-10-18T20:00:00Z",
   "documents": [
     {
       "file_name": "production-brief-s01e04.md",
@@ -9,7 +9,11 @@
       "confidentiality": "internal",
       "series": "Harbor Line",
       "doc_type": "production_brief",
-      "tags": ["locations", "clearances", "S01E04"]
+      "tags": [
+        "locations",
+        "clearances",
+        "S01E04"
+      ]
     },
     {
       "file_name": "production-brief-s01e07.md",
@@ -18,7 +22,11 @@
       "confidentiality": "internal",
       "series": "Harbor Line",
       "doc_type": "production_brief",
-      "tags": ["locations", "ferry", "S01E07"]
+      "tags": [
+        "locations",
+        "ferry",
+        "S01E07"
+      ]
     },
     {
       "file_name": "production-brief-s02e01.md",
@@ -27,7 +35,11 @@
       "confidentiality": "internal",
       "series": "Harbor Line",
       "doc_type": "production_brief",
-      "tags": ["locations", "S02E01", "pre-production"]
+      "tags": [
+        "locations",
+        "S02E01",
+        "pre-production"
+      ]
     },
     {
       "file_name": "location-scout-east-river-2026.md",
@@ -36,7 +48,11 @@
       "confidentiality": "internal",
       "series": "Harbor Line",
       "doc_type": "location_report",
-      "tags": ["locations", "permits", "East River"]
+      "tags": [
+        "locations",
+        "permits",
+        "East River"
+      ]
     },
     {
       "file_name": "stunt-safety-memo-s01e06.md",
@@ -45,7 +61,11 @@
       "confidentiality": "internal",
       "series": "Harbor Line",
       "doc_type": "safety_memo",
-      "tags": ["stunts", "S01E06", "insurance"]
+      "tags": [
+        "stunts",
+        "S01E06",
+        "insurance"
+      ]
     },
     {
       "file_name": "music-clearance-emea.md",
@@ -54,12 +74,35 @@
       "confidentiality": "restricted",
       "series": "Harbor Line",
       "doc_type": "rights_clearance",
-      "tags": ["music", "EMEA", "streaming"],
+      "tags": [
+        "music",
+        "EMEA",
+        "streaming"
+      ],
       "clearance_territories": [
-        {"territory": "emea", "platform": "svod", "status": "cleared", "through_date": "2027-12-31"},
-        {"territory": "us", "platform": "linear+svod", "status": "cleared", "through_date": "perpetuity"},
-        {"territory": "latam", "platform": "svod", "status": "cleared", "through_date": "2027-12-31"},
-        {"territory": "apac", "platform": "svod", "status": "pending"}
+        {
+          "territory": "emea",
+          "platform": "svod",
+          "status": "cleared",
+          "through_date": "2027-12-31"
+        },
+        {
+          "territory": "us",
+          "platform": "linear+svod",
+          "status": "cleared",
+          "through_date": "perpetuity"
+        },
+        {
+          "territory": "latam",
+          "platform": "svod",
+          "status": "cleared",
+          "through_date": "2027-12-31"
+        },
+        {
+          "territory": "apac",
+          "platform": "svod",
+          "status": "pending"
+        }
       ]
     },
     {
@@ -69,11 +112,29 @@
       "confidentiality": "restricted",
       "series": "Harbor Line",
       "doc_type": "rights_clearance",
-      "tags": ["music", "LATAM", "streaming"],
+      "tags": [
+        "music",
+        "LATAM",
+        "streaming"
+      ],
       "clearance_territories": [
-        {"territory": "latam", "platform": "svod", "status": "cleared", "through_date": "2027-12-31"},
-        {"territory": "emea", "platform": "svod", "status": "cleared", "through_date": "2027-12-31"},
-        {"territory": "apac", "platform": "svod", "status": "pending"}
+        {
+          "territory": "latam",
+          "platform": "svod",
+          "status": "cleared",
+          "through_date": "2027-12-31"
+        },
+        {
+          "territory": "emea",
+          "platform": "svod",
+          "status": "cleared",
+          "through_date": "2027-12-31"
+        },
+        {
+          "territory": "apac",
+          "platform": "svod",
+          "status": "pending"
+        }
       ]
     },
     {
@@ -83,7 +144,11 @@
       "confidentiality": "restricted",
       "series": "Harbor Line",
       "doc_type": "rights_clearance",
-      "tags": ["archival", "Getty", "S01E04"]
+      "tags": [
+        "archival",
+        "Getty",
+        "S01E04"
+      ]
     },
     {
       "file_name": "apac-music-clearance-update.md",
@@ -92,7 +157,12 @@
       "confidentiality": "restricted",
       "series": "Harbor Line",
       "doc_type": "rights_clearance",
-      "tags": ["music", "APAC", "pending", "china"],
+      "tags": [
+        "music",
+        "APAC",
+        "pending",
+        "china"
+      ],
       "territory_status": {
         "china": "excluded",
         "japan": "pending",
@@ -100,10 +170,28 @@
         "apac": "pending"
       },
       "clearance_territories": [
-        {"territory": "japan", "platform": "svod", "status": "pending", "through_date": "2026-08-15"},
-        {"territory": "korea", "platform": "svod", "status": "pending", "through_date": "2026-08-15"},
-        {"territory": "china", "platform": "all", "status": "excluded"},
-        {"territory": "apac", "platform": "svod", "status": "pending"}
+        {
+          "territory": "japan",
+          "platform": "svod",
+          "status": "pending",
+          "through_date": "2026-08-15"
+        },
+        {
+          "territory": "korea",
+          "platform": "svod",
+          "status": "pending",
+          "through_date": "2026-08-15"
+        },
+        {
+          "territory": "china",
+          "platform": "all",
+          "status": "excluded"
+        },
+        {
+          "territory": "apac",
+          "platform": "svod",
+          "status": "pending"
+        }
       ]
     },
     {
@@ -113,7 +201,11 @@
       "confidentiality": "restricted",
       "series": "Harbor Line",
       "doc_type": "talent_release",
-      "tags": ["background", "SAG-AFTRA", "S01"]
+      "tags": [
+        "background",
+        "SAG-AFTRA",
+        "S01"
+      ]
     },
     {
       "file_name": "product-placement-coffee-brand.md",
@@ -122,7 +214,10 @@
       "confidentiality": "restricted",
       "series": "Harbor Line",
       "doc_type": "rights_clearance",
-      "tags": ["product_placement", "Harbor Brew"]
+      "tags": [
+        "product_placement",
+        "Harbor Brew"
+      ]
     },
     {
       "file_name": "distribution-agreement-excerpt.md",
@@ -131,7 +226,11 @@
       "confidentiality": "highly_restricted",
       "series": "Harbor Line",
       "doc_type": "legal_contract",
-      "tags": ["territories", "SVOD", "exclusivity"]
+      "tags": [
+        "territories",
+        "SVOD",
+        "exclusivity"
+      ]
     },
     {
       "file_name": "talent-nda-season2.md",
@@ -140,7 +239,11 @@
       "confidentiality": "highly_restricted",
       "series": "Harbor Line",
       "doc_type": "legal_contract",
-      "tags": ["NDA", "Season2", "cast"]
+      "tags": [
+        "NDA",
+        "Season2",
+        "cast"
+      ]
     },
     {
       "file_name": "production-insurance-certificate.md",
@@ -149,7 +252,11 @@
       "confidentiality": "restricted",
       "series": "Harbor Line",
       "doc_type": "insurance",
-      "tags": ["insurance", "production", "risk"]
+      "tags": [
+        "insurance",
+        "production",
+        "risk"
+      ]
     },
     {
       "file_name": "wga-credit-determination-s01.md",
@@ -158,7 +265,11 @@
       "confidentiality": "internal",
       "series": "Harbor Line",
       "doc_type": "guild_determination",
-      "tags": ["WGA", "credits", "Season1"]
+      "tags": [
+        "WGA",
+        "credits",
+        "Season1"
+      ]
     },
     {
       "file_name": "press-release-series-renewal.md",
@@ -167,7 +278,11 @@
       "confidentiality": "public",
       "series": "Harbor Line",
       "doc_type": "press_release",
-      "tags": ["renewal", "season2", "premiere"]
+      "tags": [
+        "renewal",
+        "season2",
+        "premiere"
+      ]
     },
     {
       "file_name": "press-kit-harbor-line-s01.md",
@@ -176,7 +291,11 @@
       "confidentiality": "public",
       "series": "Harbor Line",
       "doc_type": "press_kit",
-      "tags": ["fact_sheet", "Season1", "cast"]
+      "tags": [
+        "fact_sheet",
+        "Season1",
+        "cast"
+      ]
     },
     {
       "file_name": "social-media-guidelines-harbor-line.md",
@@ -185,7 +304,11 @@
       "confidentiality": "internal",
       "series": "Harbor Line",
       "doc_type": "policy",
-      "tags": ["social", "embargo", "guidelines"]
+      "tags": [
+        "social",
+        "embargo",
+        "guidelines"
+      ]
     },
     {
       "file_name": "cast-announcement-season2-maya-chen.md",
@@ -194,7 +317,11 @@
       "confidentiality": "public",
       "series": "Harbor Line",
       "doc_type": "press_release",
-      "tags": ["cast", "Season2", "Maya Chen"]
+      "tags": [
+        "cast",
+        "Season2",
+        "Maya Chen"
+      ]
     },
     {
       "file_name": "email-ad-sales-q3.txt",
@@ -203,7 +330,11 @@
       "confidentiality": "internal",
       "series": "Riverdale Docs",
       "doc_type": "email",
-      "tags": ["sponsorship", "Q3", "inventory"]
+      "tags": [
+        "sponsorship",
+        "Q3",
+        "inventory"
+      ]
     },
     {
       "file_name": "email-harbor-line-q4-sponsorship.txt",
@@ -212,7 +343,11 @@
       "confidentiality": "internal",
       "series": "Harbor Line",
       "doc_type": "email",
-      "tags": ["sponsorship", "Q4", "Harbor Brew"]
+      "tags": [
+        "sponsorship",
+        "Q4",
+        "Harbor Brew"
+      ]
     },
     {
       "file_name": "stream-ad-specs-2026.md",
@@ -221,7 +356,11 @@
       "confidentiality": "internal",
       "series": null,
       "doc_type": "ad_specs",
-      "tags": ["AVOD", "formats", "CPM"]
+      "tags": [
+        "AVOD",
+        "formats",
+        "CPM"
+      ]
     },
     {
       "file_name": "sponsorship-deck-harbor-line-q4.md",
@@ -230,7 +369,11 @@
       "confidentiality": "internal",
       "series": "Harbor Line",
       "doc_type": "sponsorship_deck",
-      "tags": ["Q4", "launch", "tiers"]
+      "tags": [
+        "Q4",
+        "launch",
+        "tiers"
+      ]
     },
     {
       "file_name": "international-sales-mipcom-2026.md",
@@ -239,7 +382,11 @@
       "confidentiality": "restricted",
       "series": "Harbor Line",
       "doc_type": "sales_brief",
-      "tags": ["MIPCOM", "SVOD", "international"]
+      "tags": [
+        "MIPCOM",
+        "SVOD",
+        "international"
+      ]
     },
     {
       "file_name": "platform-deliverables-checklist.md",
@@ -248,7 +395,11 @@
       "confidentiality": "internal",
       "series": "Harbor Line",
       "doc_type": "checklist",
-      "tags": ["SVOD", "deliverables", "QC"]
+      "tags": [
+        "SVOD",
+        "deliverables",
+        "QC"
+      ]
     },
     {
       "file_name": "production-budget-s02-summary.md",
@@ -257,7 +408,11 @@
       "confidentiality": "highly_restricted",
       "series": "Harbor Line",
       "doc_type": "budget",
-      "tags": ["Season2", "budget", "greenlight"]
+      "tags": [
+        "Season2",
+        "budget",
+        "greenlight"
+      ]
     },
     {
       "file_name": "color-notes-email-s01e04.txt",
@@ -266,7 +421,376 @@
       "confidentiality": "internal",
       "series": "Harbor Line",
       "doc_type": "email",
-      "tags": ["color", "S01E04", "post"]
+      "tags": [
+        "color",
+        "S01E04",
+        "post"
+      ]
+    },
+    {
+      "file_name": "stock-footage-shutterstock-s01e05.md",
+      "sharepoint_path": "/sites/Legal/Clearances/2026/Stock",
+      "department": "legal",
+      "confidentiality": "restricted",
+      "series": "Harbor Line",
+      "doc_type": "rights_clearance",
+      "tags": [
+        "stock",
+        "Shutterstock",
+        "S01E05"
+      ]
+    },
+    {
+      "file_name": "vfx-supervisor-contract-excerpt.md",
+      "sharepoint_path": "/sites/Legal/Contracts/VFX/2026",
+      "department": "legal",
+      "confidentiality": "highly_restricted",
+      "series": "Harbor Line",
+      "doc_type": "legal_contract",
+      "tags": [
+        "VFX",
+        "contract",
+        "Season2"
+      ]
+    },
+    {
+      "file_name": "font-license-graphik-2026.md",
+      "sharepoint_path": "/sites/Legal/Clearances/2026/Fonts",
+      "department": "legal",
+      "confidentiality": "internal",
+      "series": "Harbor Line",
+      "doc_type": "rights_clearance",
+      "tags": [
+        "fonts",
+        "Graphik",
+        "graphics"
+      ]
+    },
+    {
+      "file_name": "stunt-insurance-rider-s01e06.md",
+      "sharepoint_path": "/sites/Legal/Insurance/2026/Stunts",
+      "department": "legal",
+      "confidentiality": "restricted",
+      "series": "Harbor Line",
+      "doc_type": "insurance",
+      "tags": [
+        "stunts",
+        "S01E06",
+        "rider"
+      ]
+    },
+    {
+      "file_name": "privacy-impact-assessment-viewer-data.md",
+      "sharepoint_path": "/sites/Legal/Privacy/2026",
+      "department": "legal",
+      "confidentiality": "highly_restricted",
+      "series": "Harbor Line",
+      "doc_type": "privacy_assessment",
+      "tags": [
+        "GDPR",
+        "viewer",
+        "analytics"
+      ]
+    },
+    {
+      "file_name": "sag-aftra-rider-background-s01e08.md",
+      "sharepoint_path": "/sites/Legal/Guild/SAG-AFTRA/2026",
+      "department": "legal",
+      "confidentiality": "restricted",
+      "series": "Harbor Line",
+      "doc_type": "guild_rider",
+      "tags": [
+        "SAG-AFTRA",
+        "background",
+        "S01E08"
+      ]
+    },
+    {
+      "file_name": "production-brief-s01e08.md",
+      "sharepoint_path": "/sites/HarborLine/Production/Briefs/S01E08",
+      "department": "production",
+      "confidentiality": "internal",
+      "series": "Harbor Line",
+      "doc_type": "production_brief",
+      "tags": [
+        "S01E08",
+        "ferry",
+        "locations"
+      ]
+    },
+    {
+      "file_name": "production-brief-s01e09.md",
+      "sharepoint_path": "/sites/HarborLine/Production/Briefs/S01E09",
+      "department": "production",
+      "confidentiality": "internal",
+      "series": "Harbor Line",
+      "doc_type": "production_brief",
+      "tags": [
+        "S01E09",
+        "warehouse",
+        "stunts"
+      ]
+    },
+    {
+      "file_name": "transportation-plan-s02.md",
+      "sharepoint_path": "/sites/HarborLine/Production/Logistics/2026",
+      "department": "production",
+      "confidentiality": "internal",
+      "series": "Harbor Line",
+      "doc_type": "logistics_plan",
+      "tags": [
+        "transport",
+        "Season2",
+        "fleet"
+      ]
+    },
+    {
+      "file_name": "catering-allergy-matrix-s01.md",
+      "sharepoint_path": "/sites/HarborLine/Production/Catering/2026",
+      "department": "production",
+      "confidentiality": "internal",
+      "series": "Harbor Line",
+      "doc_type": "safety_memo",
+      "tags": [
+        "catering",
+        "allergies",
+        "S01"
+      ]
+    },
+    {
+      "file_name": "weather-contingency-nov-2026.md",
+      "sharepoint_path": "/sites/HarborLine/Production/Schedules/2026",
+      "department": "production",
+      "confidentiality": "internal",
+      "series": "Harbor Line",
+      "doc_type": "schedule_memo",
+      "tags": [
+        "weather",
+        "November",
+        "exteriors"
+      ]
+    },
+    {
+      "file_name": "sound-notes-s01e05.txt",
+      "sharepoint_path": "/sites/Post/EmailArchive/2026",
+      "department": "post_production",
+      "confidentiality": "internal",
+      "series": "Harbor Line",
+      "doc_type": "email",
+      "tags": [
+        "sound",
+        "S01E05",
+        "ADR"
+      ]
+    },
+    {
+      "file_name": "localization-subtitle-guidelines.md",
+      "sharepoint_path": "/sites/Post/Localization/2026",
+      "department": "post_production",
+      "confidentiality": "internal",
+      "series": "Harbor Line",
+      "doc_type": "policy",
+      "tags": [
+        "subtitles",
+        "EMEA",
+        "LATAM"
+      ]
+    },
+    {
+      "file_name": "qc-report-s01e04-2026.md",
+      "sharepoint_path": "/sites/Post/QC/2026",
+      "department": "post_production",
+      "confidentiality": "internal",
+      "series": "Harbor Line",
+      "doc_type": "qc_report",
+      "tags": [
+        "QC",
+        "S01E04",
+        "SVOD"
+      ]
+    },
+    {
+      "file_name": "avod-windowing-memo-2026.md",
+      "sharepoint_path": "/sites/Distribution/Windowing/2026",
+      "department": "distribution",
+      "confidentiality": "restricted",
+      "series": "Harbor Line",
+      "doc_type": "windowing_memo",
+      "tags": [
+        "AVOD",
+        "SVOD",
+        "windowing"
+      ]
+    },
+    {
+      "file_name": "brazil-tax-incentive-brief.md",
+      "sharepoint_path": "/sites/Distribution/Sales/LATAM/2026",
+      "department": "distribution",
+      "confidentiality": "restricted",
+      "series": "Harbor Line",
+      "doc_type": "sales_brief",
+      "tags": [
+        "Brazil",
+        "tax",
+        "copro"
+      ]
+    },
+    {
+      "file_name": "weekly-cost-report-wk42-2026.md",
+      "sharepoint_path": "/sites/Finance/Production/Weekly/2026",
+      "department": "finance",
+      "confidentiality": "highly_restricted",
+      "series": "Harbor Line",
+      "doc_type": "cost_report",
+      "tags": [
+        "weekly",
+        "EIS",
+        "variance"
+      ]
+    },
+    {
+      "file_name": "payroll-hold-instructions-s01e07.md",
+      "sharepoint_path": "/sites/Finance/Payroll/2026",
+      "department": "finance",
+      "confidentiality": "highly_restricted",
+      "series": "Harbor Line",
+      "doc_type": "payroll_memo",
+      "tags": [
+        "payroll",
+        "S01E07",
+        "hold"
+      ]
+    },
+    {
+      "file_name": "embargo-calendar-season2-2026.md",
+      "sharepoint_path": "/sites/Corporate/Comms/Embargoes/2026",
+      "department": "communications",
+      "confidentiality": "internal",
+      "series": "Harbor Line",
+      "doc_type": "embargo_calendar",
+      "tags": [
+        "embargo",
+        "Season2",
+        "press"
+      ]
+    },
+    {
+      "file_name": "podcast-integration-rates-2026.md",
+      "sharepoint_path": "/sites/AdSales/Rates/2026",
+      "department": "ad_sales",
+      "confidentiality": "internal",
+      "series": "Harbor Line",
+      "doc_type": "rate_card",
+      "tags": [
+        "podcast",
+        "integration",
+        "CPM"
+      ]
+    },
+    {
+      "file_name": "email-spring-2027-upfront.txt",
+      "sharepoint_path": "/sites/AdSales/EmailArchive/2027/Q1",
+      "department": "ad_sales",
+      "confidentiality": "internal",
+      "series": "Harbor Line",
+      "doc_type": "email",
+      "tags": [
+        "upfront",
+        "2027",
+        "inventory"
+      ]
+    },
+    {
+      "file_name": "training-harassment-refresher-2026.md",
+      "sharepoint_path": "/sites/Compliance/Training/2026",
+      "department": "compliance",
+      "confidentiality": "internal",
+      "series": "Harbor Line",
+      "doc_type": "training",
+      "tags": [
+        "HR",
+        "training",
+        "mandatory"
+      ]
+    },
+    {
+      "file_name": "data-retention-post-production.md",
+      "sharepoint_path": "/sites/Compliance/Records/2026",
+      "department": "compliance",
+      "confidentiality": "internal",
+      "series": "Harbor Line",
+      "doc_type": "records_policy",
+      "tags": [
+        "retention",
+        "post",
+        "LTO"
+      ]
+    },
+    {
+      "file_name": "spotting-notes-s01e04.md",
+      "sharepoint_path": "/sites/Music/Spotting/2026",
+      "department": "music",
+      "confidentiality": "internal",
+      "series": "Harbor Line",
+      "doc_type": "spotting_notes",
+      "tags": [
+        "score",
+        "S01E04",
+        "temp"
+      ]
+    },
+    {
+      "file_name": "sync-quote-indie-track-s01e03.md",
+      "sharepoint_path": "/sites/Music/Licensing/2026",
+      "department": "music",
+      "confidentiality": "restricted",
+      "series": "Harbor Line",
+      "doc_type": "sync_quote",
+      "tags": [
+        "indie",
+        "S01E03",
+        "quote"
+      ]
+    },
+    {
+      "file_name": "aerial-drone-permit-nyc-2026.md",
+      "sharepoint_path": "/sites/Legal/Permits/NYC/2026",
+      "department": "legal",
+      "confidentiality": "restricted",
+      "series": "Harbor Line",
+      "doc_type": "permit",
+      "tags": [
+        "drone",
+        "NYC",
+        "FAA"
+      ]
+    },
+    {
+      "file_name": "clearance-summary-s01e04-emea-launch.md",
+      "sharepoint_path": "/sites/Legal/Clearances/2026/Episodes",
+      "department": "legal",
+      "confidentiality": "restricted",
+      "series": "Harbor Line",
+      "doc_type": "rights_clearance",
+      "tags": [
+        "clearance summary",
+        "S01E04",
+        "EMEA"
+      ],
+      "clearance_territories": [
+        {
+          "territory": "emea",
+          "platform": "svod",
+          "status": "cleared",
+          "through_date": "2027-12-31"
+        },
+        {
+          "territory": "us",
+          "platform": "svod",
+          "status": "cleared",
+          "through_date": "perpetuity"
+        }
+      ]
     }
   ]
 }

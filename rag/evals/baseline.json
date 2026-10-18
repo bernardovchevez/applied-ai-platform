@@ -7,43 +7,46 @@
       "faithfulness": 0.3333
     }
   },
-  "keyword_timestamp": "2026-07-30T19:28:06.869351+00:00",
+  "keyword_timestamp": "2026-10-16T16:10:38.701525+00:00",
   "keyword": {
     "chroma": {
       "passed": 22,
       "total": 23,
       "pass_rate": 0.9565,
-      "total_time_s": 36.28
+      "total_time_s": 50.3
     },
     "langchain": {
-      "passed": 19,
+      "passed": 20,
       "total": 23,
-      "pass_rate": 0.8261,
-      "total_time_s": 27.95
-    },
-    "llamaindex": {
-      "passed": 21,
-      "total": 23,
-      "pass_rate": 0.913,
-      "total_time_s": 277.71
+      "pass_rate": 0.8696,
+      "total_time_s": 36.0
     },
     "pgvector": {
       "passed": 22,
       "total": 23,
       "pass_rate": 0.9565,
-      "total_time_s": 58.31
-    },
-    "pinecone": {
-      "passed": 21,
-      "total": 23,
-      "pass_rate": 0.913,
-      "total_time_s": 61.94
+      "total_time_s": 83.3
     },
     "hybrid": {
-      "passed": 21,
+      "passed": 22,
       "total": 23,
-      "pass_rate": 0.913,
-      "total_time_s": 46.37
+      "pass_rate": 0.9565,
+      "total_time_s": 83.8
+    },
+    "pinecone": {
+      "passed": 22,
+      "total": 23,
+      "pass_rate": 0.9565,
+      "total_time_s": 56.6
+    },
+    "llamaindex": {
+      "passed": null,
+      "total": 23,
+      "pass_rate": null,
+      "total_time_s": null,
+      "status": "not_completed",
+      "detail": "2026-10-16 batch run timed out during Ollama calls; prior baseline 21/23 in 277.7s (2026-07-30)."
     }
-  }
+  },
+  "keyword_run_note": "localhost Ollama benchmark 2026-10-16; see docs/rag-backend-comparison.md"
 }

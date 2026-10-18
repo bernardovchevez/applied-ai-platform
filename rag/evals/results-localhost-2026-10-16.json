@@ -1,0 +1,74 @@
+{
+  "run_date": "2026-10-16",
+  "environment": "localhost",
+  "gold_path": "rag/evals/gold_qa.json",
+  "gold_questions": 23,
+  "llm_provider": "ollama",
+  "llm_model": "llama3.2",
+  "embedding_provider": "ollama",
+  "embedding_model": "nomic-embed-text",
+  "harness": "rag/evals/run_eval.py (keyword + source checks)",
+  "notes": [
+    "Full --backend all run aborted during llamaindex (Ollama ReadTimeout on question 12).",
+    "Backends run individually on 2026-10-16 except llamaindex.",
+    "Pinecone ingest refreshed before pinecone backend run.",
+    "pgvector Postgres via docker compose; 81 chunks / 27 documents."
+  ],
+  "keyword_summary": [
+    {
+      "backend": "chroma",
+      "passed": 22,
+      "total": 23,
+      "pass_rate": 0.9565,
+      "total_time_s": 50.3
+    },
+    {
+      "backend": "langchain",
+      "passed": 20,
+      "total": 23,
+      "pass_rate": 0.8696,
+      "total_time_s": 36.0
+    },
+    {
+      "backend": "pgvector",
+      "passed": 22,
+      "total": 23,
+      "pass_rate": 0.9565,
+      "total_time_s": 83.3
+    },
+    {
+      "backend": "hybrid",
+      "passed": 22,
+      "total": 23,
+      "pass_rate": 0.9565,
+      "total_time_s": 83.8
+    },
+    {
+      "backend": "pinecone",
+      "passed": 22,
+      "total": 23,
+      "pass_rate": 0.9565,
+      "total_time_s": 56.6
+    },
+    {
+      "backend": "llamaindex",
+      "passed": null,
+      "total": 23,
+      "pass_rate": null,
+      "total_time_s": null,
+      "status": "not_completed",
+      "detail": "2026-10-16 batch run timed out during Ollama calls; prior baseline 21/23 in 277.7s (2026-07-30)."
+    }
+  ],
+  "ragas_smoke": {
+    "backend": "chroma",
+    "limit": 3,
+    "judge": "ollama/llama3.2",
+    "metrics": {
+      "faithfulness": 0.75
+    },
+    "total_time_s": 348.7,
+    "notes": "Judge timeouts/parsing errors on 2/3 rows; use for smoke only, not production gate."
+  },
+  "bff_default_backend": "pgvector"
+}
