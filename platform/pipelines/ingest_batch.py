@@ -21,7 +21,7 @@ LAB_ROOT = Path(__file__).resolve().parent.parent.parent
 sys.path.insert(0, str(LAB_ROOT))
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
-from document_events import emit_events
+from document_events import emit_delta_events, emit_events
 from shared.config import DOCS_SEED_DIR
 from stores.corpus import derive_rights_tier, load_sharepoint_meta
 LAKE_RAW = LAB_ROOT / "data" / "lake" / "raw"
@@ -122,6 +122,72 @@ def write_parquet(rows: list[dict], parquet_path: Path) -> None:
     pq.write_table(table, parquet_path, compression="snappy")
 
 
+def load_previous_manifest(manifest_path: Path) -> dict | None:
+    if not manifest_path.exists():
+        return None
+    try:
+        return json.loads(manifest_path.read_text(encoding="utf-8"))
+    except json.JSONDecodeError:
+        return None
+
+
+def diff_manifest(previous: dict | None, rows: list[dict]) -> dict:
+    """Compare new lake scan to prior ingest_manifest.json (keyed by rel_path)."""
+    new_by_rel = {r["rel_path"]: r for r in rows}
+    if not previous:
+        return {
+            "has_previous": False,
+            "added": sorted(new_by_rel.keys()),
+            "removed": [],
+            "changed_hash": [],
+            "unchanged_count": 0,
+        }
+
+    old_by_rel = {
+        d["rel_path"]: d
+        for d in previous.get("documents") or []
+        if d.get("rel_path")
+    }
+    added = sorted(set(new_by_rel) - set(old_by_rel))
+    removed = sorted(set(old_by_rel) - set(new_by_rel))
+    changed_hash: list[str] = []
+    unchanged_count = 0
+    for rel in sorted(set(new_by_rel) & set(old_by_rel)):
+        if new_by_rel[rel]["content_hash"] != old_by_rel[rel].get("content_hash"):
+            changed_hash.append(rel)
+        else:
+            unchanged_count += 1
+
+    return {
+        "has_previous": True,
+        "previous_run_id": previous.get("run_id"),
+        "previous_ingested_at": previous.get("ingested_at"),
+        "added": added,
+        "removed": removed,
+        "changed_hash": changed_hash,
+        "unchanged_count": unchanged_count,
+    }
+
+
+def print_manifest_diff(diff: dict) -> None:
+    if not diff.get("has_previous"):
+        print(f"Manifest diff: first run ({len(diff.get('added', []))} documents)")
+        return
+    print(
+        "Manifest diff:",
+        f"added={len(diff['added'])}",
+        f"removed={len(diff['removed'])}",
+        f"changed_hash={len(diff['changed_hash'])}",
+        f"unchanged={diff['unchanged_count']}",
+    )
+    if diff["added"]:
+        print("  added:", ", ".join(diff["added"][:8]), ("..." if len(diff["added"]) > 8 else ""))
+    if diff["removed"]:
+        print("  removed:", ", ".join(diff["removed"][:8]), ("..." if len(diff["removed"]) > 8 else ""))
+    if diff["changed_hash"]:
+        print("  changed:", ", ".join(diff["changed_hash"][:8]), ("..." if len(diff["changed_hash"]) > 8 else ""))
+
+
 def write_manifest(
     *,
     rows: list[dict],
@@ -129,6 +195,7 @@ def write_manifest(
     parquet_path: Path,
     manifest_path: Path,
     synced_files: int | None,
+    diff_from_previous: dict | None = None,
 ) -> dict:
     now = datetime.now(timezone.utc).replace(microsecond=0).isoformat()
     manifest = {
@@ -151,6 +218,8 @@ def write_manifest(
             for row in rows
         ],
     }
+    if diff_from_previous is not None:
+        manifest["diff_from_previous"] = diff_from_previous
     for row in rows:
         doc_type = row["doc_type"] or "unknown"
         manifest["doc_types"][doc_type] = manifest["doc_types"].get(doc_type, 0) + 1
@@ -167,6 +236,7 @@ def run_batch_ingest(
     manifest_path: Path,
     skip_sync: bool = True,
     emit_events_flag: bool = False,
+    emit_all_events: bool = False,
     events_dir: Path | None = None,
 ) -> dict:
     synced = None if skip_sync else sync_seed_to_lake(raw_dir)
@@ -180,6 +250,10 @@ def run_batch_ingest(
     if not rows:
         raise SystemExit(f"No .md/.txt documents under {raw_dir}")
 
+    previous = load_previous_manifest(manifest_path)
+    diff = diff_manifest(previous, rows)
+    print_manifest_diff(diff)
+
     write_parquet(rows, parquet_path)
     manifest = write_manifest(
         rows=rows,
@@ -187,6 +261,7 @@ def run_batch_ingest(
         parquet_path=parquet_path,
         manifest_path=manifest_path,
         synced_files=synced,
+        diff_from_previous=diff,
     )
 
     print(f"Wrote {len(rows)} documents → {parquet_path}")
@@ -194,13 +269,24 @@ def run_batch_ingest(
     print(f"Doc types: {manifest['doc_types']}")
 
     if emit_events_flag:
-        event_paths = emit_events(
-            rows,
-            events_dir or LAKE_EVENTS,
-            raw_dir=raw_dir,
-            correlation_id=manifest["run_id"],
-        )
-        print(f"Emitted {len(event_paths)} document_ingested events → {events_dir or LAKE_EVENTS}")
+        target = events_dir or LAKE_EVENTS
+        if emit_all_events or not diff.get("has_previous"):
+            event_paths = emit_events(
+                rows,
+                target,
+                raw_dir=raw_dir,
+                correlation_id=manifest["run_id"],
+            )
+        else:
+            event_paths = emit_delta_events(
+                diff,
+                rows,
+                previous,
+                target,
+                raw_dir=raw_dir,
+                correlation_id=manifest["run_id"],
+            )
+        print(f"Emitted {len(event_paths)} document_ingested events → {target}")
 
     return manifest
 
@@ -219,7 +305,12 @@ def main() -> None:
     parser.add_argument(
         "--emit-events",
         action="store_true",
-        help="Write document_ingested JSON events for embed_worker.py",
+        help="Write document_ingested JSON events for embed_worker.py (delta vs prior manifest when present)",
+    )
+    parser.add_argument(
+        "--emit-events-all",
+        action="store_true",
+        help="With --emit-events, emit upsert for every document (ignore manifest diff)",
     )
     parser.add_argument("--events-dir", type=Path, default=LAKE_EVENTS)
     args = parser.parse_args()
@@ -233,6 +324,7 @@ def main() -> None:
         manifest_path=manifest_path,
         skip_sync=not args.seed_from_synthetic,
         emit_events_flag=args.emit_events,
+        emit_all_events=args.emit_events_all,
         events_dir=args.events_dir,
     )
 

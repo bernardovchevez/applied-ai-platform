@@ -37,7 +37,7 @@ SharePoint / Email          S3 (documents)           Warehouse
 | Step | Command / path |
 |------|----------------|
 | Author & publish | [applied-ai-docs](https://github.com/bernardovchevez/applied-ai-docs) → lake raw + events |
-| Land in lake (batch manifest) | `python platform/pipelines/ingest_batch.py` (optional `--seed-from-synthetic` for dev) |
+| Land in lake (batch manifest) | `python platform/pipelines/ingest_batch.py` (optional `--seed-from-synthetic` for dev; diffs vs prior `ingest_manifest.json`; `--emit-events` emits delta upserts/deletes) |
 | Parquet manifest | `data/lake/parquet/documents.parquet` + `ingest_manifest.json` |
 | Emit ingest events | `ingest_batch.py --emit-events` -> `data/lake/events/document_ingested/` |
 | Incremental embed worker | `python platform/pipelines/embed_worker.py` |

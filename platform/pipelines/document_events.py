@@ -60,21 +60,74 @@ def build_event(
     }
 
 
+def _write_event_file(event: dict, events_dir: Path) -> Path:
+    events_dir.mkdir(parents=True, exist_ok=True)
+    doc_key = event["document"]["doc_key"]
+    path = events_dir / f"{doc_key}.json"
+    path.write_text(json.dumps(event, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    return path
+
+
 def emit_events(
     rows: list[dict],
     events_dir: Path,
     *,
     raw_dir: Path,
     correlation_id: str | None = None,
+    operation: str = "upsert",
 ) -> list[Path]:
-    events_dir.mkdir(parents=True, exist_ok=True)
     paths: list[Path] = []
     for row in rows:
-        event = build_event(row, raw_dir=raw_dir, correlation_id=correlation_id)
-        doc_key = event["document"]["doc_key"]
-        path = events_dir / f"{doc_key}.json"
-        path.write_text(json.dumps(event, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
-        paths.append(path)
+        event = build_event(
+            row,
+            raw_dir=raw_dir,
+            operation=operation,
+            correlation_id=correlation_id,
+        )
+        paths.append(_write_event_file(event, events_dir))
+    return paths
+
+
+def emit_delta_events(
+    diff: dict,
+    rows: list[dict],
+    previous_manifest: dict | None,
+    events_dir: Path,
+    *,
+    raw_dir: Path,
+    correlation_id: str | None = None,
+) -> list[Path]:
+    """Emit upsert events for added/changed docs and delete events for removed."""
+    rows_by_rel = {r["rel_path"]: r for r in rows}
+    old_by_rel: dict[str, dict] = {}
+    if previous_manifest:
+        for doc in previous_manifest.get("documents") or []:
+            rel = doc.get("rel_path")
+            if rel:
+                old_by_rel[rel] = doc
+
+    paths: list[Path] = []
+    for rel in diff.get("added", []) + diff.get("changed_hash", []):
+        row = rows_by_rel.get(rel)
+        if not row:
+            continue
+        event = build_event(row, raw_dir=raw_dir, operation="upsert", correlation_id=correlation_id)
+        paths.append(_write_event_file(event, events_dir))
+
+    for rel in diff.get("removed", []):
+        old = old_by_rel.get(rel, {})
+        row = {
+            "rel_path": rel,
+            "file_name": old.get("file_name") or Path(rel).name,
+            "content_hash": old.get("content_hash") or "",
+            "byte_size": 0,
+            "tags": "[]",
+            "territory_status": "{}",
+            "clearance_territories": [],
+        }
+        event = build_event(row, raw_dir=raw_dir, operation="delete", correlation_id=correlation_id)
+        paths.append(_write_event_file(event, events_dir))
+
     return paths
 
 
