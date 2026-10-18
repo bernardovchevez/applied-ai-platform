@@ -22,9 +22,8 @@ sys.path.insert(0, str(LAB_ROOT))
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from document_events import emit_events
+from shared.config import DOCS_SEED_DIR
 from stores.corpus import derive_rights_tier, load_sharepoint_meta
-
-SYNTHETIC = LAB_ROOT / "data" / "synthetic"
 LAKE_RAW = LAB_ROOT / "data" / "lake" / "raw"
 LAKE_PARQUET = LAB_ROOT / "data" / "lake" / "parquet"
 LAKE_EVENTS = LAB_ROOT / "data" / "lake" / "events" / "document_ingested"
@@ -34,13 +33,19 @@ DOCUMENTS_PARQUET = LAKE_PARQUET / "documents.parquet"
 TEXT_SUFFIXES = {".md", ".txt"}
 
 
-def sync_synthetic_to_lake(raw_dir: Path) -> int:
-    """Copy synthetic corpus into local lake raw folder."""
+def sync_seed_to_lake(raw_dir: Path, seed_dir: Path | None = None) -> int:
+    """Copy applied-ai-docs seed pack into local lake raw folder (dev fallback only)."""
+    seed_root = seed_dir or DOCS_SEED_DIR
+    if not seed_root.is_dir():
+        raise SystemExit(
+            f"Seed corpus not found: {seed_root}\n"
+            "Use applied-ai-docs (Import seed) or clone seed/harbor-line into applied-ai-docs."
+        )
     raw_dir.mkdir(parents=True, exist_ok=True)
     count = 0
-    for src in SYNTHETIC.rglob("*"):
+    for src in seed_root.rglob("*"):
         if src.is_file() and src.suffix.lower() in {".md", ".txt", ".json"}:
-            rel = src.relative_to(SYNTHETIC)
+            rel = src.relative_to(seed_root)
             dest = raw_dir / rel
             dest.parent.mkdir(parents=True, exist_ok=True)
             shutil.copy2(src, dest)
@@ -164,7 +169,7 @@ def run_batch_ingest(
     emit_events_flag: bool = False,
     events_dir: Path | None = None,
 ) -> dict:
-    synced = None if skip_sync else sync_synthetic_to_lake(raw_dir)
+    synced = None if skip_sync else sync_seed_to_lake(raw_dir)
     if skip_sync and not raw_dir.exists():
         raise SystemExit(
             f"Raw lake not found: {raw_dir}\n"
@@ -209,7 +214,7 @@ def main() -> None:
     parser.add_argument(
         "--seed-from-synthetic",
         action="store_true",
-        help="Dev only: copy data/synthetic/ into lake raw before building manifest",
+        help="Dev only: copy applied-ai-docs seed/harbor-line into lake raw before manifest",
     )
     parser.add_argument(
         "--emit-events",

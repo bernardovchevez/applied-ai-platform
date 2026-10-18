@@ -13,14 +13,21 @@ Slack and web clients talk only to the **platform BFF**. They do not read the do
 ## Localhost workflow
 
 1. Run **applied-ai-docs** (`./run.sh` on port 8010).
-2. Create or edit documents in the UI (or seed once from synthetic).
+2. Create or edit documents in the UI (or **Import seed library** once).
 3. **Publish** (per item or all pending) → lake raw + `document_ingested` events.
 4. Run **`python platform/pipelines/embed_worker.py`** (or enable `RUN_EMBED_WORKER` in docs).
 5. Query via BFF, Slack, or web.
 
-## `data/synthetic/`
+## Seed pack (`applied-ai-docs/seed/harbor-line/`)
 
-Seed pack for demos and first-time bootstrap. **Not** the live edit path. Use docs **Seed from synthetic** or:
+Harbor Line bootstrap markdown lives in the **docs repo**, not here. Use docs **Import seed library** or:
+
+```bash
+cd applied-ai-docs && ./run.sh
+# UI: Import seed library → Publish all pending → embed worker
+```
+
+Dev fallback copy seed → lake (requires sibling docs repo):
 
 ```bash
 python platform/pipelines/ingest_batch.py --seed-from-synthetic --emit-events

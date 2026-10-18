@@ -96,7 +96,7 @@ python platform/pipelines/embed_worker.py
 python rag/ingest_pgvector.py --data-dir data/lake/raw
 ```
 
-Dev-only seed from `data/synthetic/`: add `--seed-from-synthetic` to `ingest_batch.py`.
+Seed library: [applied-ai-docs/seed/harbor-line](https://github.com/bernardovchevez/applied-ai-docs/tree/main/seed/harbor-line). **Clean localhost:** [applied-ai-docs/docs/localhost-setup.md](https://github.com/bernardovchevez/applied-ai-docs/blob/main/docs/localhost-setup.md). Dev fallback (no docs UI): `ingest_batch.py --seed-from-synthetic`.
 
 ## Web & Slack clients + FastAPI BFF (Localhost, Stage & Production)
 
@@ -178,8 +178,8 @@ applied-ai-platform/
 ├── shared/                    # Shared LLM/embedding configuration & utilities
 ├── stores/                    # Vector & SQL store adapters (pgvector, Chroma, Pinecone, hybrid)
 ├── tests/                     # Unit & FastAPI BFF contract test suite (pytest)
-├── data/synthetic/            # Seed pack (bootstrap via applied-ai-docs or --seed-from-synthetic)
-├── data/lake/raw/             # Published bronze corpus (SoT for indexing after docs publish)
+├── data/lake/raw/             # Published bronze corpus (after applied-ai-docs publish)
+├── data/README.md             # Data layout (seed lives in applied-ai-docs)
 ├── docs/                      # Architecture & governance documentation
 └── .github/workflows/ci.yml   # GitHub Actions CI (Python 3.12 compileall + pytest)
 ```

@@ -7,7 +7,7 @@ import json
 from pathlib import Path
 from typing import Iterator
 
-from shared.config import DATA_DIR, LAKE_META, SYNTHETIC_META
+from shared.config import DATA_DIR, LAKE_META, SEED_META
 
 CHUNK_SIZE = 512
 CHUNK_OVERLAP = 50
@@ -19,8 +19,10 @@ def load_sharepoint_meta(meta_path: Path | None = None) -> dict[str, dict]:
         path = meta_path
     elif LAKE_META.exists():
         path = LAKE_META
+    elif SEED_META.exists():
+        path = SEED_META
     else:
-        path = SYNTHETIC_META
+        path = LAKE_META
     if not path.exists():
         return {}
     data = json.loads(path.read_text(encoding="utf-8"))

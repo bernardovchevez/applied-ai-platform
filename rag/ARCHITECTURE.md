@@ -1,11 +1,11 @@
 # Multi-Backend RAG Architecture (`rag/`)
 
-Multiple retrieval and generation paths over the same synthetic media operations corpus (`data/synthetic/`), using Ollama (`llama3.2` + `nomic-embed-text`) or OpenAI and the shared system prompt (`guardrails/prompts/system_rag.txt`).
+Multiple retrieval and generation paths over the published Harbor Line corpus (`data/lake/raw/`), using Ollama (`llama3.2` + `nomic-embed-text`) or OpenAI and the shared system prompt (`guardrails/prompts/system_rag.txt`).
 
 ## Pipeline overview
 
 ```
-data/synthetic/  (.md, .txt)
+applied-ai-docs/seed/harbor-line/  (bootstrap) → lake/raw/  (.md, .txt)
        │
        ▼
    chunk (512 chars, 50 overlap)

@@ -7,7 +7,7 @@ Answers questions over synthetic media operations and rights clearance documents
 ## Commands
 
 ```bash
-# Default corpus: data/synthetic/
+# Default corpus: data/lake/raw/ (publish from applied-ai-docs)
 python ingest.py
 python ingest_pgvector.py
 
@@ -43,7 +43,7 @@ See **[ARCHITECTURE.md](ARCHITECTURE.md)** for pipeline comparison (Chroma vs La
 ## Pipeline
 
 ```
-data/synthetic/ -> chunk -> embed -> Vector Store -> retrieve -> LLM -> cited answer
+applied-ai-docs publish -> data/lake/raw/ -> chunk -> embed -> Vector Store -> retrieve -> LLM
 ```
 
 ## Key files

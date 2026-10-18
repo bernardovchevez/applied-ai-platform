@@ -18,7 +18,7 @@ Governance controls implemented across the platform's RAG, MCP, and multi-agent 
 ## Controls by layer
 
 ### 1. Data & metadata controls
-- **Owned synthetic corpus:** LoRA fine-tuning (`platform/finetune/`) and vector stores operate exclusively on structured synthetic media operations documents (`data/synthetic/`).
+- **Owned synthetic corpus:** LoRA fine-tuning (`platform/finetune/`) and vector stores operate on the Harbor Line seed library in **applied-ai-docs** (`seed/harbor-line/`), published to `data/lake/raw/`.
 - **Document-level metadata filtering:** Ingestion attaches `confidentiality`, `department`, `doc_type`, and `rights_tier` metadata (`rag/ingest_pgvector.py`), enabling filtered retrieval via `stores/pgvector.py` and `POST /v1/retrieve`.
 - **Authoritative territory status:** Clearance status (`cleared`, `pending`, `excluded`, `unknown`) is stored in structured SQL (`clearance_territories`) and cross-checked by `lookup_rights` and deterministic post-processing guards.
 

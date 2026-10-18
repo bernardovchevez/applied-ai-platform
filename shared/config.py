@@ -14,11 +14,20 @@ LAB_ROOT = Path(__file__).resolve().parent.parent
 LAKE_RAW_DIR = Path(
     os.getenv("LAKE_RAW_DIR", str(LAB_ROOT / "data" / "lake" / "raw"))
 ).resolve()
-SYNTHETIC_DIR = LAB_ROOT / "data" / "synthetic"
+# Harbor Line seed pack lives in applied-ai-docs (sibling repo by default).
+DOCS_SEED_DIR = Path(
+    os.getenv(
+        "DOCS_SEED_DIR",
+        str(LAB_ROOT.parent / "applied-ai-docs" / "seed" / "harbor-line"),
+    )
+).resolve()
 # Published corpus (default): lake bronze written by applied-ai-docs publish pipeline.
 DATA_DIR = Path(os.getenv("DATA_DIR", str(LAKE_RAW_DIR))).resolve()
 LAKE_META = LAKE_RAW_DIR / "sharepoint-meta.json"
-SYNTHETIC_META = SYNTHETIC_DIR / "sharepoint-meta.json"
+SEED_META = DOCS_SEED_DIR / "sharepoint-meta.json"
+# Back-compat alias for scripts that referenced synthetic paths.
+SYNTHETIC_DIR = DOCS_SEED_DIR
+SYNTHETIC_META = SEED_META
 
 _ENV_ALIASES: dict[str, AppEnv] = {
     "local": "localhost",
