@@ -32,3 +32,4 @@ mlruns/
 platform/finetune/checkpoints/
 LEARNING_LOG.md
 docs/*-skim.md
+docs/rag-backend-comparison.md

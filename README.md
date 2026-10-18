@@ -126,7 +126,7 @@ See [platform/README.md](platform/README.md) and [platform/bff/README.md](platfo
 
 ## RAG backend comparison (prototype evals)
 
-Compare retrieval approaches on the same 23-question gold set, log to MLflow, and chart pass rates: **[docs/rag-backend-comparison.md](docs/rag-backend-comparison.md)** (includes localhost benchmark snapshot `rag/evals/results-localhost-2026-10-16.json`).
+Compare retrieval approaches on the same 23-question gold set, log to MLflow, and chart pass rates. Optional local write-up: `docs/rag-backend-comparison.md` (gitignored; includes localhost benchmark snapshot `rag/evals/results-localhost-2026-10-16.json`).
 
 ```bash
 ./platform/ops/run_rag_keyword_baseline.sh   # all backends + baseline.json + MLflow
