@@ -10,37 +10,6 @@
 
 Slack and web clients talk only to the **platform BFF**. They do not read the docs catalog directly.
 
-## Golden path
-
-```mermaid
-flowchart TB
-  subgraph docs_repo [applied-ai-docs]
-    seed["seed/harbor-line"]
-    catalog["SQLite catalog + UI"]
-    seed -->|"Import seed library"| catalog
-  end
-
-  subgraph platform_repo [applied-ai-platform]
-    lake["data/lake/raw"]
-    events["document_ingested events"]
-    worker["embed_worker.py"]
-    pg[(pgvector)]
-    bff["platform/bff"]
-    catalog -->|Publish| lake
-    catalog --> events
-    events --> worker
-    worker --> pg
-    bff --> pg
-  end
-
-  web["applied-ai-web"]
-  slack["applied-ai-slack"]
-  web --> bff
-  slack --> bff
-```
-
-Dev-only shortcut (no docs UI): `ingest_batch.py --seed-from-library` copies seed into `lake/raw`, then batch manifest/events. Prefer **Import → Publish** so the catalog stays source of truth.
-
 ## Localhost workflow
 
 1. Run **applied-ai-docs** (`./run.sh` on port 8010).

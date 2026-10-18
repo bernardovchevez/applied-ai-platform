@@ -20,30 +20,6 @@ Companion clients (consume the FastAPI BFF over HTTP/SSE):
 
 **Document SoT:** [applied-ai-docs](https://github.com/bernardovchevez/applied-ai-docs) owns content and metadata; this repo owns the **index and AI APIs** after publish. See [docs/document-corpus-sources.md](docs/document-corpus-sources.md).
 
-### Golden path (localhost)
-
-Canonical flow for demos and day-to-day edits. RAG experiments under `rag/` may ingest Chroma/Pinecone directly; **production-shaped** Q&A uses **pgvector** fed by publish + embed worker.
-
-```mermaid
-flowchart LR
-  seed["seed/harbor-line"]
-  docs["applied-ai-docs"]
-  lake["lake/raw + events"]
-  worker["embed_worker"]
-  pg[(pgvector)]
-  bff["BFF :8000"]
-  clients["web / Slack"]
-
-  seed -->|"Import seed library"| docs
-  docs -->|Publish| lake
-  lake --> worker
-  worker --> pg
-  bff -->|retrieve| pg
-  clients -->|HTTP/SSE| bff
-```
-
-Step-by-step: [applied-ai-docs/docs/localhost-setup.md](https://github.com/bernardovchevez/applied-ai-docs/blob/main/docs/localhost-setup.md).
-
 Localhost demo prompts (Slack and equivalent web questions): [applied-ai-slack/docs/local-slack-testing.md#sample-prompts-for-localhost-demos](https://github.com/bernardovchevez/applied-ai-slack/blob/main/docs/local-slack-testing.md#sample-prompts-for-localhost-demos).
 
 ## Quick start
