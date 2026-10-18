@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
-"""Batch ingest: lake raw → parquet manifest (+ optional synthetic seed copy).
+"""Batch ingest: lake raw → parquet manifest (+ optional seed library copy).
 
 Usage:
   python platform/pipelines/ingest_batch.py
   python platform/pipelines/ingest_batch.py --emit-events
-  python platform/pipelines/ingest_batch.py --seed-from-synthetic --emit-events
+  python platform/pipelines/ingest_batch.py --seed-from-library --emit-events
 """
 
 from __future__ import annotations
@@ -243,7 +243,7 @@ def run_batch_ingest(
     if skip_sync and not raw_dir.exists():
         raise SystemExit(
             f"Raw lake not found: {raw_dir}\n"
-            "Publish from applied-ai-docs or run with --seed-from-synthetic (dev seed only)."
+            "Publish from applied-ai-docs or run with --seed-from-library (dev seed only)."
         )
 
     rows = build_document_rows(raw_dir)
@@ -298,9 +298,16 @@ def main() -> None:
     parser.add_argument("--raw-dir", type=Path, default=LAKE_RAW)
     parser.add_argument("--parquet-dir", type=Path, default=LAKE_PARQUET)
     parser.add_argument(
+        "--seed-from-library",
+        action="store_true",
+        dest="seed_from_library",
+        help="Dev only: copy applied-ai-docs seed/harbor-line into lake raw before manifest",
+    )
+    parser.add_argument(
         "--seed-from-synthetic",
         action="store_true",
-        help="Dev only: copy applied-ai-docs seed/harbor-line into lake raw before manifest",
+        dest="seed_from_library",
+        help=argparse.SUPPRESS,
     )
     parser.add_argument(
         "--emit-events",
@@ -322,7 +329,7 @@ def main() -> None:
         raw_dir=args.raw_dir,
         parquet_path=parquet_path,
         manifest_path=manifest_path,
-        skip_sync=not args.seed_from_synthetic,
+        skip_sync=not args.seed_from_library,
         emit_events_flag=args.emit_events,
         emit_all_events=args.emit_events_all,
         events_dir=args.events_dir,

@@ -96,7 +96,7 @@ python platform/pipelines/embed_worker.py
 python rag/ingest_pgvector.py --data-dir data/lake/raw
 ```
 
-Seed library: [applied-ai-docs/seed/harbor-line](https://github.com/bernardovchevez/applied-ai-docs/tree/main/seed/harbor-line). **Clean localhost:** [applied-ai-docs/docs/localhost-setup.md](https://github.com/bernardovchevez/applied-ai-docs/blob/main/docs/localhost-setup.md). Dev fallback (no docs UI): `ingest_batch.py --seed-from-synthetic`.
+Seed library: [applied-ai-docs/seed/harbor-line](https://github.com/bernardovchevez/applied-ai-docs/tree/main/seed/harbor-line). **Clean localhost:** [applied-ai-docs/docs/localhost-setup.md](https://github.com/bernardovchevez/applied-ai-docs/blob/main/docs/localhost-setup.md). Dev fallback (no docs UI): `ingest_batch.py --seed-from-library`.
 
 ## Web & Slack clients + FastAPI BFF (Localhost, Stage & Production)
 

@@ -30,13 +30,13 @@ cd applied-ai-docs && ./run.sh
 Dev fallback copy seed → lake (requires sibling docs repo):
 
 ```bash
-python platform/pipelines/ingest_batch.py --seed-from-synthetic --emit-events
+python platform/pipelines/ingest_batch.py --seed-from-library --emit-events
 python platform/pipelines/embed_worker.py
 ```
 
 ## Defaults
 
 - `shared.config.DATA_DIR` → `data/lake/raw` (published corpus).
-- `ingest_batch.py` does **not** copy synthetic unless `--seed-from-synthetic` is passed.
+- `ingest_batch.py` does **not** copy the seed pack unless `--seed-from-library` is passed (`--seed-from-synthetic` is a deprecated alias).
 
 See also [data-plane.md](data-plane.md).
