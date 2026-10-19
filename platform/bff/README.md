@@ -5,6 +5,10 @@ HTTP presentation layer for a decoupled platform architecture: one platform API,
 ```
 applied-ai-platform/                    ← platform (RAG, agents, MCP, data plane)
 └── platform/bff/  ← this BFF (FastAPI)
+    ├── main.py           ← app wiring, CORS, routers
+    ├── routes/           ← HTTP handlers by surface
+    ├── models.py, deps.py, rag_helpers.py, bootstrap.py
+    ├── agent_runner.py, health_checks.py, …
 
 applied-ai-web/                         ← sibling Next.js client (X-Client-Platform: web)
 applied-ai-slack/                       ← sibling Slack Bolt client (X-Client-Platform: slack)
