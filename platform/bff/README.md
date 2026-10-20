@@ -167,7 +167,7 @@ cp .env.localhost.example .env.localhost
 npm install && npm run build && npm run start:localhost
 ```
 
-Slash commands: `/media-ask`, `/media-clearance`, `/media-status`. Sample prompts: [applied-ai-slack/docs/local-slack-testing.md](../../../applied-ai-slack/docs/local-slack-testing.md#sample-prompts-for-localhost-demos).
+Slash commands: `/media-ask`, `/media-clearance`, `/media-status`. Local testing: [applied-ai-slack/docs/local-slack-testing.md](../../../applied-ai-slack/docs/local-slack-testing.md).
 
 GitHub: [bernardovchevez/applied-ai-slack](https://github.com/bernardovchevez/applied-ai-slack).
 

@@ -20,8 +20,6 @@ Companion clients (consume the FastAPI BFF over HTTP/SSE):
 
 **Document SoT:** [applied-ai-docs](https://github.com/bernardovchevez/applied-ai-docs) owns content and metadata; this repo owns the **index and AI APIs** after publish. See [docs/document-corpus-sources.md](docs/document-corpus-sources.md).
 
-Localhost demo prompts (Slack and equivalent web questions): [applied-ai-slack/docs/local-slack-testing.md#sample-prompts-for-localhost-demos](https://github.com/bernardovchevez/applied-ai-slack/blob/main/docs/local-slack-testing.md#sample-prompts-for-localhost-demos).
-
 ## Quick start
 
 ```bash
